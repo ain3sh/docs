@@ -4,6 +4,10 @@ on:
   schedule:
     - cron: "0 3 * * *"
   workflow_dispatch: {}
+  push:
+    paths:
+      - mirrors.json
+      - mirrors.schema.json
 
 permissions:
   contents: write
