@@ -6,8 +6,8 @@ on:
   workflow_dispatch: {}
   push:
     paths:
-      - mirrors.json
-      - mirrors.schema.json
+      - .github/mirrors.json
+      - .github/mirrors.schema.json
 
 permissions:
   contents: write
@@ -30,7 +30,7 @@ jobs:
         env:
           MIRROR_GIT_TOKEN: ${{ secrets.MIRROR_GIT_TOKEN }}
         run: |
-          python3 scripts/sync_mirrors.py
+          python3 .github/scripts/sync_mirrors.py
 
       - name: Commit changes
         run: |
