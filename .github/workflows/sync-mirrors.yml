@@ -6,8 +6,9 @@ on:
   workflow_dispatch: {}
   push:
     paths:
-      - .github/mirrors.json
+      - mirrors.json
       - .github/mirrors.schema.json
+      - README.md
 
 permissions:
   contents: write
