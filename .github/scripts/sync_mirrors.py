@@ -23,6 +23,7 @@ TREE_EXCLUDES = {
     ".git",
     ".github",
     "context",
+    "search-tool",
     "__pycache__",
     ".pytest_cache",
     ".mypy_cache",
