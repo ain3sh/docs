@@ -19,7 +19,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 MIRRORS_FILE = REPO_ROOT / ".github/mirrors.json"
 README_FILE = REPO_ROOT / "README.md"
 META_FILENAME = ".mirror-meta.json"
-TREE_EXCLUDES = {".git", "__pycache__", ".pytest_cache", ".mypy_cache"}
+TREE_EXCLUDES = {".git", ".github", "__pycache__", ".pytest_cache", ".mypy_cache"}
 
 
 class SyncError(RuntimeError):
@@ -139,9 +139,11 @@ def write_meta(dest: Path, entry: dict, commit: str, *, dry_run: bool) -> None:
     (dest / META_FILENAME).write_text(json.dumps(meta, indent=2) + "\n")
 
 
-def generate_tree(root: Path) -> str:
+def generate_tree(root: Path, mirrors: Iterable[dict]) -> str:
     def should_skip(path: Path) -> bool:
         return path.name in TREE_EXCLUDES or path.name == META_FILENAME
+
+    mirror_pairs = {(entry["owner"], entry["repo"]) for entry in mirrors}
 
     def entries(path: Path) -> List[Path]:
         return sorted(
@@ -157,6 +159,15 @@ def generate_tree(root: Path) -> str:
             connector = "└── " if idx == len(children) - 1 else "├── "
             lines.append(f"{prefix}{connector}{child.name}")
             if child.is_dir():
+                rel_parts = child.relative_to(root).parts
+                mirror_repo = rel_parts[:2]
+                is_mirror_child = (
+                    len(rel_parts) >= 3
+                    and len(mirror_repo) == 2
+                    and (mirror_repo[0], mirror_repo[1]) in mirror_pairs
+                )
+                if is_mirror_child:
+                    continue
                 next_prefix = prefix + ("    " if idx == len(children) - 1 else "│   ")
                 walk(child, next_prefix)
 
@@ -183,7 +194,7 @@ def collect_meta(entries: Iterable[dict]) -> List[dict]:
 
 
 def write_readme(entries: List[dict]) -> None:
-    tree = generate_tree(REPO_ROOT)
+    tree = generate_tree(REPO_ROOT, entries)
     meta_rows = collect_meta(entries)
     table_lines = [
         "| Mirror | Upstream | Branch | Docs Path | Last Commit | Synced At |",
