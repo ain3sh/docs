@@ -4,9 +4,6 @@
   "description": "MCP server for semantic search over ain3sh/docs using Gemini File Search API",
   "type": "module",
   "main": "dist/index.js",
-  "bin": {
-    "context-search": "dist/index.js"
-  },
   "files": [
     "dist",
     "README.md"
