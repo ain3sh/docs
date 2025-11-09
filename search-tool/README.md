@@ -73,6 +73,7 @@ Create `.mcp.json` in your project root:
 {
   "mcpServers": {
     "context-search": {
+      "type": "stdio",
       "command": "npx",
       "args": ["-y", "github:ain3sh/docs/search-tool"],
       "env": {
