@@ -12,6 +12,16 @@ import { GoogleGenAI } from "@google/genai";
 // ---------- Constants ----------
 const CHARACTER_LIMIT = 25000;
 const MODEL_NAME = "gemini-2.5-flash";
+// ---------- Logging ----------
+const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
+function log(level, message, data) {
+    const levels = { debug: 0, info: 1, error: 2 };
+    if (levels[level] >= levels[LOG_LEVEL]) {
+        const timestamp = new Date().toISOString();
+        const logData = data ? ` ${JSON.stringify(data)}` : '';
+        console.error(`[${timestamp}] [${level.toUpperCase()}] ${message}${logData}`);
+    }
+}
 // ---------- Types ----------
 var ResponseFormat;
 (function (ResponseFormat) {
@@ -42,7 +52,10 @@ const SearchContextInputSchema = z.object({
         .describe("Number of relevant document chunks to retrieve (1-20)"),
     response_format: z.nativeEnum(ResponseFormat)
         .default(ResponseFormat.MARKDOWN)
-        .describe("Output format: 'markdown' for human-readable or 'json' for structured data")
+        .describe("Output format: 'markdown' for human-readable or 'json' for structured data"),
+    metadata_filter: z.string()
+        .optional()
+        .describe("Optional metadata filter using List Filter syntax (google.aip.dev/160). Example: 'author=\"Robert Graves\" AND year=1934'")
 }).strict();
 // ---------- Response Formatters ----------
 function formatMarkdownResponse(params, mainResponse, grounding) {
@@ -114,37 +127,93 @@ function handleError(error) {
     if (error instanceof Error) {
         const message = error.message;
         if (message.includes('API key') || message.includes('UNAUTHENTICATED')) {
-            return ("Error: Invalid or missing GEMINI_API_KEY.\n\n" +
-                "Troubleshooting:\n" +
-                "  - Set GEMINI_API_KEY environment variable\n" +
-                "  - Get your key from https://aistudio.google.com/apikey\n" +
-                "  - Verify key has correct permissions");
+            return ("❌ Error: Invalid or missing GEMINI_API_KEY.\n\n" +
+                "**Troubleshooting Steps:**\n" +
+                "1. Verify environment variable is set:\n" +
+                "   ```bash\n" +
+                "   echo $GEMINI_API_KEY\n" +
+                "   ```\n" +
+                "2. Get a new API key: https://aistudio.google.com/apikey\n" +
+                "3. Ensure key has File Search API access enabled\n" +
+                "4. Check key isn't expired or revoked\n\n" +
+                "**For Claude Desktop**: Update `claude_desktop_config.json`:\n" +
+                "```json\n" +
+                "{\n" +
+                "  \"mcpServers\": {\n" +
+                "    \"context-search\": {\n" +
+                "      \"env\": { \"GEMINI_API_KEY\": \"your-key-here\" }\n" +
+                "    }\n" +
+                "  }\n" +
+                "}\n" +
+                "```");
         }
         if (message.includes('404') || message.includes('NOT_FOUND')) {
-            return "Error: Store not found. Run 'list_stores' to see available stores.";
+            return ("❌ Error: FileSearchStore not found.\n\n" +
+                "**Next Steps:**\n" +
+                "1. Run `list_stores` tool to see all available stores\n" +
+                "2. Verify the GitHub Actions sync workflow ran successfully:\n" +
+                "   https://github.com/ain3sh/docs/actions\n" +
+                "3. Check if directory exists in repository\n" +
+                "4. Manual sync: Go to Actions → 'Sync Context Search Stores' → 'Run workflow'");
         }
         if (message.includes('429') || message.includes('RESOURCE_EXHAUSTED')) {
-            return "Error: Rate limit exceeded. Please wait before making more requests.";
+            return ("❌ Error: Gemini API rate limit exceeded.\n\n" +
+                "**Rate Limit Info:**\n" +
+                "- Free tier: 15 RPM (requests per minute)\n" +
+                "- Upgrade at: https://console.cloud.google.com/\n\n" +
+                "**Immediate Solutions:**\n" +
+                "1. Wait 60 seconds before retrying\n" +
+                "2. Reduce query frequency\n" +
+                "3. Consider upgrading to paid tier for higher limits");
         }
         if (message.includes('403') || message.includes('PERMISSION_DENIED')) {
-            return "Error: Permission denied. Verify your API key has access to File Search API.";
+            return ("❌ Error: Permission denied.\n\n" +
+                "**Common Causes:**\n" +
+                "1. API key doesn't have File Search API enabled\n" +
+                "2. Free tier quota exceeded\n" +
+                "3. Geographic restrictions (File Search not available in all regions)\n\n" +
+                "**Solutions:**\n" +
+                "- Enable File Search API in Google AI Studio\n" +
+                "- Check billing status: https://console.cloud.google.com/billing\n" +
+                "- Verify service availability: https://ai.google.dev/gemini-api/docs/available-regions");
         }
-        return `Error: ${message}`;
+        if (message.includes('DEADLINE_EXCEEDED') || message.includes('timeout')) {
+            return ("❌ Error: Request timed out.\n\n" +
+                "**Possible Causes:**\n" +
+                "1. Large FileSearchStore (>20 GB) causing slow retrieval\n" +
+                "2. Network connectivity issues\n" +
+                "3. Gemini API service degradation\n\n" +
+                "**Try:**\n" +
+                "- Reduce top_k parameter (currently retrieving too many chunks)\n" +
+                "- Use more specific query to narrow search scope\n" +
+                "- Retry in a few minutes\n" +
+                "- Check Gemini API status: https://status.cloud.google.com/");
+        }
+        return `❌ Error: ${message}\n\nIf this persists, file an issue: https://github.com/ain3sh/docs/issues`;
     }
-    return `Error: Unexpected error occurred: ${String(error)}`;
+    return `❌ Unexpected error: ${String(error)}\n\nPlease file an issue with steps to reproduce.`;
 }
 // ---------- Tool Implementations ----------
 async function searchContext(client, params) {
+    log('info', 'searchContext called', { store: params.store, query: params.query.substring(0, 50) });
     try {
         // List available stores and validate
         const pager = await client.fileSearchStores.list({ config: { pageSize: 20 } });
-        const stores = Array.from(pager.page);
+        const stores = [];
+        let page = pager.page;
+        while (true) {
+            stores.push(...Array.from(page));
+            if (!pager.hasNextPage())
+                break;
+            page = await pager.nextPage();
+        }
         const storeMap = new Map();
         for (const store of stores) {
             if (store.displayName && store.name) {
                 storeMap.set(store.displayName, store.name);
             }
         }
+        log('debug', 'Retrieved stores', { count: stores.length });
         if (!storeMap.has(params.store)) {
             const available = Array.from(storeMap.keys()).sort();
             return (`Error: Store '${params.store}' not found.\n\n` +
@@ -162,12 +231,14 @@ async function searchContext(client, params) {
             config: {
                 tools: [{
                         fileSearch: {
-                            fileSearchStoreNames: [storeName]
+                            fileSearchStoreNames: [storeName],
+                            ...(params.metadata_filter && { metadataFilter: params.metadata_filter })
                         }
                     }],
                 temperature: 0.0
             }
         });
+        log('debug', 'Gemini API response received', { hasGrounding: !!response.candidates?.[0]?.groundingMetadata });
         // Extract grounding metadata
         if (!response.candidates || !response.candidates[0]?.groundingMetadata) {
             return (`No results found in store '${params.store}' for query: ${params.query}\n\n` +
@@ -187,13 +258,21 @@ async function searchContext(client, params) {
         }
     }
     catch (error) {
+        log('error', 'Search failed', { error: error instanceof Error ? error.message : String(error) });
         return handleError(error);
     }
 }
 async function listStores(client) {
     try {
         const pager = await client.fileSearchStores.list({ config: { pageSize: 20 } });
-        const stores = Array.from(pager.page);
+        const stores = [];
+        let page = pager.page;
+        while (true) {
+            stores.push(...Array.from(page));
+            if (!pager.hasNextPage())
+                break;
+            page = await pager.nextPage();
+        }
         if (stores.length === 0) {
             return ("No FileSearchStores found.\n\n" +
                 "This could mean:\n" +
@@ -264,6 +343,7 @@ Args:
   - query (string): Natural language search query
   - top_k (number): Number of chunks to retrieve (1-20, default: 5)
   - response_format ('markdown' | 'json'): Output format (default: 'markdown')
+  - metadata_filter (string, optional): Filter by custom metadata (syntax: google.aip.dev/160)
 
 Returns:
   Markdown format: Human-readable results with headers, context chunks, and source citations
@@ -272,6 +352,7 @@ Returns:
 Examples:
   - Use when: "Search Factory-AI docs for authentication flow" -> {store: "Factory-AI/factory", query: "authentication flow"}
   - Use when: "Find Gemini API usage patterns" -> {store: "context", query: "Gemini API usage", top_k: 3}
+  - Use when: "Find docs authored by Graves" -> {store: "context", query: "book recommendations", metadata_filter: 'author="Robert Graves"'}
 
 Error Handling:
   - Returns "Error: Store not found" with list of available stores if invalid store name

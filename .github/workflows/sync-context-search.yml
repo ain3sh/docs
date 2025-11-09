@@ -167,9 +167,14 @@ jobs:
               # Wait for all uploads to complete
               print("Waiting for uploads to complete...")
               for i, op in enumerate(operations):
+                  max_retries = 120  # 10 minutes max (120 * 5 seconds)
+                  retry_count = 0
                   while not op.done:
+                      if retry_count >= max_retries:
+                          raise TimeoutError(f"Upload operation timed out after {max_retries * 5} seconds")
                       time.sleep(5)
                       op = client.operations.get(op)
+                      retry_count += 1
                   print(f"  Upload {i+1}/{len(operations)} complete")
 
               # Calculate cost
