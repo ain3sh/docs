@@ -45,7 +45,7 @@
     "owner": "browserbase",
     "repo": "sdk-python",
     "branch": "main",
-    "docsPath": "api.md"
+    "docsPath": "examples"
   },
   {
     "owner": "browser-use",
