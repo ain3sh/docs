@@ -45,7 +45,7 @@
     "owner": "browserbase",
     "repo": "sdk-python",
     "branch": "main",
-    "docsPath": "examples"
+    "docsPath": "api.md"
   },
   {
     "owner": "browser-use",
@@ -58,5 +58,5 @@
     "repo": "workflow-use",
     "branch": "main",
     "docsPath": "workflows"
-  },
+  }
 ]
