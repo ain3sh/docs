@@ -16,5 +16,29 @@
     "repo": "mcp-agent",
     "branch": "main",
     "docsPath": "docs"
+  },
+  {
+    "owner": "MoonshotAI",
+    "repo": "kosong",
+    "branch": "main",
+    "docsPath": "src/kosong"
+  },
+  {
+    "owner": "modelcontextprotocol",
+    "repo": "modelcontextprotocol",
+    "branch": "main",
+    "docsPath": "docs/docs"
+  },
+  {
+    "owner": "ericbuess",
+    "repo": "claude-code-docs",
+    "branch": "main",
+    "docsPath": "docs"
+  },
+  {
+    "owner": "anthropics",
+    "repo": "claude-agent-sdk-python",
+    "branch": "main",
+    "docsPath": "examples"
   }
 ]
