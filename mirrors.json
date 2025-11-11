@@ -40,5 +40,23 @@
     "repo": "claude-agent-sdk-python",
     "branch": "main",
     "docsPath": "examples"
-  }
+  },
+  {
+    "owner": "browserbase",
+    "repo": "sdk-python",
+    "branch": "main",
+    "docsPath": "api.md"
+  },
+  {
+    "owner": "browser-use",
+    "repo": "browser-use",
+    "branch": "main",
+    "docsPath": "docs"
+  },
+  {
+    "owner": "browser-use",
+    "repo": "workflow-use",
+    "branch": "main",
+    "docsPath": "workflows"
+  },
 ]
