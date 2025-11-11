@@ -10,5 +10,11 @@
     "repo": "dspy",
     "branch": "main",
     "docsPath": "docs"
+  },
+  {
+    "owner": "lastmile-ai",
+    "repo": "mcp-agent",
+    "branch": "main",
+    "docsPath": "docs"
   }
 ]
