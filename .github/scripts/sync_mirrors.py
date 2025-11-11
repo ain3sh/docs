@@ -139,7 +139,7 @@ def write_meta(dest: Path, entry: dict, commit: str, *, dry_run: bool) -> None:
         "branch": entry["branch"],
         "docsPath": entry["docsPath"],
         "sourceCommit": commit,
-        "syncedAt": dt.datetime.now(datetime.UTC).replace(microsecond=0).isoformat() + "Z",
+        "syncedAt": dt.datetime.now(dt.UTC).replace(microsecond=0).isoformat() + "Z",
     }
     if dry_run:
         print(f"[dry-run] Would write metadata: {meta}")
