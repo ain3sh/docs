@@ -58,5 +58,11 @@
     "repo": "workflow-use",
     "branch": "main",
     "docsPath": "workflows"
+  },
+  {
+    "owner": "python-trio",
+    "repo": "trio",
+    "branch": "main",
+    "docsPath": "docs/source"
   }
 ]
