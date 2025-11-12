@@ -64,5 +64,11 @@
     "repo": "trio",
     "branch": "main",
     "docsPath": "docs/source"
+  },
+  {
+    "owner": "metatool-ai",
+    "repo": "metamcp",
+    "branch": "main",
+    "docsPath": "docs/en"
   }
 ]
