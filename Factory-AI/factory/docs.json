@@ -100,14 +100,15 @@
                         "group": "Bring Your Own Key",
                         "pages": [
                           "cli/byok/overview",
-                          "cli/byok/fireworks",
                           "cli/byok/baseten",
                           "cli/byok/deepinfra",
+                          "cli/byok/fireworks",
+                          "cli/byok/google-gemini",
+                          "cli/byok/groq",
                           "cli/byok/huggingface",
                           "cli/byok/ollama",
-                          "cli/byok/openrouter",
                           "cli/byok/openai-anthropic",
-                          "cli/byok/google-gemini"
+                          "cli/byok/openrouter"
                         ]
                       }
                     ]
@@ -231,7 +232,7 @@
         "groups": [
           {
             "group": "Changelog",
-            "pages": ["changelog/1-9", "changelog/1-8", "changelog/cli-updates"]
+            "pages": ["changelog/1-10", "changelog/1-9", "changelog/1-8", "changelog/cli-updates"]
           }
         ]
       }
