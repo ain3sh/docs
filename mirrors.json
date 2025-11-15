@@ -70,5 +70,11 @@
     "repo": "metamcp",
     "branch": "main",
     "docsPath": "docs/en"
+  },
+  {
+    "owner": "router-for-me",
+    "repo": "CLIProxyAPIDocs",
+    "branch": "main",
+    "docsPath": "docs/en"
   }
 ]
