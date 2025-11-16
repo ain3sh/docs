@@ -6,6 +6,12 @@
     "docsPath": "docs"
   },
   {
+    "owner": "openai",
+    "repo": "codex",
+    "branch": "main",
+    "docsPath": "docs"
+  }
+  {
     "owner": "stanfordnlp",
     "repo": "dspy",
     "branch": "main",
