@@ -1,0 +1,56 @@
+name: Sync Documentation References
+
+on:
+  schedule:
+    - cron: "0 3 * * *"  # Daily at 3 AM UTC
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mirrors.json'
+      - '.github/mirrors.schema.json'
+      - '.github/scripts/sync.py'
+      - '.github/workflows/sync.yml'
+      - '.github/requirements.txt'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git diff
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install -r .github/requirements.txt
+
+      - name: Run unified sync
+        env:
+          MIRROR_GIT_TOKEN: ${{ secrets.MIRROR_GIT_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        timeout-minutes: 30
+        run: |
+          python3 .github/scripts/sync.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Add only expected sync outputs (README, state, and mirror directories)
+          git add README.md .reference-sync
+          git add */  # Add all top-level directories (mirrors)
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: sync references"
+            git push
+          else
+            echo "No changes to commit"
+          fi
