@@ -1,37 +1,56 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Docs Mirror Configuration",
-  "type": "array",
-  "items": {
-    "type": "object",
-    "required": [
-      "owner",
-      "repo",
-      "branch",
-      "docsPath"
-    ],
-    "additionalProperties": false,
-    "properties": {
-      "owner": {
-        "type": "string",
-        "minLength": 1,
-        "description": "GitHub organization or user"
-      },
-      "repo": {
-        "type": "string",
-        "minLength": 1,
-        "description": "GitHub repository name"
-      },
-      "branch": {
-        "type": "string",
-        "minLength": 1,
-        "description": "Branch to pull docs from"
-      },
-      "docsPath": {
-        "type": "string",
-        "minLength": 1,
-        "description": "Path within the repo that contains docs (e.g., docs or website/docs)"
+  "type": "object",
+  "required": [
+    "mirrors"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "mirrors": {
+      "type": "array",
+      "description": "List of documentation repositories to mirror",
+      "items": {
+        "type": "object",
+        "required": [
+          "owner",
+          "repo",
+          "branch",
+          "docsPath"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "owner": {
+            "type": "string",
+            "minLength": 1,
+            "description": "GitHub organization or user"
+          },
+          "repo": {
+            "type": "string",
+            "minLength": 1,
+            "description": "GitHub repository name"
+          },
+          "branch": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Branch to pull docs from"
+          },
+          "docsPath": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Path within the repo that contains docs (e.g., docs or website/docs)"
+          }
+        }
       }
+    },
+    "geminiExclusions": {
+      "type": "array",
+      "description": "Directories and patterns to exclude from Gemini File Search indexing",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "default": []
     }
   }
 }

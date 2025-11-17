@@ -1,0 +1,53 @@
+name: Sync Documentation References
+
+on:
+  schedule:
+    - cron: "0 3 * * *"  # Daily at 3 AM UTC
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mirrors.json'
+      - '.github/mirrors.schema.json'
+      - '.github/scripts/sync.py'
+      - '.github/workflows/sync.yml'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git diff
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install google-genai jsonschema
+
+      - name: Run unified sync
+        env:
+          MIRROR_GIT_TOKEN: ${{ secrets.MIRROR_GIT_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          chmod +x .github/scripts/sync.py
+          python3 .github/scripts/sync.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: sync references"
+            git push
+          else
+            echo "No changes to commit"
+          fi

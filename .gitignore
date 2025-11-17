@@ -26,3 +26,4 @@ npm-debug.log*
 __pycache__/
 *.pyc
 *.pyo
+AGENT_REMINDERS.md

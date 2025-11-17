@@ -1,86 +1,105 @@
-[
-  {
-    "owner": "Factory-AI",
-    "repo": "factory",
-    "branch": "main",
-    "docsPath": "docs"
-  },
-  {
-    "owner": "openai",
-    "repo": "codex",
-    "branch": "main",
-    "docsPath": "docs"
-  },
-  {
-    "owner": "stanfordnlp",
-    "repo": "dspy",
-    "branch": "main",
-    "docsPath": "docs"
-  },
-  {
-    "owner": "lastmile-ai",
-    "repo": "mcp-agent",
-    "branch": "main",
-    "docsPath": "docs"
-  },
-  {
-    "owner": "MoonshotAI",
-    "repo": "kosong",
-    "branch": "main",
-    "docsPath": "src/kosong"
-  },
-  {
-    "owner": "modelcontextprotocol",
-    "repo": "modelcontextprotocol",
-    "branch": "main",
-    "docsPath": "docs/docs"
-  },
-  {
-    "owner": "ericbuess",
-    "repo": "claude-code-docs",
-    "branch": "main",
-    "docsPath": "docs"
-  },
-  {
-    "owner": "anthropics",
-    "repo": "claude-agent-sdk-python",
-    "branch": "main",
-    "docsPath": "examples"
-  },
-  {
-    "owner": "browserbase",
-    "repo": "sdk-python",
-    "branch": "main",
-    "docsPath": "examples"
-  },
-  {
-    "owner": "browser-use",
-    "repo": "browser-use",
-    "branch": "main",
-    "docsPath": "docs"
-  },
-  {
-    "owner": "browser-use",
-    "repo": "workflow-use",
-    "branch": "main",
-    "docsPath": "workflows"
-  },
-  {
-    "owner": "python-trio",
-    "repo": "trio",
-    "branch": "main",
-    "docsPath": "docs/source"
-  },
-  {
-    "owner": "metatool-ai",
-    "repo": "metamcp",
-    "branch": "main",
-    "docsPath": "docs/en"
-  },
-  {
-    "owner": "router-for-me",
-    "repo": "CLIProxyAPIDocs",
-    "branch": "main",
-    "docsPath": "docs/en"
-  }
-]
+{
+  "mirrors": [
+    {
+      "owner": "Factory-AI",
+      "repo": "factory",
+      "branch": "main",
+      "docsPath": "docs"
+    },
+    {
+      "owner": "openai",
+      "repo": "codex",
+      "branch": "main",
+      "docsPath": "docs"
+    },
+    {
+      "owner": "stanfordnlp",
+      "repo": "dspy",
+      "branch": "main",
+      "docsPath": "docs"
+    },
+    {
+      "owner": "lastmile-ai",
+      "repo": "mcp-agent",
+      "branch": "main",
+      "docsPath": "docs"
+    },
+    {
+      "owner": "MoonshotAI",
+      "repo": "kosong",
+      "branch": "main",
+      "docsPath": "src/kosong"
+    },
+    {
+      "owner": "modelcontextprotocol",
+      "repo": "modelcontextprotocol",
+      "branch": "main",
+      "docsPath": "docs/docs"
+    },
+    {
+      "owner": "ericbuess",
+      "repo": "claude-code-docs",
+      "branch": "main",
+      "docsPath": "docs"
+    },
+    {
+      "owner": "anthropics",
+      "repo": "claude-agent-sdk-python",
+      "branch": "main",
+      "docsPath": "examples"
+    },
+    {
+      "owner": "browserbase",
+      "repo": "sdk-python",
+      "branch": "main",
+      "docsPath": "examples"
+    },
+    {
+      "owner": "browser-use",
+      "repo": "browser-use",
+      "branch": "main",
+      "docsPath": "docs"
+    },
+    {
+      "owner": "browser-use",
+      "repo": "workflow-use",
+      "branch": "main",
+      "docsPath": "workflows"
+    },
+    {
+      "owner": "python-trio",
+      "repo": "trio",
+      "branch": "main",
+      "docsPath": "docs/source"
+    },
+    {
+      "owner": "metatool-ai",
+      "repo": "metamcp",
+      "branch": "main",
+      "docsPath": "docs/en"
+    },
+    {
+      "owner": "router-for-me",
+      "repo": "CLIProxyAPIDocs",
+      "branch": "main",
+      "docsPath": "docs/en"
+    }
+  ],
+  "geminiExclusions": [
+    ".git",
+    ".github",
+    "search-context",
+    "unstructured",
+    "node_modules",
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    "build",
+    "dist",
+    "out",
+    ".cache",
+    "temp",
+    "tmp",
+    "archived"
+  ]
+}
