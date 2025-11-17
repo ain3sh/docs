@@ -1,0 +1,5 @@
+# Python dependencies for documentation sync workflow
+# Last updated: 2025-11-17
+
+google-genai==1.50.1
+jsonschema==4.25.1

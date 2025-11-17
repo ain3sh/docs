@@ -61,6 +61,7 @@ GEMINI_SUPPORTED_EXTENSIONS = {
 
 MIN_FILE_SIZE = 10
 MAX_INDEXING_DEPTH = 2
+GEMINI_COST_PER_MILLION_TOKENS = 0.15  # Gemini File Search indexing cost
 
 # ============================================================================
 # ERROR HANDLING
@@ -194,8 +195,10 @@ def get_upstream_commit(owner: str, repo: str, branch: str) -> str:
             raise SyncError(f"Branch {branch} not found in {owner}/{repo}")
         commit_sha = output.split()[0]
         return commit_sha
+    except SyncError:
+        raise
     except Exception as e:
-        raise SyncError(f"Failed to get upstream commit for {owner}/{repo}@{branch}: {e}")
+        raise SyncError(f"Failed to get upstream commit for {owner}/{repo}@{branch}: {e}") from e
 
 
 def sparse_checkout(entry: dict) -> tuple[Path, str]:
@@ -232,9 +235,12 @@ def sparse_checkout(entry: dict) -> tuple[Path, str]:
             raise SyncError(f"Docs path '{docs_path}' not found in {owner}/{repo}@{branch}")
         commit = run(["git", "rev-parse", "HEAD"], cwd=checkout_dir)
         return source_dir, commit
-    except Exception:
+    except SyncError:
         shutil.rmtree(checkout_dir, ignore_errors=True)
         raise
+    except Exception as e:
+        shutil.rmtree(checkout_dir, ignore_errors=True)
+        raise SyncError(f"Failed to checkout {owner}/{repo}@{branch}") from e
 
 
 def copy_tree(src: Path, dest: Path) -> None:
@@ -441,13 +447,13 @@ def discover_all_stores(exclusions: List[str]) -> List[str]:
 
 
 def get_changed_files_since_commit(commit_sha: str) -> List[str]:
-    """Get list of changed files since the given commit."""
+    """Get list of changed files since the given commit (including working tree)."""
     try:
         # Verify commit exists
         run(["git", "cat-file", "-e", f"{commit_sha}^{{commit}}"])
 
-        # Get changed files
-        output = run(["git", "diff", "--name-only", f"{commit_sha}..HEAD"])
+        # Get changed files (includes working tree changes, not just HEAD)
+        output = run(["git", "diff", "--name-only", commit_sha])
         return [line.strip() for line in output.split("\n") if line.strip()]
     except subprocess.CalledProcessError:
         print(f"  ⚠️  Commit {commit_sha} not found, falling back to full discovery", file=sys.stderr)
@@ -655,8 +661,9 @@ def sync_gemini_store(client, store_name: str, stores_by_display: dict) -> dict:
                         operations[idx] = client.operations.get(op)
                         if getattr(operations[idx], "done", False):
                             newly_completed += 1
-                    except Exception:
-                        pass
+                    except Exception as e:
+                        print(f"    ⚠️  Failed to poll operation {idx}: {e}", file=sys.stderr)
+                        # Continue polling other operations
 
             if newly_completed:
                 completed += newly_completed
@@ -665,7 +672,7 @@ def sync_gemini_store(client, store_name: str, stores_by_display: dict) -> dict:
             if completed < len(operations):
                 time.sleep(2)
 
-    cost = (total_tokens / 1_000_000) * 0.15
+    cost = (total_tokens / 1_000_000) * GEMINI_COST_PER_MILLION_TOKENS
 
     print(f"  ✅ Store sync complete:")
     print(f"     Files indexed: {len(operations)}")
@@ -733,18 +740,30 @@ def sync_gemini_stores(changed_stores: List[str]) -> dict:
         print(f"  ⚠️  Could not list stores: {e}", file=sys.stderr)
         stores_by_display = {}
 
-    # Sync each store
+    # Sync each store in parallel
     results = {}
     total_files = 0
     total_cost = 0.0
 
-    for store_name in changed_stores:
-        result = sync_gemini_store(client, store_name, stores_by_display)
-        results[store_name] = result
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        futures = {
+            executor.submit(sync_gemini_store, client, store_name, stores_by_display): store_name
+            for store_name in changed_stores
+        }
 
-        if result.get("status") == "success":
-            total_files += result.get("files", 0)
-            total_cost += result.get("cost", 0.0)
+        for future in as_completed(futures):
+            store_name = futures[future]
+            try:
+                result = future.result()
+                results[store_name] = result
+
+                if result.get("status") == "success":
+                    total_files += result.get("files", 0)
+                    total_cost += result.get("cost", 0.0)
+                    print(f"  ✅ {store_name}: {result.get('files', 0)} files, ${result.get('cost', 0.0):.4f}")
+            except Exception as e:
+                print(f"  ❌ {store_name}: {e}", file=sys.stderr)
+                results[store_name] = {"status": "failed", "error": str(e)}
 
     successful = sum(1 for r in results.values() if r.get("status") == "success")
 

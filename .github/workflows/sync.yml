@@ -10,6 +10,7 @@ on:
       - '.github/mirrors.schema.json'
       - '.github/scripts/sync.py'
       - '.github/workflows/sync.yml'
+      - '.github/requirements.txt'
 
 jobs:
   sync:
@@ -30,21 +31,23 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install google-genai jsonschema
+          pip install -r .github/requirements.txt
 
       - name: Run unified sync
         env:
           MIRROR_GIT_TOKEN: ${{ secrets.MIRROR_GIT_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        timeout-minutes: 30
         run: |
-          chmod +x .github/scripts/sync.py
           python3 .github/scripts/sync.py
 
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
+          # Add only expected sync outputs (README, state, and mirror directories)
+          git add README.md .reference-sync
+          git add */  # Add all top-level directories (mirrors)
           if ! git diff --cached --quiet; then
             git commit -m "chore: sync references"
             git push
