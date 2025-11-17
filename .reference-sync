@@ -1,7 +1,78 @@
 {
-  "lastSync": "2025-11-17T19:24:59+00:00Z",
-  "lastCommit": "4644d2a60a695594adfcab318bc85eb08c7cf8e0",
-  "mirrors": {},
+  "lastSync": "2025-11-17T19:28:24+00:00Z",
+  "lastCommit": "c3a026bb046e5656145517c442b1959f90ffd476",
+  "mirrors": {
+    "MoonshotAI/kosong": {
+      "lastCommit": "4c25822441fda91bea52dbd10f16365883996ea8",
+      "lastSync": "2025-11-17T19:28:24+00:00Z",
+      "status": "success"
+    },
+    "openai/codex": {
+      "lastCommit": "842a1b7fe7c13c6abb0d610281480400f19ff39c",
+      "lastSync": "2025-11-17T19:28:24+00:00Z",
+      "status": "success"
+    },
+    "lastmile-ai/mcp-agent": {
+      "lastCommit": "ccaab49ab5a62437385b6bda83594db6ab370da5",
+      "lastSync": "2025-11-17T19:28:24+00:00Z",
+      "status": "success"
+    },
+    "modelcontextprotocol/modelcontextprotocol": {
+      "lastCommit": "0678e68584db87f61ca4d21a811a37415e3f1b39",
+      "lastSync": "2025-11-17T19:28:24+00:00Z",
+      "status": "success"
+    },
+    "ericbuess/claude-code-docs": {
+      "lastCommit": "104457c2ed541f56935dbd5cddc1249375cd3ed1",
+      "lastSync": "2025-11-17T19:28:24+00:00Z",
+      "status": "success"
+    },
+    "anthropics/claude-agent-sdk-python": {
+      "lastCommit": "ff425b293d6a79dfe972ef8a5247b43fc94589be",
+      "lastSync": "2025-11-17T19:28:24+00:00Z",
+      "status": "success"
+    },
+    "stanfordnlp/dspy": {
+      "lastCommit": "a5671ef1e99e87eb8c8a571a59b012d546872782",
+      "lastSync": "2025-11-17T19:28:24+00:00Z",
+      "status": "success"
+    },
+    "browserbase/sdk-python": {
+      "lastCommit": "f6e02411245d100e5290d74c30f2a6d3eb5a12c6",
+      "lastSync": "2025-11-17T19:28:24+00:00Z",
+      "status": "success"
+    },
+    "browser-use/browser-use": {
+      "lastCommit": "de0654463a48edfda783eb6e5bbb125b905149f6",
+      "lastSync": "2025-11-17T19:28:24+00:00Z",
+      "status": "success"
+    },
+    "browser-use/workflow-use": {
+      "lastCommit": "680f5d33de045bd5957da2979d762fc588bd7adc",
+      "lastSync": "2025-11-17T19:28:24+00:00Z",
+      "status": "success"
+    },
+    "python-trio/trio": {
+      "lastCommit": "107048dc592434c608bf77dd40eecc9aeac24b7f",
+      "lastSync": "2025-11-17T19:28:24+00:00Z",
+      "status": "success"
+    },
+    "metatool-ai/metamcp": {
+      "lastCommit": "8dc10e9e64181e52953bf540c93e5fc4debf9b34",
+      "lastSync": "2025-11-17T19:28:24+00:00Z",
+      "status": "success"
+    },
+    "router-for-me/CLIProxyAPIDocs": {
+      "lastCommit": "5c0889d25286958d1ef0e0f1db324550b753ec95",
+      "lastSync": "2025-11-17T19:28:24+00:00Z",
+      "status": "success"
+    },
+    "Factory-AI/factory": {
+      "lastCommit": "57c289781b4440d2db51906d75bafa5430ec6333",
+      "lastSync": "2025-11-17T19:28:24+00:00Z",
+      "status": "success"
+    }
+  },
   "gemini": {
     "stores": {},
     "storesUpdated": 0,
