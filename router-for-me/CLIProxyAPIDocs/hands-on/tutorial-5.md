@@ -28,7 +28,7 @@ bash <(curl -fsSL [https://get.docker.com](https://get.docker.com))
 After the preparations are ready, please execute the following commands in order to clone the project and initialize the configuration.
 
 ```bash
-git clone [https://github.com/luispater/CLIProxyAPI.git](https://github.com/luispater/CLIProxyAPI.git)
+git clone https://github.com/router-for-me/CLIProxyAPI.git
 cd CLIProxyAPI
 cp config.example.yaml config.yaml
 ```

@@ -7,20 +7,20 @@ A curated collection of documentation mirrors with automated semantic search ind
 
 | Mirror | Upstream | Branch | Docs Path | Last Commit | Synced At |
 | --- | --- | --- | --- | --- | --- |
-| Factory-AI/factory | [https://github.com/Factory-AI/factory](https://github.com/Factory-AI/factory) | main | docs | 2bfda1a | 2025-11-20T03:45:10+00:00Z |
-| openai/codex | [https://github.com/openai/codex](https://github.com/openai/codex) | main | docs | fb9849e | 2025-11-20T03:45:07+00:00Z |
-| stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | 3ed69f0 | 2025-11-19T03:46:22+00:00Z |
+| Factory-AI/factory | [https://github.com/Factory-AI/factory](https://github.com/Factory-AI/factory) | main | docs | de39fa8 | 2025-11-21T03:44:55+00:00Z |
+| openai/codex | [https://github.com/openai/codex](https://github.com/openai/codex) | main | docs | 767b66f | 2025-11-21T03:44:52+00:00Z |
+| stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | f32edbd | 2025-11-21T03:44:53+00:00Z |
 | lastmile-ai/mcp-agent | [https://github.com/lastmile-ai/mcp-agent](https://github.com/lastmile-ai/mcp-agent) | main | docs | 1c9b364 | 2025-11-20T03:45:07+00:00Z |
-| MoonshotAI/kosong | [https://github.com/MoonshotAI/kosong](https://github.com/MoonshotAI/kosong) | main | src/kosong | b32006a | 2025-11-20T03:45:07+00:00Z |
-| modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | d2b1364 | 2025-11-20T03:45:07+00:00Z |
-| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | d56bd4b | 2025-11-20T03:45:08+00:00Z |
-| anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | b0fb5b0 | 2025-11-20T03:45:08+00:00Z |
+| MoonshotAI/kosong | [https://github.com/MoonshotAI/kosong](https://github.com/MoonshotAI/kosong) | main | src/kosong | d539ee9 | 2025-11-21T03:44:52+00:00Z |
+| modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 30e4027 | 2025-11-21T03:44:52+00:00Z |
+| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | 62488ae | 2025-11-21T03:44:52+00:00Z |
+| anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | 36c7537 | 2025-11-21T03:44:52+00:00Z |
 | browserbase/sdk-python | [https://github.com/browserbase/sdk-python](https://github.com/browserbase/sdk-python) | main | examples | f6e0241 | 2025-11-17T21:32:12+00:00Z |
-| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 2dd80a1 | 2025-11-20T03:45:08+00:00Z |
+| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 49b58a3 | 2025-11-21T03:44:53+00:00Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | cb8fea7 | 2025-11-20T03:45:08+00:00Z |
 | python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 63ce968 | 2025-11-18T03:46:51+00:00Z |
 | metatool-ai/metamcp | [https://github.com/metatool-ai/metamcp](https://github.com/metatool-ai/metamcp) | main | docs/en | 9cab55b | 2025-11-20T03:45:09+00:00Z |
-| router-for-me/CLIProxyAPIDocs | [https://github.com/router-for-me/CLIProxyAPIDocs](https://github.com/router-for-me/CLIProxyAPIDocs) | main | docs/en | 5c0889d | 2025-11-17T21:32:13+00:00Z |
+| router-for-me/CLIProxyAPIDocs | [https://github.com/router-for-me/CLIProxyAPIDocs](https://github.com/router-for-me/CLIProxyAPIDocs) | main | docs/en | e68c70f | 2025-11-21T03:44:53+00:00Z |
 <!-- /AUTO:MIRROR_STATUS -->
 
 <!-- AUTO:SEMANTIC_SEARCH -->
@@ -29,9 +29,9 @@ A curated collection of documentation mirrors with automated semantic search ind
 This repository includes automated indexing for Gemini File Search API.
 
 - **Stores updated**: 7
-- **Files indexed**: 480
-- **Total cost**: $0.1310
-- **Last sync**: 2025-11-20T03:46:54+00:00Z
+- **Files indexed**: 399
+- **Total cost**: $0.1188
+- **Last sync**: 2025-11-21T03:46:08+00:00Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
@@ -76,7 +76,6 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │   │   ├── README.md
 │   │   └── supported-models.mdx
 │   └── workflow-use
-│       ├── .vscode
 │       ├── backend
 │       ├── docs
 │       ├── examples
@@ -110,7 +109,6 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │   └── claude-code-docs
 │       ├── amazon-bedrock.md
 │       ├── analytics.md
-│       ├── azure-ai-foundry.md
 │       ├── changelog.md
 │       ├── checkpointing.md
 │       ├── claude-code-on-the-web.md
@@ -133,6 +131,7 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │       ├── llm-gateway.md
 │       ├── mcp.md
 │       ├── memory.md
+│       ├── microsoft-foundry.md
 │       ├── model-config.md
 │       ├── monitoring-usage.md
 │       ├── network-config.md
@@ -143,6 +142,7 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │       ├── plugins.md
 │       ├── quickstart.md
 │       ├── sandboxing.md
+│       ├── sdk__migration-guide.md
 │       ├── security.md
 │       ├── settings.md
 │       ├── setup.md

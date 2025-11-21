@@ -33,7 +33,7 @@ docker run --rm -p 8317:8317 -v /path/to/your/config.yaml:/CLIProxyAPI/config.ya
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/luispater/CLIProxyAPI.git
+   git clone https://github.com/router-for-me/CLIProxyAPI.git
    cd CLIProxyAPI
    ```
 

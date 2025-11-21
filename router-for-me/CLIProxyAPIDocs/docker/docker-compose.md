@@ -2,7 +2,7 @@
 
 1.  Clone the repository and navigate into the directory:
     ```bash
-    git clone https://github.com/luispater/CLIProxyAPI.git
+    git clone https://github.com/router-for-me/CLIProxyAPI.git
     cd CLIProxyAPI
     ```
 
