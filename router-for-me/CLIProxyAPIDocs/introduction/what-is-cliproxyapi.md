@@ -11,6 +11,8 @@ You can use local or multi-account CLI access with OpenAI(include Responses)/Gem
 ## Features
 
 - OpenAI/Gemini/Claude compatible API endpoints for CLI models
+- Gemini CLI support via OAuth login
+- Antigravity support via OAuth login
 - OpenAI Codex support (GPT models) via OAuth login
 - Claude Code support via OAuth login
 - Qwen Code support via OAuth login
@@ -22,6 +24,7 @@ You can use local or multi-account CLI access with OpenAI(include Responses)/Gem
 - Simple CLI authentication flows (Gemini, OpenAI, Claude, Qwen and iFlow)
 - Generative Language API Key support
 - Gemini CLI multi-account load balancing
+- Antigravity multi-account load balancing
 - Claude Code multi-account load balancing
 - Qwen Code multi-account load balancing
 - iFlow multi-account load balancing
@@ -30,6 +33,8 @@ You can use local or multi-account CLI access with OpenAI(include Responses)/Gem
 
 ## Supported Models
 
+- gemini-3-pro-preview
+- gemini-3-pro-image-preview
 - gemini-2.5-pro
 - gemini-2.5-flash
 - gemini-2.5-flash-lite
