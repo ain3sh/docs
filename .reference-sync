@@ -1,119 +1,113 @@
 {
-  "lastSync": "2025-11-22T03:40:14+00:00Z",
-  "lastCommit": "a2b354135eb6ecdf380ff897b2565dc387f02f7a",
+  "lastSync": "2025-11-23T03:59:18+00:00Z",
+  "lastCommit": "7389c736b5ea954bde97c92d891386b690a82b1f",
   "mirrors": {
     "MoonshotAI/kosong": {
       "lastCommit": "778a112490731a47dcb39e902f719357bdf15d4c",
-      "lastSync": "2025-11-22T03:39:05+00:00Z",
-      "status": "success"
+      "lastSync": "2025-11-23T03:58:26+00:00Z",
+      "status": "unchanged"
     },
     "openai/codex": {
       "lastCommit": "b519267d05459095eccb9767c28550a2952d8a2f",
-      "lastSync": "2025-11-22T03:39:05+00:00Z",
-      "status": "success"
+      "lastSync": "2025-11-23T03:58:26+00:00Z",
+      "status": "unchanged"
     },
     "lastmile-ai/mcp-agent": {
       "lastCommit": "1c9b3644a341661d62ad08049f65e593be51657a",
-      "lastSync": "2025-11-22T03:39:05+00:00Z",
+      "lastSync": "2025-11-23T03:58:26+00:00Z",
       "status": "unchanged"
     },
     "modelcontextprotocol/modelcontextprotocol": {
-      "lastCommit": "d0581a9ce107c451f7151707e23f10960303ffaa",
-      "lastSync": "2025-11-22T03:39:05+00:00Z",
+      "lastCommit": "63bd1d7d60d211f358eb88fc668d194aca8debdf",
+      "lastSync": "2025-11-23T03:58:26+00:00Z",
       "status": "success"
     },
     "ericbuess/claude-code-docs": {
-      "lastCommit": "20ff88b0f374c86c922ae7719a7e74a6f279ac2e",
-      "lastSync": "2025-11-22T03:39:05+00:00Z",
+      "lastCommit": "aca52368e0601484e0e9a3a4cc85fbb1e4e08cc2",
+      "lastSync": "2025-11-23T03:58:26+00:00Z",
       "status": "success"
     },
     "anthropics/claude-agent-sdk-python": {
       "lastCommit": "23183a269871617ecac2abd9ed62a5ed591616eb",
-      "lastSync": "2025-11-22T03:39:05+00:00Z",
-      "status": "success"
+      "lastSync": "2025-11-23T03:58:26+00:00Z",
+      "status": "unchanged"
     },
     "stanfordnlp/dspy": {
       "lastCommit": "02b148ed1bda60dde243a7274f4fc8bbb3b57cb1",
-      "lastSync": "2025-11-22T03:39:05+00:00Z",
-      "status": "success"
+      "lastSync": "2025-11-23T03:58:26+00:00Z",
+      "status": "unchanged"
     },
     "browserbase/sdk-python": {
       "lastCommit": "f6e02411245d100e5290d74c30f2a6d3eb5a12c6",
-      "lastSync": "2025-11-22T03:39:05+00:00Z",
+      "lastSync": "2025-11-23T03:58:26+00:00Z",
       "status": "unchanged"
     },
     "browser-use/browser-use": {
-      "lastCommit": "2c854d2283ce1e7b1234037311b78049a5d0fba7",
-      "lastSync": "2025-11-22T03:39:05+00:00Z",
+      "lastCommit": "714ab37d8082f3cae9c728db603c826099de33ac",
+      "lastSync": "2025-11-23T03:58:26+00:00Z",
       "status": "success"
     },
     "browser-use/workflow-use": {
       "lastCommit": "cb8fea77de3dc73d88dd6d8d73b12b5200ffaaec",
-      "lastSync": "2025-11-22T03:39:05+00:00Z",
+      "lastSync": "2025-11-23T03:58:26+00:00Z",
       "status": "unchanged"
     },
     "python-trio/trio": {
       "lastCommit": "63ce96808bca270c8e58601c21c4d194d6249b56",
-      "lastSync": "2025-11-22T03:39:05+00:00Z",
+      "lastSync": "2025-11-23T03:58:26+00:00Z",
       "status": "unchanged"
     },
     "metatool-ai/metamcp": {
       "lastCommit": "9cab55b6e0133a844498e2d4890ae9ba3fcf538d",
-      "lastSync": "2025-11-22T03:39:05+00:00Z",
+      "lastSync": "2025-11-23T03:58:26+00:00Z",
       "status": "unchanged"
     },
     "router-for-me/CLIProxyAPIDocs": {
       "lastCommit": "02881039483d1029f5d1a439f7a617f91353e005",
-      "lastSync": "2025-11-22T03:39:05+00:00Z",
-      "status": "success"
+      "lastSync": "2025-11-23T03:58:26+00:00Z",
+      "status": "unchanged"
     },
     "Factory-AI/factory": {
-      "lastCommit": "0a59bb189ea519be53e963c9814a4ebca6a4f90f",
-      "lastSync": "2025-11-22T03:39:05+00:00Z",
+      "lastCommit": "7356f2d2b651de9ca7dbd9e7ab2b8ad1556ac822",
+      "lastSync": "2025-11-23T03:58:26+00:00Z",
       "status": "success"
     }
   },
   "gemini": {
-    "storesUpdated": 6,
-    "filesUploaded": 253,
-    "totalCost": 0.07818449999999999,
-    "lastSync": "2025-11-22T03:40:14+00:00Z",
+    "storesUpdated": 5,
+    "filesUploaded": 242,
+    "totalCost": 0.0698802,
+    "lastSync": "2025-11-23T03:59:18+00:00Z",
     "stores": {
-      "modelcontextprotocol": {
-        "status": "success",
-        "files": 11,
-        "cost": 0.008408249999999999,
-        "lastSync": "2025-11-22T03:39:20+00:00Z"
-      },
       "MoonshotAI": {
         "status": "success",
         "files": 20,
         "cost": 0.00508125,
-        "lastSync": "2025-11-22T03:39:23+00:00Z"
+        "lastSync": "2025-11-23T03:58:40+00:00Z"
       },
       "openai": {
         "status": "success",
         "files": 22,
         "cost": 0.0047295,
-        "lastSync": "2025-11-22T03:39:24+00:00Z"
+        "lastSync": "2025-11-23T03:58:40+00:00Z"
       },
       "router-for-me": {
         "status": "success",
         "files": 44,
         "cost": 0.0061868999999999995,
-        "lastSync": "2025-11-22T03:39:34+00:00Z"
+        "lastSync": "2025-11-23T03:58:47+00:00Z"
       },
       "ericbuess": {
         "status": "success",
         "files": 47,
         "cost": 0.022250699999999998,
-        "lastSync": "2025-11-22T03:39:41+00:00Z"
+        "lastSync": "2025-11-23T03:58:52+00:00Z"
       },
       "Factory-AI": {
         "status": "success",
         "files": 109,
-        "cost": 0.0315279,
-        "lastSync": "2025-11-22T03:40:14+00:00Z"
+        "cost": 0.03163185,
+        "lastSync": "2025-11-23T03:59:18+00:00Z"
       }
     }
   }
