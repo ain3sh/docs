@@ -83,6 +83,12 @@
       "repo": "CLIProxyAPIDocs",
       "branch": "main",
       "docsPath": "docs/en"
+    },
+    {
+      "owner": "raycast",
+      "repo": "extensions",
+      "branch": "main",
+      "docsPath": "docs"
     }
   ],
   "geminiExclusions": [
