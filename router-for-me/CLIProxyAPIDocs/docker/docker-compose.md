@@ -13,27 +13,6 @@
     ```
     *(Note for Windows users: You can use `copy config.example.yaml config.yaml` in CMD or PowerShell.)*
 
-    To use the Git-backed configuration store, you can add the `GITSTORE_*` environment variables to your `docker-compose.yml` file under the `cli-proxy-api` service definition. For example:
-    ```yaml
-    services:
-      cli-proxy-api:
-        image: eceasy/cli-proxy-api:latest
-        container_name: cli-proxy-api
-        ports:
-          - "8317:8317"
-          - "8085:8085"
-          - "1455:1455"
-          - "54545:54545"
-          - "11451:11451"
-        environment:
-          - GITSTORE_GIT_URL=https://github.com/your/config-repo.git
-          - GITSTORE_GIT_TOKEN=your_personal_access_token
-        volumes:
-          - ./git-store:/CLIProxyAPI/remote # GITSTORE_LOCAL_PATH
-        restart: unless-stopped
-    ```
-    When using the Git store, you may not need to mount `config.yaml` or `auth-dir` directly.
-
 3.  Start the service:
     -   **For most users (recommended):**
         Run the following command to start the service using the pre-built image from Docker Hub. The service will run in the background.
@@ -74,6 +53,10 @@
     - **iFlow**:
     ```bash
     docker compose exec cli-proxy-api /CLIProxyAPI/CLIProxyAPI -no-browser --iflow-login
+    ```
+    - **Antigravity**:
+    ```bash
+    docker compose exec cli-proxy-api /CLIProxyAPI/CLIProxyAPI -no-browser --antigravity-login
     ```
 
 5.  To view the server logs:

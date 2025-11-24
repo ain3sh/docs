@@ -8,19 +8,20 @@ A curated collection of documentation mirrors with automated semantic search ind
 | Mirror | Upstream | Branch | Docs Path | Last Commit | Synced At |
 | --- | --- | --- | --- | --- | --- |
 | Factory-AI/factory | [https://github.com/Factory-AI/factory](https://github.com/Factory-AI/factory) | main | docs | 7356f2d | 2025-11-23T03:58:26+00:00Z |
-| openai/codex | [https://github.com/openai/codex](https://github.com/openai/codex) | main | docs | b519267 | 2025-11-22T03:39:01+00:00Z |
+| openai/codex | [https://github.com/openai/codex](https://github.com/openai/codex) | main | docs | fc2ff62 | 2025-11-24T23:36:56+00:00Z |
 | stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | 02b148e | 2025-11-22T03:39:02+00:00Z |
 | lastmile-ai/mcp-agent | [https://github.com/lastmile-ai/mcp-agent](https://github.com/lastmile-ai/mcp-agent) | main | docs | 1c9b364 | 2025-11-20T03:45:07+00:00Z |
-| MoonshotAI/kosong | [https://github.com/MoonshotAI/kosong](https://github.com/MoonshotAI/kosong) | main | src/kosong | 778a112 | 2025-11-22T03:39:01+00:00Z |
-| modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 36a1cb5 | 2025-11-24T03:57:51+00:00Z |
-| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | 56f7f57 | 2025-11-24T03:57:51+00:00Z |
-| anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | 7a5b413 | 2025-11-24T03:57:51+00:00Z |
+| MoonshotAI/kosong | [https://github.com/MoonshotAI/kosong](https://github.com/MoonshotAI/kosong) | main | src/kosong | 37c8975 | 2025-11-24T23:36:56+00:00Z |
+| modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | cf8088e | 2025-11-24T23:36:56+00:00Z |
+| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | 42aeb5f | 2025-11-24T23:36:56+00:00Z |
+| anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | d15f26d | 2025-11-24T23:36:56+00:00Z |
 | browserbase/sdk-python | [https://github.com/browserbase/sdk-python](https://github.com/browserbase/sdk-python) | main | examples | f6e0241 | 2025-11-17T21:32:12+00:00Z |
-| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 9a9164a | 2025-11-24T03:57:51+00:00Z |
+| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 1eac093 | 2025-11-24T23:36:56+00:00Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | cb8fea7 | 2025-11-20T03:45:08+00:00Z |
-| python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 63ce968 | 2025-11-18T03:46:51+00:00Z |
-| metatool-ai/metamcp | [https://github.com/metatool-ai/metamcp](https://github.com/metatool-ai/metamcp) | main | docs/en | 9cab55b | 2025-11-20T03:45:09+00:00Z |
-| router-for-me/CLIProxyAPIDocs | [https://github.com/router-for-me/CLIProxyAPIDocs](https://github.com/router-for-me/CLIProxyAPIDocs) | main | docs/en | 0288103 | 2025-11-22T03:39:04+00:00Z |
+| python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 18fd1d4 | 2025-11-24T23:36:56+00:00Z |
+| metatool-ai/metamcp | [https://github.com/metatool-ai/metamcp](https://github.com/metatool-ai/metamcp) | main | docs/en | fc430ca | 2025-11-24T23:36:57+00:00Z |
+| router-for-me/CLIProxyAPIDocs | [https://github.com/router-for-me/CLIProxyAPIDocs](https://github.com/router-for-me/CLIProxyAPIDocs) | main | docs/en | 87ed683 | 2025-11-24T23:36:56+00:00Z |
+| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | a8d5b3a | 2025-11-24T23:36:58+00:00Z |
 <!-- /AUTO:MIRROR_STATUS -->
 
 <!-- AUTO:SEMANTIC_SEARCH -->
@@ -28,10 +29,10 @@ A curated collection of documentation mirrors with automated semantic search ind
 
 This repository includes automated indexing for Gemini File Search API.
 
-- **Stores updated**: 2
-- **Files indexed**: 156
-- **Total cost**: $0.0539
-- **Last sync**: 2025-11-24T03:58:46+00:00Z
+- **Stores updated**: 6
+- **Files indexed**: 294
+- **Total cost**: $0.0886
+- **Last sync**: 2025-11-24T23:37:51+00:00Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
@@ -116,6 +117,7 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │       ├── common-workflows.md
 │       ├── costs.md
 │       ├── data-usage.md
+│       ├── desktop.md
 │       ├── devcontainer.md
 │       ├── docs_manifest.json
 │       ├── github-actions.md
@@ -271,6 +273,24 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │       ├── releasing.rst
 │       ├── tutorial.rst
 │       └── typevars.py
+├── raycast
+│   └── extensions
+│       ├── .gitbook
+│       ├── ai
+│       ├── api-reference
+│       ├── basics
+│       ├── examples
+│       ├── information
+│       ├── migration
+│       ├── teams
+│       ├── utils-reference
+│       ├── .config.json
+│       ├── .gitbook.yaml
+│       ├── .prettierrc
+│       ├── changelog.md
+│       ├── faq.md
+│       ├── README.md
+│       └── SUMMARY.md
 ├── router-for-me
 │   └── CLIProxyAPIDocs
 │       ├── agent-client
