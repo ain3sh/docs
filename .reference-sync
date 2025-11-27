@@ -1,112 +1,130 @@
 {
-  "lastSync": "2025-11-26T03:50:44+00:00Z",
-  "lastCommit": "7c734516b8fee2054c13df2c62208546d7769a39",
+  "lastSync": "2025-11-27T03:47:39+00:00Z",
+  "lastCommit": "441c6167bea17a47bcf3ad81dc82c16fd15200c2",
   "mirrors": {
     "MoonshotAI/kosong": {
       "lastCommit": "56a71e49745b05b16c326cdf970eac3f80083bff",
-      "lastSync": "2025-11-26T03:49:36+00:00Z",
-      "status": "success"
+      "lastSync": "2025-11-27T03:46:46+00:00Z",
+      "status": "unchanged"
     },
     "openai/codex": {
-      "lastCommit": "e953092949e485f05f06b26723e0e495fcfefe64",
-      "lastSync": "2025-11-26T03:49:36+00:00Z",
+      "lastCommit": "fabdbfef9c0881d9a5eba1cc87ffd471a21330a6",
+      "lastSync": "2025-11-27T03:46:46+00:00Z",
       "status": "success"
     },
     "lastmile-ai/mcp-agent": {
       "lastCommit": "1c9b3644a341661d62ad08049f65e593be51657a",
-      "lastSync": "2025-11-26T03:49:36+00:00Z",
+      "lastSync": "2025-11-27T03:46:46+00:00Z",
       "status": "unchanged"
     },
     "modelcontextprotocol/modelcontextprotocol": {
-      "lastCommit": "ef175d72115b25f0a0e89dd52f40442761b6a380",
-      "lastSync": "2025-11-26T03:49:36+00:00Z",
+      "lastCommit": "2ba084dfbcc6d21dc1fff7cd2176e1d684afdd0d",
+      "lastSync": "2025-11-27T03:46:46+00:00Z",
       "status": "success"
     },
     "ericbuess/claude-code-docs": {
-      "lastCommit": "dcbb8272fed7e8ac99c04aeccfb7960c51ba45a6",
-      "lastSync": "2025-11-26T03:49:36+00:00Z",
+      "lastCommit": "716cc3c4c78cf0792789b8da182a8273f7dcee03",
+      "lastSync": "2025-11-27T03:46:46+00:00Z",
       "status": "success"
     },
     "anthropics/claude-agent-sdk-python": {
-      "lastCommit": "e2f8d814ea1bbd44804cae329c0dd5a90f357df6",
-      "lastSync": "2025-11-26T03:49:36+00:00Z",
+      "lastCommit": "d553184ef6d480031400bb47d78919c9ba4d911f",
+      "lastSync": "2025-11-27T03:46:46+00:00Z",
       "status": "success"
     },
     "stanfordnlp/dspy": {
-      "lastCommit": "fc43caea050ada8a6df6e0d7f071640095cf6271",
-      "lastSync": "2025-11-26T03:49:36+00:00Z",
+      "lastCommit": "d42f29ef4489a30a22ba783fdfb84ae1e598142b",
+      "lastSync": "2025-11-27T03:46:46+00:00Z",
       "status": "success"
     },
     "browserbase/sdk-python": {
       "lastCommit": "f6e02411245d100e5290d74c30f2a6d3eb5a12c6",
-      "lastSync": "2025-11-26T03:49:36+00:00Z",
+      "lastSync": "2025-11-27T03:46:46+00:00Z",
       "status": "unchanged"
     },
     "browser-use/browser-use": {
-      "lastCommit": "cd6763de87f5f7ecead65fd46ee11884bd0c4c24",
-      "lastSync": "2025-11-26T03:49:36+00:00Z",
+      "lastCommit": "7f76e4f1331d31475c6724c27c77ac6e900c5707",
+      "lastSync": "2025-11-27T03:46:46+00:00Z",
       "status": "success"
     },
     "browser-use/workflow-use": {
       "lastCommit": "cb8fea77de3dc73d88dd6d8d73b12b5200ffaaec",
-      "lastSync": "2025-11-26T03:49:36+00:00Z",
+      "lastSync": "2025-11-27T03:46:46+00:00Z",
       "status": "unchanged"
     },
     "python-trio/trio": {
-      "lastCommit": "18fd1d4d84386ac5ae85882beee615ba8389376e",
-      "lastSync": "2025-11-26T03:49:36+00:00Z",
-      "status": "unchanged"
+      "lastCommit": "a73a028f380b8edeca8186ba50860a98ee5cae5f",
+      "lastSync": "2025-11-27T03:46:46+00:00Z",
+      "status": "success"
     },
     "metatool-ai/metamcp": {
       "lastCommit": "fc430caceea15936b64ea7c8c409dcfe0e48ad7c",
-      "lastSync": "2025-11-26T03:49:36+00:00Z",
+      "lastSync": "2025-11-27T03:46:46+00:00Z",
       "status": "unchanged"
     },
     "router-for-me/CLIProxyAPIDocs": {
       "lastCommit": "87ed683178e1869332529cf9420c0b7227ba0a53",
-      "lastSync": "2025-11-26T03:49:36+00:00Z",
+      "lastSync": "2025-11-27T03:46:46+00:00Z",
       "status": "unchanged"
     },
     "Factory-AI/factory": {
-      "lastCommit": "7d250830b7043b98319899fc73300ce1a8808cfc",
-      "lastSync": "2025-11-26T03:49:36+00:00Z",
+      "lastCommit": "f2dd5945d75cfd0339a662cf7eb3832b222bc237",
+      "lastSync": "2025-11-27T03:46:46+00:00Z",
       "status": "success"
     },
     "raycast/extensions": {
-      "lastCommit": "69e0ca49048f9fea6608fbdac21cef4a953e8678",
-      "lastSync": "2025-11-26T03:49:36+00:00Z",
+      "lastCommit": "43ca0932036522e01d10aa3255b8e777e61b4cc1",
+      "lastSync": "2025-11-27T03:46:46+00:00Z",
       "status": "success"
     }
   },
   "gemini": {
-    "storesUpdated": 4,
-    "filesUploaded": 188,
-    "totalCost": 0.06835725000000001,
-    "lastSync": "2025-11-26T03:50:44+00:00Z",
+    "storesUpdated": 7,
+    "filesUploaded": 481,
+    "totalCost": 0.13347674999999998,
+    "lastSync": "2025-11-27T03:47:39+00:00Z",
     "stores": {
       "modelcontextprotocol": {
         "status": "success",
         "files": 11,
-        "cost": 0.00840705,
-        "lastSync": "2025-11-26T03:49:53+00:00Z"
+        "cost": 0.0084105,
+        "lastSync": "2025-11-27T03:46:58+00:00Z"
+      },
+      "openai": {
+        "status": "success",
+        "files": 22,
+        "cost": 0.004725599999999999,
+        "lastSync": "2025-11-27T03:47:01+00:00Z"
       },
       "MoonshotAI": {
         "status": "success",
         "files": 20,
         "cost": 0.0052299,
-        "lastSync": "2025-11-26T03:49:56+00:00Z"
+        "lastSync": "2025-11-27T03:47:02+00:00Z"
       },
       "ericbuess": {
         "status": "success",
         "files": 48,
-        "cost": 0.0227181,
-        "lastSync": "2025-11-26T03:50:08+00:00Z"
+        "cost": 0.0229047,
+        "lastSync": "2025-11-27T03:47:16+00:00Z"
+      },
+      "stanfordnlp": {
+        "status": "success",
+        "files": 123,
+        "cost": 0.01886385,
+        "lastSync": "2025-11-27T03:47:31+00:00Z"
+      },
+      "browser-use": {
+        "status": "success",
+        "files": 148,
+        "cost": 0.0413901,
+        "lastSync": "2025-11-27T03:47:38+00:00Z"
       },
       "Factory-AI": {
         "status": "success",
         "files": 109,
-        "cost": 0.0320022,
-        "lastSync": "2025-11-26T03:50:44+00:00Z"
+        "cost": 0.0319521,
+        "lastSync": "2025-11-27T03:47:39+00:00Z"
       }
     }
   }
