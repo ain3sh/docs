@@ -129,14 +129,14 @@
     "mcp.md": {
       "original_url": "https://code.claude.com/docs/en/mcp",
       "original_md_url": "https://code.claude.com/docs/en/mcp.md",
-      "hash": "1e8c1f62748537b2d01f6f1fdb1ae5f04315aed28bd0a72fa9f4ff0559ed9bd4",
-      "last_updated": "2025-11-27T06:02:21.190003"
+      "hash": "113db9c390f890e8d9146205869edf05e3e8e32a0e4019893e945a52be096160",
+      "last_updated": "2025-12-03T00:04:32.460564"
     },
     "memory.md": {
       "original_url": "https://code.claude.com/docs/en/memory",
       "original_md_url": "https://code.claude.com/docs/en/memory.md",
-      "hash": "0c0e596f32c49172f82cf75c1d27527f3f299e8e0b04e351761e66ce8a27b5b4",
-      "last_updated": "2025-11-27T06:02:21.746087"
+      "hash": "647ebd69225e515b92a716e0a0f0826332c4f6ccebbc98ed2ca113abc60834bf",
+      "last_updated": "2025-12-02T21:01:41.672199"
     },
     "microsoft-foundry.md": {
       "original_url": "https://code.claude.com/docs/en/microsoft-foundry",
@@ -219,8 +219,8 @@
     "settings.md": {
       "original_url": "https://code.claude.com/docs/en/settings",
       "original_md_url": "https://code.claude.com/docs/en/settings.md",
-      "hash": "271b2c72cc73f2412555214fd9f88a8461ac4ce2e5a38804a7557dcc5f2acfee",
-      "last_updated": "2025-12-01T03:31:45.684807"
+      "hash": "2174bc19e158d45d66b70a74d307d2f424cb15851afdac783af5131963ef22da",
+      "last_updated": "2025-12-02T21:01:50.617488"
     },
     "setup.md": {
       "original_url": "https://code.claude.com/docs/en/setup",
@@ -285,8 +285,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2025-12-02T03:25:42.310776",
-    "fetch_duration_seconds": 29.531962,
+    "last_fetch_completed": "2025-12-03T03:24:48.636777",
+    "fetch_duration_seconds": 28.793809,
     "total_pages_discovered": 46,
     "pages_fetched_successfully": 47,
     "pages_failed": 0,
@@ -296,7 +296,7 @@
     "total_files": 47,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2025-12-02T03:25:42.310800",
+  "last_updated": "2025-12-03T03:24:48.636801",
   "base_url": "https://raw.githubusercontent.com/ericbuess/claude-code-docs/main/docs/",
   "github_repository": "ericbuess/claude-code-docs",
   "github_ref": "main",
