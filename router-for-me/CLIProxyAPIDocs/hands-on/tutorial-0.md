@@ -114,18 +114,7 @@ api-keys:
 # used to authenticate AIStudio Build APP access.
 ws-auth: false
 
-# Gemini's official API Key. If you have already configured Gemini CLI, it is
-# not recommended to fill it in.
-# Because Gemini CLI is full-featured, while the official Key is limited. If
-# you fill it in, it will participate in polling.
-# This configuration is now deprecated. Please use gemini-api-key. This
-# configuration is retained for compatibility with old configuration files.
-generative-language-api-key:
-  - "AIzaSy...01"
-  - "AIzaSy...02"
-
-# Gemini's official API Key setting item, used to replace the above
-# generative-language-api-key.
+# Gemini API key configuration. Legacy `generative-language-api-key` values are auto-migrated here and removed from the config file on save.
 # When base-url is not set, the official endpoint is used for access. When
 # base-url is set, a third-party relay can be accessed.
 # When accessing through Cloudflare AI Gateway, authentication can be performed
@@ -165,11 +154,7 @@ claude-api-key:
 openai-compatibility:
   - name: "openrouter"
     base-url: "https://openrouter.ai/api/v1"
-    # The api-keys configuration is deprecated. Please use api-key-entries. It
-    # is retained for compatibility with old configuration files.
-    api-keys:
-      - "sk-or-v1-...b780"
-      - "sk-or-v1-...b781"
+    # Legacy api-keys are migrated into api-key-entries on load.
     api-key-entries:
       - api-key: "sk-or-v1-...b780"
         proxy-url: "socks5://proxy.example.com:1080"

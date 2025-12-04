@@ -4,9 +4,10 @@ Configure upstream OpenAI-compatible providers (e.g., OpenRouter) via `openai-co
 
 - name: provider identifier used internally
 - base-url: provider base URL
-- api-key-entries: list of API key entries with optional per-key proxy configuration (recommended)
-- api-keys: (deprecated) simple list of API keys without proxy support
+- api-key-entries: list of API key entries with optional per-key proxy configuration (recommended and persisted)
 - models: list of mappings from upstream model `name` to local `alias`
+
+> Compatibility: legacy `api-keys` are migrated into `api-key-entries` on load and removed when the config is saved; use `api-key-entries` going forward.
 
 Example with per-key proxy support:
 

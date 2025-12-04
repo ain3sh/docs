@@ -96,15 +96,12 @@ openai-compatibility:
     base-url: "https://openrouter.ai/api/v1" # The base URL of the provider.
     headers:
       X-Custom-Header: "custom-value"
-    # New format with per-key proxy support (recommended):
+    # Persisted format with per-key proxy support:
     api-key-entries:
       - api-key: "sk-or-v1-...b780"
         proxy-url: "socks5://proxy.example.com:1080" # optional: per-key proxy override
       - api-key: "sk-or-v1-...b781" # without proxy-url
-    # Legacy format (still supported, but cannot specify proxy per key):
-    # api-keys:
-    #   - "sk-or-v1-...b780"
-    #   - "sk-or-v1-...b781"
+    # Compatibility: legacy api-keys are migrated into api-key-entries on load and removed on save.
     models: # The models supported by the provider.
       - name: "moonshotai/kimi-k2:free" # The actual model name.
         alias: "kimi-k2" # The alias used in the API.

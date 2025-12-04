@@ -96,17 +96,20 @@ The Amp integration is implemented as a modular routing module (`internal/api/mo
 
 ### Basic Configuration
 
-Add these fields to your `config.yaml`:
+Add the `ampcode` block to your `config.yaml` (as of v6.5.37, legacy `amp-upstream-*` keys are auto-migrated and rewritten to this structure on load):
 
 ```yaml
-# Amp upstream control plane (required for management routes)
-amp-upstream-url: "https://ampcode.com"
-
-# Optional: Override API key (otherwise uses env or file)
-# amp-upstream-api-key: "your-amp-api-key"
-
-# Security: restrict management routes to localhost (recommended)
-amp-restrict-management-to-localhost: true
+ampcode:
+  # Amp upstream control plane (required for management routes)
+  upstream-url: "https://ampcode.com"
+  # Optional: Override API key (otherwise uses env or file)
+  # upstream-api-key: "your-amp-api-key"
+  # Security: restrict management routes to localhost (recommended)
+  restrict-management-to-localhost: true
+  # Optional: map missing Amp models to local ones
+  # model-mappings:
+  #   - from: "claude-opus-4.5"
+  #     to: "claude-sonnet-4"
 ```
 
 ### Secret Resolution Precedence
@@ -115,7 +118,7 @@ The Amp module resolves API keys using this precedence order:
 
 | Source | Key | Priority | Cache |
 |--------|-----|----------|-------|
-| Config file | `amp-upstream-api-key` | High | No |
+| Config file | `ampcode.upstream-api-key` | High | No |
 | Environment | `AMP_API_KEY` | Medium | No |
 | Amp secrets file | `~/.local/share/amp/secrets.json` | Low | 5 min |
 
@@ -123,7 +126,7 @@ The Amp module resolves API keys using this precedence order:
 
 ### Security Settings
 
-**`amp-restrict-management-to-localhost`** (default: `true`)
+**`ampcode.restrict-management-to-localhost`** (default: `true`)
 
 When enabled, management routes (`/api/auth`, `/api/user`, `/api/threads`, etc.) only accept connections from localhost (127.0.0.1, ::1). This prevents:
 - Drive-by browser attacks
@@ -144,7 +147,8 @@ If you need to run CLIProxyAPI behind a reverse proxy (nginx, Caddy, Cloudflare 
 
 1. **Disable the localhost restriction**:
    ```yaml
-   amp-restrict-management-to-localhost: false
+   ampcode:
+     restrict-management-to-localhost: false
    ```
 
 2. **Use alternative security measures**:
@@ -161,7 +165,7 @@ If you need to run CLIProxyAPI behind a reverse proxy (nginx, Caddy, Cloudflare 
    location /api/internal { deny all; }
    ```
 
-**Important**: Only disable `amp-restrict-management-to-localhost` if you understand the security implications and have other protections in place.
+**Important**: Only disable `ampcode.restrict-management-to-localhost` if you understand the security implications and have other protections in place.
 
 ## Setup
 
@@ -174,8 +178,9 @@ port: 8317
 auth-dir: "~/.cli-proxy-api"
 
 # Amp integration
-amp-upstream-url: "https://ampcode.com"
-amp-restrict-management-to-localhost: true
+ampcode:
+  upstream-url: "https://ampcode.com"
+  restrict-management-to-localhost: true
 
 # Other standard settings...
 debug: false
@@ -267,7 +272,7 @@ Both CLI and IDE can use the proxy simultaneously.
 
 #### Provider Aliases (Always Available)
 
-These routes work even without `amp-upstream-url` configured:
+These routes work even without `ampcode.upstream-url` configured:
 
 - `/api/provider/openai/v1/chat/completions`
 - `/api/provider/openai/v1/responses`
@@ -276,7 +281,7 @@ These routes work even without `amp-upstream-url` configured:
 
 Amp CLI calls these routes with your OAuth-authenticated models configured in CLIProxyAPI.
 
-#### Management Routes (Require `amp-upstream-url`)
+#### Management Routes (Require `ampcode.upstream-url`)
 
 These routes are proxied to ampcode.com:
 
@@ -325,7 +330,7 @@ curl http://localhost:8317/api/user
 | Symptom | Likely Cause | Fix |
 |---------|--------------|-----|
 | 404 on `/api/provider/...` | Incorrect route path | Ensure exact path: `/api/provider/{provider}/v1...` |
-| 403 on `/api/user` | Non-localhost request | Run from same machine or disable `amp-restrict-management-to-localhost` (not recommended) |
+| 403 on `/api/user` | Non-localhost request | Run from same machine or disable `ampcode.restrict-management-to-localhost` (not recommended) |
 | 401/403 from provider | Missing/expired OAuth | Re-run `--codex-login` or `--claude-login` |
 | Amp gzip errors | Response decompression issue | Update to latest build; auto-decompression should handle this |
 | Models not using proxy | Wrong Amp URL | Verify `amp.url` setting or `AMP_URL` environment variable |
@@ -367,7 +372,7 @@ echo $AMP_URL
 
 ### Security Checklist
 
-- ✅ Keep `amp-restrict-management-to-localhost: true` (default)
+- ✅ Keep `ampcode.restrict-management-to-localhost: true` (default)
 - ✅ Don't expose proxy publicly (bind to localhost or use firewall/VPN)
 - ✅ Use the Amp secrets file (`~/.local/share/amp/secrets.json`) managed by `amp login`
 - ✅ Rotate OAuth tokens periodically by re-running login commands
