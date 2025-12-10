@@ -135,8 +135,8 @@
     "memory.md": {
       "original_url": "https://code.claude.com/docs/en/memory",
       "original_md_url": "https://code.claude.com/docs/en/memory.md",
-      "hash": "bdef6dbaa9e8f3478fef6c175016eb7487afdb6935f7976cd51a20709524093a",
-      "last_updated": "2025-12-05T12:02:29.649931"
+      "hash": "7824df90065bd8ec0ee17b916232eefa3849d9be383beaa3aa3cf00c0cf5bd6d",
+      "last_updated": "2025-12-09T18:01:41.608829"
     },
     "microsoft-foundry.md": {
       "original_url": "https://code.claude.com/docs/en/microsoft-foundry",
@@ -201,8 +201,8 @@
     "sandboxing.md": {
       "original_url": "https://code.claude.com/docs/en/sandboxing",
       "original_md_url": "https://code.claude.com/docs/en/sandboxing.md",
-      "hash": "d6a79ac25885826ad31c15d9a0f25bdf9f95104327f88f5c8b347c2546ee3129",
-      "last_updated": "2025-12-08T06:02:32.621492"
+      "hash": "bcdc06de16c420371e610419230b3f8a6039df5f60b54b8a31a7f5c0a9dbdbec",
+      "last_updated": "2025-12-09T06:02:39.199650"
     },
     "sdk__migration-guide.md": {
       "original_url": "https://code.claude.com/docs/en/sdk/migration-guide",
@@ -285,14 +285,14 @@
     "changelog.md": {
       "original_url": "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md",
       "original_raw_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
-      "hash": "a3de63ee0175eaab67c9bfd210118675b38c23395036081ec1c8ffe8c29c45f9",
-      "last_updated": "2025-12-09T03:25:34.014349",
+      "hash": "346e404be4ae819415b042f5371e295072afd7049f86d8853ea3abefead3ba88",
+      "last_updated": "2025-12-10T03:28:09.449635",
       "source": "claude-code-repository"
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2025-12-09T03:25:34.014377",
-    "fetch_duration_seconds": 27.342208,
+    "last_fetch_completed": "2025-12-10T03:28:09.449656",
+    "fetch_duration_seconds": 28.168815,
     "total_pages_discovered": 47,
     "pages_fetched_successfully": 48,
     "pages_failed": 0,
@@ -302,7 +302,7 @@
     "total_files": 48,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2025-12-09T03:25:34.014398",
+  "last_updated": "2025-12-10T03:28:09.449676",
   "base_url": "https://raw.githubusercontent.com/ericbuess/claude-code-docs/main/docs/",
   "github_repository": "ericbuess/claude-code-docs",
   "github_ref": "main",
