@@ -37,25 +37,25 @@ config.json:
       "provider": "openai"
     },
     {
-      "model": "gpt-5-minimal",
+      "model": "gpt-5(minimal)",
       "base_url": "http://127.0.0.1:8317/v1",
       "api_key": "sk-dummy",
       "provider": "openai"
     },
     {
-      "model": "gpt-5-low",
+      "model": "gpt-5(low)",
       "base_url": "http://127.0.0.1:8317/v1",
       "api_key": "sk-dummy",
       "provider": "openai"
     },
     {
-      "model": "gpt-5-medium",
+      "model": "gpt-5(medium)",
       "base_url": "http://127.0.0.1:8317/v1",
       "api_key": "sk-dummy",
       "provider": "openai"
     },
     {
-      "model": "gpt-5-high",
+      "model": "gpt-5(high)",
       "base_url": "http://127.0.0.1:8317/v1",
       "api_key": "sk-dummy",
       "provider": "openai"
@@ -67,19 +67,19 @@ config.json:
       "provider": "openai"
     },
     {
-      "model": "gpt-5-codex-low",
+      "model": "gpt-5-codex(low)",
       "base_url": "http://127.0.0.1:8317/v1",
       "api_key": "sk-dummy",
       "provider": "openai"
     },
     {
-      "model": "gpt-5-codex-medium",
+      "model": "gpt-5-codex(medium)",
       "base_url": "http://127.0.0.1:8317/v1",
       "api_key": "sk-dummy",
       "provider": "openai"
     },
     {
-      "model": "gpt-5-codex-high",
+      "model": "gpt-5-codex(high)",
       "base_url": "http://127.0.0.1:8317/v1",
       "api_key": "sk-dummy",
       "provider": "openai"
