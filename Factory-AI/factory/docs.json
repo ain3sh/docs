@@ -42,7 +42,10 @@
         "groups": [
           {
             "group": "Welcome",
-            "pages": ["welcome/index", "pricing"]
+            "pages": [
+              "welcome/index",
+              "pricing"
+            ]
           },
           {
             "group": "CLI",
@@ -91,7 +94,10 @@
               },
               {
                 "group": "Account",
-                "pages": ["cli/account/security", "cli/account/droid-shield"]
+                "pages": [
+                  "cli/account/security",
+                  "cli/account/droid-shield"
+                ]
               }
             ]
           },
@@ -108,6 +114,7 @@
                 ]
               },
               "cli/features/code-review",
+              "cli/features/install-github-app",
               "cli/configuration/custom-slash-commands",
               "cli/configuration/ide-integrations",
               "cli/configuration/custom-droids",
@@ -120,15 +127,18 @@
           },
           {
             "group": "Reference",
-            "pages": ["reference/cli-reference", "reference/hooks-reference"]
+            "pages": [
+              "reference/cli-reference",
+              "reference/hooks-reference"
+            ]
           },
           {
             "group": "Web Platform",
             "pages": [
               "web/getting-started/overview",
               "web/getting-started/quickstart",
-            "web/integrations/linear",
-            "web/integrations/slack",
+              "web/integrations/linear",
+              "web/integrations/slack",
               {
                 "group": "Machine Connection",
                 "pages": [
@@ -175,12 +185,15 @@
                   "enterprise/privacy-and-data-flows",
                   "enterprise/llm-safety-and-agent-controls",
                   "enterprise/hierarchical-settings-and-org-control",
-                  "enterprise/compliance-audit-and-monitoring"
+                  "enterprise/compliance-audit-and-monitoring",
+                  "enterprise/github-integration-security"
                 ]
               },
               {
                 "group": "Analytics & Operations",
-                "pages": ["enterprise/usage-cost-and-analytics"]
+                "pages": [
+                  "enterprise/usage-cost-and-analytics"
+                ]
               }
             ]
           }
@@ -248,6 +261,10 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "API Reference",
+        "openapi": "https://api.factory.ai/api/v0/openapi.json"
       }
     ]
   },
@@ -278,7 +295,12 @@
     }
   },
   "contextual": {
-    "options": ["copy", "view", "chatgpt", "claude"]
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude"
+    ]
   },
   "seo": {
     "metatags": {
