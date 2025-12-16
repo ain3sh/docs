@@ -13,10 +13,10 @@ The Amp CLI integration adds specialized routing to support Amp's API patterns w
 ### Key Features
 
 - **Provider route aliases**: Maps Amp's `/api/provider/{provider}/v1...` patterns to CLIProxyAPI handlers
-- **Management proxy**: Forwards OAuth and account management requests to Amp's control plane
+- **Management proxy**: Forwards account management requests to Amp's control plane using a secure upstream API key.
 - **Smart fallback**: Automatically routes unconfigured models to ampcode.com
 - **Secret management**: Configurable precedence (config > env > file) with 5-minute caching
-- **Security-first**: Management routes restricted to localhost by default
+- **Security-first**: Management routes require API key auth (optional localhost restriction)
 - **Automatic gzip handling**: Decompresses responses from Amp upstream
 
 ### What You Can Do
@@ -75,9 +75,11 @@ Amp CLI/IDE
   │
   └─ Management requests (/api/auth, /api/user, /api/threads, ...)
       ↓
-      ├─ Localhost check (security)
+      ├─ Authenticate with CLIProxyAPI's `api-keys`
       ↓
-      └─ Reverse proxy to ampcode.com
+      ├─ Optional localhost restriction
+      ↓
+      └─ Reverse proxy to ampcode.com (using `upstream-api-key`)
           ↓
           Response (auto-decompressed if gzipped)
 ```
@@ -99,34 +101,36 @@ The Amp integration is implemented as a modular routing module (`internal/api/mo
 Add the `ampcode` block to your `config.yaml` (as of v6.5.37, legacy `amp-upstream-*` keys are auto-migrated and rewritten to this structure on load):
 
 ```yaml
+# API keys for clients (e.g., Amp CLI, VS Code) to authenticate with CLIProxyAPI
+api-keys:
+  - "your-client-secret-key" # Example key for your clients
+
 ampcode:
   # Amp upstream control plane (required for management routes)
   upstream-url: "https://ampcode.com"
-  # Optional: Override API key (otherwise uses env or file)
-  # upstream-api-key: "your-amp-api-key"
-  # Security: restrict management routes to localhost (recommended)
-  restrict-management-to-localhost: true
+  # API key for CLIProxyAPI to authenticate with ampcode.com
+  # Get this from https://ampcode.com/settings
+  upstream-api-key: "your-ampcode-api-key-goes-here"
+  # Optional: restrict management routes to localhost (default: false)
+  restrict-management-to-localhost: false
   # Optional: map missing Amp models to local ones
   # model-mappings:
   #   - from: "claude-opus-4.5"
   #     to: "claude-sonnet-4"
 ```
 
-### Secret Resolution Precedence
-
-The Amp module resolves API keys using this precedence order:
-
-| Source | Key | Priority | Cache |
-|--------|-----|----------|-------|
-| Config file | `ampcode.upstream-api-key` | High | No |
-| Environment | `AMP_API_KEY` | Medium | No |
-| Amp secrets file | `~/.local/share/amp/secrets.json` | Low | 5 min |
-
-**Recommendation**: Use the Amp secrets file (lowest precedence) for normal usage. This file is automatically managed by `amp login`.
-
 ### Security Settings
 
-**`ampcode.restrict-management-to-localhost`** (default: `true`)
+#### API Key Auth for Management Routes
+
+As of v6.6.15, Amp management routes (`/api/auth`, `/api/user`, `/api/threads`, `/threads`, etc.) are protected by CLIProxyAPI's standard API key authentication middleware.
+
+- If you configure `api-keys` in `config.yaml` (recommended), these routes require a valid API key in the request (`Authorization: Bearer <key>` or `X-Api-Key: <key>`), otherwise they return `401 Unauthorized`.
+- After local authentication succeeds, the proxy strips the client's `Authorization`/`X-Api-Key` and uses `ampcode.upstream-api-key` to call the upstream ampcode.com service.
+
+#### `ampcode.restrict-management-to-localhost`
+
+**Default: `false`**
 
 When enabled, management routes (`/api/auth`, `/api/user`, `/api/threads`, etc.) only accept connections from localhost (127.0.0.1, ::1). This prevents:
 - Drive-by browser attacks
@@ -145,17 +149,15 @@ This restriction uses the **actual TCP connection address** (`RemoteAddr`), not 
 
 If you need to run CLIProxyAPI behind a reverse proxy (nginx, Caddy, Cloudflare Tunnel, etc.):
 
-1. **Disable the localhost restriction**:
+1. **Keep the localhost restriction disabled (default)**:
    ```yaml
    ampcode:
      restrict-management-to-localhost: false
    ```
 
-2. **Use alternative security measures**:
-   - Firewall rules restricting access to management routes
-   - Proxy-level authentication (HTTP Basic Auth, OAuth)
-   - Network-level isolation (VPN, Tailscale, Cloudflare Access)
-   - Bind CLIProxyAPI to `127.0.0.1` only and access via SSH tunnel
+2. **Ensure API key auth is enabled** (recommended):
+   - Configure `api-keys` in `config.yaml` and have clients send the key
+   - Combine with firewall/VPN/zero-trust controls to reduce exposure
 
 3. **Example nginx configuration** (blocks external access to management routes):
    ```nginx
@@ -165,22 +167,30 @@ If you need to run CLIProxyAPI behind a reverse proxy (nginx, Caddy, Cloudflare 
    location /api/internal { deny all; }
    ```
 
-**Important**: Only disable `ampcode.restrict-management-to-localhost` if you understand the security implications and have other protections in place.
+**Note**: `ampcode.restrict-management-to-localhost` is an extra hardening option; behind reverse proxies it is typically kept `false`.
 
 ## Setup
 
 ### 1. Configure CLIProxyAPI
 
-Create or edit `config.yaml`:
+Create or edit `config.yaml`. You will need two types of API keys:
+1.  `api-keys`: For clients like Amp CLI to connect to your CLIProxyAPI instance.
+2.  `ampcode.upstream-api-key`: For CLIProxyAPI to connect to the `ampcode.com` backend. Get this from **[https://ampcode.com/settings](https://ampcode.com/settings)**.
 
 ```yaml
 port: 8317
 auth-dir: "~/.cli-proxy-api"
 
+# API keys for clients (e.g., Amp CLI) to use
+api-keys:
+  - "your-client-secret-key" # You can change this secret
+
 # Amp integration
 ampcode:
   upstream-url: "https://ampcode.com"
-  restrict-management-to-localhost: true
+  # Your personal API key from ampcode.com
+  upstream-api-key: "paste-your-ampcode-api-key-here"
+  restrict-management-to-localhost: false
 
 # Other standard settings...
 debug: false
@@ -217,12 +227,6 @@ Tokens are saved to:
 ./cli-proxy-api --config config.yaml
 ```
 
-Or run in background with tmux (recommended for remote servers):
-
-```bash
-tmux new-session -d -s proxy "./cli-proxy-api --config config.yaml"
-```
-
 ### 4. Configure Amp CLI
 
 #### Option A: Settings File
@@ -231,7 +235,8 @@ Edit `~/.config/amp/settings.json`:
 
 ```json
 {
-  "amp.url": "http://localhost:8317"
+  "amp.url": "http://localhost:8317",
+  "amp.apiKey": "your-client-secret-key"
 }
 ```
 
@@ -239,17 +244,14 @@ Edit `~/.config/amp/settings.json`:
 
 ```bash
 export AMP_URL=http://localhost:8317
+export AMP_API_KEY=your-client-secret-key
 ```
 
-### 5. Login and Use Amp
+With this configuration, the `amp login` command is no longer necessary.
 
-Login through the proxy (proxied to ampcode.com):
+### 5. Use Amp
 
-```bash
-amp login
-```
-
-Use Amp as normal:
+You are now ready to use Amp. All requests will be routed through your proxy.
 
 ```bash
 amp "Write a hello world program in Python"
@@ -259,11 +261,10 @@ amp "Write a hello world program in Python"
 
 The proxy also works with Amp IDE extensions for VS Code, Cursor, Windsurf, etc.
 
-1. Open Amp extension settings in your IDE
-2. Set **Amp URL** to `http://localhost:8317`
-3. Login with your Amp account
-4. Start using Amp in your IDE
-
+1.  Open Amp extension settings in your IDE.
+2.  Set **Amp URL** to `http://localhost:8317`.
+3.  Set **Amp API Key** to the key you configured (e.g., `your-client-secret-key`).
+4.  Start using Amp in your IDE.
 Both CLI and IDE can use the proxy simultaneously.
 
 ## Usage
@@ -292,7 +293,7 @@ These routes are proxied to ampcode.com:
 - `/api/telemetry` - Usage telemetry
 - `/api/internal` - Internal APIs
 
-**Security**: Restricted to localhost by default.
+**Security**: Requires an API key; `ampcode.restrict-management-to-localhost` is optional (default: false).
 
 ### Model Fallback Behavior
 
@@ -311,6 +312,7 @@ This enables seamless mixed usage:
 **Chat completion with local OAuth:**
 ```bash
 curl http://localhost:8317/api/provider/openai/v1/chat/completions \
+  -H "Authorization: Bearer <your-cli-proxy-api-key>" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "gpt-5",
@@ -318,9 +320,10 @@ curl http://localhost:8317/api/provider/openai/v1/chat/completions \
   }'
 ```
 
-**Management endpoint (localhost only):**
+**Management endpoint (requires API key):**
 ```bash
-curl http://localhost:8317/api/user
+curl http://localhost:8317/api/user \
+  -H "Authorization: Bearer <your-cli-proxy-api-key>"
 ```
 
 ## Troubleshooting
@@ -330,7 +333,8 @@ curl http://localhost:8317/api/user
 | Symptom | Likely Cause | Fix |
 |---------|--------------|-----|
 | 404 on `/api/provider/...` | Incorrect route path | Ensure exact path: `/api/provider/{provider}/v1...` |
-| 403 on `/api/user` | Non-localhost request | Run from same machine or disable `ampcode.restrict-management-to-localhost` (not recommended) |
+| 401 on `/api/user` | Missing/invalid API key | Configure `api-keys` and send `Authorization: Bearer <key>` or `X-Api-Key: <key>` |
+| 403 on `/api/user` | Localhost restriction enabled and request is remote | Run from the same machine or set `ampcode.restrict-management-to-localhost` to `false` |
 | 401/403 from provider | Missing/expired OAuth | Re-run `--codex-login` or `--claude-login` |
 | Amp gzip errors | Response decompression issue | Update to latest build; auto-decompression should handle this |
 | Models not using proxy | Wrong Amp URL | Verify `amp.url` setting or `AMP_URL` environment variable |
@@ -372,9 +376,10 @@ echo $AMP_URL
 
 ### Security Checklist
 
-- ✅ Keep `ampcode.restrict-management-to-localhost: true` (default)
+- ✅ Configure and protect `api-keys` (management routes require an API key)
+- ✅ Enable `ampcode.restrict-management-to-localhost: true` for extra hardening when possible (default: false)
 - ✅ Don't expose proxy publicly (bind to localhost or use firewall/VPN)
-- ✅ Use the Amp secrets file (`~/.local/share/amp/secrets.json`) managed by `amp login`
+- ✅ Securely store your `ampcode.upstream-api-key` in the config file.
 - ✅ Rotate OAuth tokens periodically by re-running login commands
 - ✅ Store config and auth-dir on encrypted disk if handling sensitive data
 - ✅ Keep proxy binary up to date for security fixes
