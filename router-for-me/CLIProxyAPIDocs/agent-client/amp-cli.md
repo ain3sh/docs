@@ -15,7 +15,6 @@ The Amp CLI integration adds specialized routing to support Amp's API patterns w
 - **Provider route aliases**: Maps Amp's `/api/provider/{provider}/v1...` patterns to CLIProxyAPI handlers
 - **Management proxy**: Forwards account management requests to Amp's control plane using a secure upstream API key.
 - **Smart fallback**: Automatically routes unconfigured models to ampcode.com
-- **Secret management**: Configurable precedence (config > env > file) with 5-minute caching
 - **Security-first**: Management routes require API key auth (optional localhost restriction)
 - **Automatic gzip handling**: Decompresses responses from Amp upstream
 
