@@ -106,12 +106,12 @@
             "group": "Features",
             "pages": [
               {
-                "group": "Autonomy Maturity",
+                "group": "Agent Readiness",
                 "pages": [
-                  "web/autonomy-maturity/overview",
+                  "web/agent-readiness/overview",
                   "cli/features/readiness-report",
-                  "web/autonomy-maturity/dashboard",
-                  "reference/maturity-level-reports-api"
+                  "web/agent-readiness/dashboard",
+                  "reference/readiness-reports-api"
                 ]
               },
               "cli/features/code-review",
@@ -134,35 +134,20 @@
             ]
           },
           {
-            "group": "Web Platform",
+            "group": "Factory App",
             "pages": [
               "web/getting-started/overview",
               "web/getting-started/quickstart",
               "web/integrations/linear",
               "web/integrations/slack",
               {
-                "group": "Machine Connection",
+                "group": "Remote Workspaces",
                 "pages": [
-                  {
-                    "group": "Factory Bridge",
-                    "pages": [
-                      "web/machine-connection/factory-bridge/installation-and-usage",
-                      "web/machine-connection/factory-bridge/cli-tools-reference",
-                      "web/machine-connection/factory-bridge/model-context-protocol",
-                      "web/machine-connection/factory-bridge/best-practices",
-                      "web/machine-connection/factory-bridge/troubleshooting"
-                    ]
-                  },
-                  {
-                    "group": "Remote Workspaces",
-                    "pages": [
-                      "web/machine-connection/remote-workspaces/index",
-                      "web/machine-connection/remote-workspaces/installation-and-usage",
-                      "web/machine-connection/remote-workspaces/setup-script",
-                      "web/machine-connection/remote-workspaces/best-practices",
-                      "web/machine-connection/remote-workspaces/troubleshooting"
-                    ]
-                  }
+                  "web/machine-connection/remote-workspaces/index",
+                  "web/machine-connection/remote-workspaces/installation-and-usage",
+                  "web/machine-connection/remote-workspaces/setup-script",
+                  "web/machine-connection/remote-workspaces/best-practices",
+                  "web/machine-connection/remote-workspaces/troubleshooting"
                 ]
               }
             ]
@@ -315,6 +300,14 @@
   },
   "redirects": [
     {
+      "source": "/web/autonomy-maturity/:slug*",
+      "destination": "/web/agent-readiness/:slug*"
+    },
+    {
+      "source": "/reference/maturity-level-reports-api",
+      "destination": "/reference/readiness-reports-api"
+    },
+    {
       "source": "/release-notes/jun-11-factory-1-1",
       "destination": "/changelog/1-1"
     },
@@ -424,23 +417,43 @@
     },
     {
       "source": "/user-guides/factory-bridge/best-practices",
-      "destination": "/web/machine-connection/factory-bridge/best-practices"
+      "destination": "/web/getting-started/quickstart"
     },
     {
       "source": "/user-guides/factory-bridge/cli-tools-reference",
-      "destination": "/web/machine-connection/factory-bridge/cli-tools-reference"
+      "destination": "/web/getting-started/quickstart"
     },
     {
       "source": "/user-guides/factory-bridge/installation-and-usage",
-      "destination": "/web/machine-connection/factory-bridge/installation-and-usage"
+      "destination": "/web/getting-started/quickstart"
     },
     {
       "source": "/user-guides/factory-bridge/model-context-protocol",
-      "destination": "/web/machine-connection/factory-bridge/model-context-protocol"
+      "destination": "/web/getting-started/quickstart"
     },
     {
       "source": "/user-guides/factory-bridge/troubleshooting",
-      "destination": "/web/machine-connection/factory-bridge/troubleshooting"
+      "destination": "/web/getting-started/quickstart"
+    },
+    {
+      "source": "/web/machine-connection/factory-bridge/best-practices",
+      "destination": "/web/getting-started/quickstart"
+    },
+    {
+      "source": "/web/machine-connection/factory-bridge/cli-tools-reference",
+      "destination": "/web/getting-started/quickstart"
+    },
+    {
+      "source": "/web/machine-connection/factory-bridge/installation-and-usage",
+      "destination": "/web/getting-started/quickstart"
+    },
+    {
+      "source": "/web/machine-connection/factory-bridge/model-context-protocol",
+      "destination": "/web/getting-started/quickstart"
+    },
+    {
+      "source": "/web/machine-connection/factory-bridge/troubleshooting",
+      "destination": "/web/getting-started/quickstart"
     },
     {
       "source": "/user-guides/get-started/core-concepts",
@@ -512,7 +525,7 @@
     },
     {
       "source": "/user-guides/troubleshooting/repository-issues",
-      "destination": "/web/machine-connection/factory-bridge/troubleshooting"
+      "destination": "/web/getting-started/quickstart"
     },
     {
       "source": "/user-guides/usage-and-pricing/understanding-usage",
@@ -560,15 +573,15 @@
     },
     {
       "source": "/web/core-concepts/context/external-integrations",
-      "destination": "/web/machine-connection/factory-bridge/installation-and-usage"
+      "destination": "/web/getting-started/quickstart"
     },
     {
       "source": "/web/core-concepts/context/memory-as-context",
-      "destination": "/web/machine-connection/factory-bridge/model-context-protocol"
+      "destination": "/web/getting-started/quickstart"
     },
     {
       "source": "/web/core-concepts/context/understanding-context",
-      "destination": "/web/machine-connection/factory-bridge/model-context-protocol"
+      "destination": "/web/getting-started/quickstart"
     },
     {
       "source": "/web/core-concepts/droids/understanding-droids",

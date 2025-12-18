@@ -230,12 +230,24 @@ Tokens are saved to:
 
 #### Option A: Settings File
 
-Edit `~/.config/amp/settings.json`:
+Amp CLI uses two configuration files:
+
+1. **Settings file**: `~/.config/amp/settings.json` - General settings
+2. **Secrets file**: `~/.local/share/amp/secrets.json` - Sensitive credentials (API keys)
+
+Edit `~/.config/amp/settings.json` for the URL:
 
 ```json
 {
-  "amp.url": "http://localhost:8317",
-  "amp.apiKey": "your-client-secret-key"
+  "amp.url": "http://localhost:8317"
+}
+```
+
+Edit `~/.local/share/amp/secrets.json` for the API key:
+
+```json
+{
+  "apiKey@http://localhost:8317": "your-client-secret-key"
 }
 ```
 
