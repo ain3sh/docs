@@ -44,62 +44,60 @@
             "group": "Welcome",
             "pages": [
               "welcome/index",
-              "pricing"
-            ]
-          },
-          {
-            "group": "CLI",
-            "pages": [
-              "cli/getting-started/overview",
-              "cli/getting-started/quickstart",
               {
-                "group": "Resources",
+                "group": "CLI",
                 "pages": [
-                  "cli/getting-started/video-walkthrough",
-                  "cli/getting-started/how-to-talk-to-a-droid",
-                  "cli/getting-started/common-use-cases"
-                ]
-              },
-              {
-                "group": "User Guides",
-                "pages": [
-                  "cli/user-guides/become-a-power-user",
-                  "cli/user-guides/specification-mode",
-                  "cli/user-guides/auto-run",
-                  "cli/user-guides/choosing-your-model",
-                  "cli/user-guides/implementing-large-features"
-                ]
-              },
-              {
-                "group": "Configuration",
-                "pages": [
-                  "cli/configuration/agents-md",
-                  "cli/configuration/settings",
+                  "cli/getting-started/overview",
+                  "cli/getting-started/quickstart",
                   {
-                    "group": "Bring Your Own Key",
+                    "group": "Configuration",
                     "pages": [
-                      "cli/byok/overview",
-                      "cli/byok/baseten",
-                      "cli/byok/deepinfra",
-                      "cli/byok/fireworks",
-                      "cli/byok/google-gemini",
-                      "cli/byok/groq",
-                      "cli/byok/huggingface",
-                      "cli/byok/ollama",
-                      "cli/byok/openai-anthropic",
-                      "cli/byok/openrouter"
+                      "cli/configuration/agents-md",
+                      "cli/configuration/settings",
+                      {
+                        "group": "Bring Your Own Key",
+                        "pages": [
+                          "cli/byok/overview",
+                          "cli/byok/baseten",
+                          "cli/byok/deepinfra",
+                          "cli/byok/fireworks",
+                          "cli/byok/google-gemini",
+                          "cli/byok/groq",
+                          "cli/byok/huggingface",
+                          "cli/byok/ollama",
+                          "cli/byok/openai-anthropic",
+                          "cli/byok/openrouter"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Account",
+                    "pages": [
+                      "cli/account/security",
+                      "cli/account/droid-shield",
+                      "cli/account/droid-shield-plus"
                     ]
                   }
                 ]
               },
               {
-                "group": "Account",
+                "group": "App",
                 "pages": [
-                  "cli/account/security",
-                  "cli/account/droid-shield",
-                  "cli/account/droid-shield-plus"
+                  "web/getting-started/overview",
+                  "web/getting-started/quickstart"
                 ]
-              }
+              },
+              "pricing"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/github-app",
+              "integrations/ide-integrations",
+              "integrations/linear",
+              "integrations/slack"
             ]
           },
           {
@@ -115,9 +113,7 @@
                 ]
               },
               "cli/features/code-review",
-              "cli/features/install-github-app",
               "cli/configuration/custom-slash-commands",
-              "cli/configuration/ide-integrations",
               "cli/configuration/custom-droids",
               "cli/configuration/skills",
               "cli/configuration/mixed-models",
@@ -131,25 +127,6 @@
             "pages": [
               "reference/cli-reference",
               "reference/hooks-reference"
-            ]
-          },
-          {
-            "group": "Factory App",
-            "pages": [
-              "web/getting-started/overview",
-              "web/getting-started/quickstart",
-              "web/integrations/linear",
-              "web/integrations/slack",
-              {
-                "group": "Remote Workspaces",
-                "pages": [
-                  "web/machine-connection/remote-workspaces/index",
-                  "web/machine-connection/remote-workspaces/installation-and-usage",
-                  "web/machine-connection/remote-workspaces/setup-script",
-                  "web/machine-connection/remote-workspaces/best-practices",
-                  "web/machine-connection/remote-workspaces/troubleshooting"
-                ]
-              }
             ]
           },
           {
@@ -182,12 +159,45 @@
                 ]
               }
             ]
+          },
+          {
+            "group": "Resources",
+            "pages": [
+              {
+                "group": "Resources",
+                "pages": [
+                  "cli/getting-started/video-walkthrough",
+                  "cli/getting-started/how-to-talk-to-a-droid",
+                  "cli/getting-started/common-use-cases"
+                ]
+              },
+              {
+                "group": "User Guides",
+                "pages": [
+                  "cli/user-guides/become-a-power-user",
+                  "cli/user-guides/specification-mode",
+                  "cli/user-guides/auto-run",
+                  "cli/user-guides/choosing-your-model",
+                  "cli/user-guides/implementing-large-features"
+                ]
+              }
+            ]
           }
         ]
       },
       {
         "tab": "Guides",
         "groups": [
+          {
+            "group": "Power User",
+            "pages": [
+              "guides/power-user/setup-checklist",
+              "guides/power-user/memory-management",
+              "guides/power-user/rules-conventions",
+              "guides/power-user/prompt-crafting",
+              "guides/power-user/token-efficiency"
+            ]
+          },
           {
             "group": "Building",
             "pages": [
@@ -308,6 +318,22 @@
       "destination": "/reference/readiness-reports-api"
     },
     {
+      "source": "/cli/features/install-github-app",
+      "destination": "/integrations/github-app"
+    },
+    {
+      "source": "/cli/configuration/ide-integrations",
+      "destination": "/integrations/ide-integrations"
+    },
+    {
+      "source": "/web/integrations/linear",
+      "destination": "/integrations/linear"
+    },
+    {
+      "source": "/web/integrations/slack",
+      "destination": "/integrations/slack"
+    },
+    {
       "source": "/release-notes/jun-11-factory-1-1",
       "destination": "/changelog/1-1"
     },
@@ -349,7 +375,7 @@
     },
     {
       "source": "/factory-cli/configuration/ide-integrations",
-      "destination": "/cli/configuration/ide-integrations"
+      "destination": "/integrations/ide-integrations"
     },
     {
       "source": "/factory-cli/configuration/agents-md",
@@ -485,23 +511,43 @@
     },
     {
       "source": "/user-guides/remote-workspaces",
-      "destination": "/web/machine-connection/remote-workspaces"
+      "destination": "/web/getting-started/overview"
     },
     {
       "source": "/user-guides/remote-workspaces/best-practices",
-      "destination": "/web/machine-connection/remote-workspaces/best-practices"
+      "destination": "/web/getting-started/overview"
     },
     {
       "source": "/user-guides/remote-workspaces/custom-commands",
-      "destination": "/web/machine-connection/remote-workspaces/setup-script"
+      "destination": "/web/getting-started/overview"
     },
     {
       "source": "/user-guides/remote-workspaces/installation-and-usage",
-      "destination": "/web/machine-connection/remote-workspaces/installation-and-usage"
+      "destination": "/web/getting-started/overview"
     },
     {
       "source": "/user-guides/remote-workspaces/troubleshooting",
-      "destination": "/web/machine-connection/remote-workspaces/troubleshooting"
+      "destination": "/web/getting-started/overview"
+    },
+    {
+      "source": "/web/machine-connection/remote-workspaces/index",
+      "destination": "/web/getting-started/overview"
+    },
+    {
+      "source": "/web/machine-connection/remote-workspaces/installation-and-usage",
+      "destination": "/web/getting-started/overview"
+    },
+    {
+      "source": "/web/machine-connection/remote-workspaces/setup-script",
+      "destination": "/web/getting-started/overview"
+    },
+    {
+      "source": "/web/machine-connection/remote-workspaces/best-practices",
+      "destination": "/web/getting-started/overview"
+    },
+    {
+      "source": "/web/machine-connection/remote-workspaces/troubleshooting",
+      "destination": "/web/getting-started/overview"
     },
     {
       "source": "/user-guides/sessions-in-factory/chat-interface",
@@ -609,7 +655,7 @@
     },
     {
       "source": "/onboarding/integrating-with-your-engineering-system/linear",
-      "destination": "/web/integrations/linear"
+      "destination": "/integrations/linear"
     },
     {
       "source": "/web/use-cases/design-to-component",
@@ -633,7 +679,7 @@
     },
     {
       "source": "/onboarding/integrating-with-your-engineering-system/slack",
-      "destination": "/web/integrations/slack"
+      "destination": "/integrations/slack"
     },
     {
       "source": "/cli/configuration/skills/frontend-ui-integration",
