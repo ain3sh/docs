@@ -73,13 +73,16 @@ If a plaintext key is detected in the config at startup, it will be bcrypt‑has
                   "details": [
                     {
                       "timestamp": "2024-05-20T09:15:04.123456Z",
+                      "source": "openai",
+                      "auth_index": "a1b2c3d4e5f67890",
                       "tokens": {
                         "input_tokens": 523,
                         "output_tokens": 308,
                         "reasoning_tokens": 0,
                         "cached_tokens": 0,
                         "total_tokens": 831
-                      }
+                      },
+                      "failed": false
                     }
                   ]
                 }
@@ -94,6 +97,49 @@ If a plaintext key is detected in the config at startup, it will be bcrypt‑has
         - Statistics are recalculated for every request that reports token usage; data resets when the server restarts.
         - Hourly counters fold all days into the same hour bucket (`00`–`23`).
         - The top-level `failed_requests` repeats `usage.failure_count` for convenience when polling.
+- GET `/usage/export` — Export a complete usage snapshot (backup/migration)
+    - Response:
+      ```json
+      {
+        "version": 1,
+        "exported_at": "2025-12-26T03:49:51Z",
+        "usage": {
+          "total_requests": 24,
+          "success_count": 22,
+          "failure_count": 2,
+          "total_tokens": 13890,
+          "requests_by_day": {},
+          "requests_by_hour": {},
+          "tokens_by_day": {},
+          "tokens_by_hour": {},
+          "apis": {}
+        }
+      }
+      ```
+    - Notes:
+        - `exported_at` is UTC time (RFC 3339).
+        - The `usage` object uses the same schema as `GET /usage`’s `usage` field.
+- POST `/usage/import` — Import and merge a usage snapshot into memory (deduplicated)
+    - Request:
+      ```bash
+      curl -X POST -H 'Content-Type: application/json' \
+      -H 'Authorization: Bearer <MANAGEMENT_KEY>' \
+        --data-binary @usage-export.json \
+        http://localhost:8317/v0/management/usage/import
+      ```
+    - Response:
+      ```json
+      {
+        "added": 10,
+        "skipped": 2,
+        "total_requests": 123,
+        "failed_requests": 4
+      }
+      ```
+    - Notes:
+        - This endpoint merges (does not overwrite); duplicate request details are skipped and counted in `skipped`.
+        - You may POST the full JSON returned by `GET /usage/export` directly (`exported_at` is ignored).
+        - `version` currently supports `1` (and also accepts omitted/`0` for compatibility).
 
 ### Config
 - GET `/config` — Get the full config

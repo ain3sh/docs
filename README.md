@@ -9,18 +9,18 @@ A curated collection of documentation mirrors with automated semantic search ind
 | --- | --- | --- | --- | --- | --- |
 | Factory-AI/factory | [https://github.com/Factory-AI/factory](https://github.com/Factory-AI/factory) | main | docs | 7311f08 | 2025-12-26T03:58:48+00:00Z |
 | openai/codex | [https://github.com/openai/codex](https://github.com/openai/codex) | main | docs | 810ebe0 | 2025-12-25T04:01:08+00:00Z |
-| stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | 252878d | 2025-12-24T03:58:45+00:00Z |
+| stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | 475369a | 2025-12-27T03:56:57+00:00Z |
 | lastmile-ai/mcp-agent | [https://github.com/lastmile-ai/mcp-agent](https://github.com/lastmile-ai/mcp-agent) | main | docs | 04cae7e | 2025-12-10T03:56:44+00:00Z |
 | MoonshotAI/kosong | [https://github.com/MoonshotAI/kosong](https://github.com/MoonshotAI/kosong) | main | src/kosong | 2b8a732 | 2025-12-25T04:01:08+00:00Z |
-| modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 599f83d | 2025-12-25T04:01:08+00:00Z |
-| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | 427a3de | 2025-12-26T03:58:45+00:00Z |
+| modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | efd9cf1 | 2025-12-27T03:56:56+00:00Z |
+| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | d2a07a0 | 2025-12-27T03:56:56+00:00Z |
 | anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | 6b3044c | 2025-12-24T03:58:45+00:00Z |
 | browserbase/sdk-python | [https://github.com/browserbase/sdk-python](https://github.com/browserbase/sdk-python) | main | examples | f6e0241 | 2025-11-17T21:32:12+00:00Z |
-| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 310bc12 | 2025-12-25T04:01:09+00:00Z |
+| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 6b4ed25 | 2025-12-27T03:56:57+00:00Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | cb8fea7 | 2025-11-20T03:45:08+00:00Z |
 | python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | b178251 | 2025-12-23T04:01:06+00:00Z |
 | metatool-ai/metamcp | [https://github.com/metatool-ai/metamcp](https://github.com/metatool-ai/metamcp) | main | docs/en | 95bf679 | 2025-12-24T03:58:45+00:00Z |
-| router-for-me/CLIProxyAPIDocs | [https://github.com/router-for-me/CLIProxyAPIDocs](https://github.com/router-for-me/CLIProxyAPIDocs) | main | docs/en | 03a9fe5 | 2025-12-22T04:06:23+00:00Z |
+| router-for-me/CLIProxyAPIDocs | [https://github.com/router-for-me/CLIProxyAPIDocs](https://github.com/router-for-me/CLIProxyAPIDocs) | main | docs/en | 429ad84 | 2025-12-27T03:56:57+00:00Z |
 | raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | e94dcdd | 2025-12-26T03:58:48+00:00Z |
 <!-- /AUTO:MIRROR_STATUS -->
 
@@ -30,9 +30,9 @@ A curated collection of documentation mirrors with automated semantic search ind
 This repository includes automated indexing for Gemini File Search API.
 
 - **Stores updated**: 4
-- **Files indexed**: 200
-- **Total cost**: $0.0783
-- **Last sync**: 2025-12-26T03:59:54+00:00Z
+- **Files indexed**: 335
+- **Total cost**: $0.0900
+- **Last sync**: 2025-12-27T04:07:29+00:00Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
