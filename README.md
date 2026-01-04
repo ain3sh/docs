@@ -8,15 +8,15 @@ A curated collection of documentation mirrors with automated semantic search ind
 | Mirror | Upstream | Branch | Docs Path | Last Commit | Synced At |
 | --- | --- | --- | --- | --- | --- |
 | Factory-AI/factory | [https://github.com/Factory-AI/factory](https://github.com/Factory-AI/factory) | main | docs | e85e1c6 | 2026-01-01T04:12:08+00:00Z |
-| openai/codex | [https://github.com/openai/codex](https://github.com/openai/codex) | main | docs | 1b5095b | 2026-01-03T03:56:37+00:00Z |
+| openai/codex | [https://github.com/openai/codex](https://github.com/openai/codex) | main | docs | 279283f | 2026-01-04T04:13:08+00:00Z |
 | stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | becb4c9 | 2026-01-03T03:56:38+00:00Z |
 | lastmile-ai/mcp-agent | [https://github.com/lastmile-ai/mcp-agent](https://github.com/lastmile-ai/mcp-agent) | main | docs | 04cae7e | 2025-12-10T03:56:44+00:00Z |
 | MoonshotAI/kosong | [https://github.com/MoonshotAI/kosong](https://github.com/MoonshotAI/kosong) | main | src/kosong | 2b8a732 | 2025-12-25T04:01:08+00:00Z |
 | modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 0add2cf | 2026-01-03T03:56:37+00:00Z |
-| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | 20e764a | 2026-01-03T03:56:37+00:00Z |
+| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | 50ce604 | 2026-01-04T04:13:08+00:00Z |
 | anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | 6b3044c | 2025-12-24T03:58:45+00:00Z |
 | browserbase/sdk-python | [https://github.com/browserbase/sdk-python](https://github.com/browserbase/sdk-python) | main | examples | f6e0241 | 2025-11-17T21:32:12+00:00Z |
-| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 6b4ed25 | 2025-12-27T03:56:57+00:00Z |
+| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 630f85d | 2026-01-04T04:13:09+00:00Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | cb8fea7 | 2025-11-20T03:45:08+00:00Z |
 | python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 4f905c2 | 2025-12-31T04:01:08+00:00Z |
 | metatool-ai/metamcp | [https://github.com/metatool-ai/metamcp](https://github.com/metatool-ai/metamcp) | main | docs/en | 95bf679 | 2025-12-24T03:58:45+00:00Z |
@@ -30,9 +30,9 @@ A curated collection of documentation mirrors with automated semantic search ind
 This repository includes automated indexing for Gemini File Search API.
 
 - **Stores updated**: 3
-- **Files indexed**: 189
-- **Total cost**: $0.0479
-- **Last sync**: 2026-01-03T03:57:29+00:00Z
+- **Files indexed**: 190
+- **Total cost**: $0.0481
+- **Last sync**: 2026-01-04T04:14:38+00:00Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
@@ -235,6 +235,7 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │       └── py.typed
 ├── openai
 │   └── codex
+│       ├── tui2
 │       ├── agents_md.md
 │       ├── authentication.md
 │       ├── CLA.md
