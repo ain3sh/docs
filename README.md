@@ -10,7 +10,7 @@ A curated collection of documentation mirrors with automated semantic search ind
 | Factory-AI/factory | [https://github.com/Factory-AI/factory](https://github.com/Factory-AI/factory) | main | docs | e85e1c6 | 2026-01-01T04:12:08+00:00Z |
 | stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | becb4c9 | 2026-01-03T03:56:38+00:00Z |
 | lastmile-ai/mcp-agent | [https://github.com/lastmile-ai/mcp-agent](https://github.com/lastmile-ai/mcp-agent) | main | docs | 04cae7e | 2025-12-10T03:56:44+00:00Z |
-| MoonshotAI/kosong | [https://github.com/MoonshotAI/kosong](https://github.com/MoonshotAI/kosong) | main | src/kosong | 2b8a732 | 2025-12-25T04:01:08+00:00Z |
+| MoonshotAI/kimi-cli | [https://github.com/MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | main | packages/kosong/src/kosong | 8007d2f | 2026-01-05T18:57:14+00:00Z |
 | modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 7893514 | 2026-01-05T18:36:23+00:00Z |
 | modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | bb6cb02 | 2026-01-05T18:36:23+00:00Z |
 | ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | 36a4ced | 2026-01-05T18:36:23+00:00Z |
@@ -26,10 +26,10 @@ A curated collection of documentation mirrors with automated semantic search ind
 
 This repository includes automated indexing for Gemini File Search API.
 
-- **Stores updated**: 3
-- **Files indexed**: 221
-- **Total cost**: $0.0806
-- **Last sync**: 2026-01-05T18:54:55+00:00Z
+- **Stores updated**: 1
+- **Files indexed**: 150
+- **Total cost**: $0.0416
+- **Last sync**: 2026-01-05T18:58:56+00:00Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
@@ -260,11 +260,47 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │       ├── low-level-server.md
 │       └── testing.md
 ├── MoonshotAI
+│   ├── kimi-cli
+│   │   ├── chat_provider
+│   │   ├── contrib
+│   │   ├── tooling
+│   │   ├── utils
+│   │   ├── __init__.py
+│   │   ├── __main__.py
+│   │   ├── _generate.py
+│   │   ├── message.py
+│   │   └── py.typed
 │   └── kosong
 │       ├── chat_provider
+│       │   ├── __init__.py
+│       │   ├── chaos.py
+│       │   ├── echo.py
+│       │   ├── kimi.py
+│       │   ├── mock.py
+│       │   └── openai_common.py
 │       ├── contrib
+│       │   ├── chat_provider
+│       │   │   ├── __init__.py
+│       │   │   ├── anthropic.py
+│       │   │   ├── common.py
+│       │   │   ├── google_genai.py
+│       │   │   ├── openai_legacy.py
+│       │   │   └── openai_responses.py
+│       │   ├── context
+│       │   │   ├── __init__.py
+│       │   │   └── linear.py
+│       │   └── __init__.py
 │       ├── tooling
+│       │   ├── __init__.py
+│       │   ├── empty.py
+│       │   ├── error.py
+│       │   ├── mcp.py
+│       │   └── simple.py
 │       ├── utils
+│       │   ├── __init__.py
+│       │   ├── aio.py
+│       │   ├── jsonschema.py
+│       │   └── typing.py
 │       ├── __init__.py
 │       ├── __main__.py
 │       ├── _generate.py
