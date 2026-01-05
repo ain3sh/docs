@@ -20,9 +20,9 @@
     },
     {
       "owner": "MoonshotAI",
-      "repo": "kosong",
+      "repo": "kimi-cli",
       "branch": "main",
-      "docsPath": "src/kosong"
+      "docsPath": "packages/kosong/src/kosong"
     },
     {
       "owner": "modelcontextprotocol",
