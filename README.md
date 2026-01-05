@@ -26,10 +26,10 @@ A curated collection of documentation mirrors with automated semantic search ind
 
 This repository includes automated indexing for Gemini File Search API.
 
-- **Stores updated**: 13
-- **Files indexed**: 790
-- **Total cost**: $0.2238
-- **Last sync**: 2026-01-05T19:48:27+00:00Z
+- **Stores updated**: 2
+- **Files indexed**: 199
+- **Total cost**: $0.0548
+- **Last sync**: 2026-01-05T19:34:44+00:00Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
