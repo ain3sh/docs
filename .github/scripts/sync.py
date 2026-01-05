@@ -1026,7 +1026,19 @@ def main() -> None:
 
         if changed_stores:
             gemini_results = sync_gemini_stores(changed_stores)
-            state["gemini"] = gemini_results
+            # Merge new results with existing gemini state (preserve unchanged stores)
+            existing_gemini = state.get("gemini", {})
+            existing_stores = existing_gemini.get("stores", {})
+            # Update existing stores with newly synced ones
+            existing_stores.update(gemini_results.get("stores", {}))
+            # Update top-level gemini state with new sync info, keeping merged stores
+            state["gemini"] = {
+                "storesUpdated": gemini_results.get("storesUpdated", 0),
+                "filesUploaded": gemini_results.get("filesUploaded", 0),
+                "totalCost": gemini_results.get("totalCost", 0.0),
+                "lastSync": gemini_results.get("lastSync", format_timestamp()),
+                "stores": existing_stores,
+            }
         else:
             print("\n✨ No Gemini changes detected")
     else:
