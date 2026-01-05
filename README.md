@@ -18,7 +18,7 @@ A curated collection of documentation mirrors with automated semantic search ind
 | browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | c9b6fe7 | 2026-01-05T19:32:59+00:00Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | cb8fea7 | 2025-11-20T03:45:08+00:00Z |
 | python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 4f905c2 | 2025-12-31T04:01:08+00:00Z |
-| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | 164f778 | 2026-01-05T20:36:21+00:00Z |
+| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | f2363d7 | 2026-01-05T20:52:05+00:00Z |
 <!-- /AUTO:MIRROR_STATUS -->
 
 <!-- AUTO:SEMANTIC_SEARCH -->
@@ -29,7 +29,7 @@ This repository includes automated indexing for Gemini File Search API.
 - **Stores**: 12
 - **Files indexed**: 715
 - **Total cost**: $0.2162
-- **Last sync**: 2026-01-05T20:37:28+00:00Z
+- **Last sync**: 2026-01-05T20:52:07+00:00Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
