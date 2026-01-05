@@ -1,158 +1,170 @@
 {
-  "lastSync": "2026-01-05T20:06:39+00:00Z",
-  "lastCommit": "e7629f342fc90d9c6dd52736af0c69f1e2dd7a2b",
-  "mirrors": {
-    "MoonshotAI/kosong": {
-      "lastCommit": "2b8a732301101a016a1617023b0a151c64b1a313",
-      "lastSync": "2025-12-26T03:58:48+00:00Z",
-      "status": "unchanged"
-    },
-    "openai/codex": {
-      "lastCommit": "279283fe02bf0ce7f93a160db34dd8cf9c8f42c8",
-      "lastSync": "2026-01-05T04:18:43+00:00Z",
-      "status": "unchanged"
-    },
-    "lastmile-ai/mcp-agent": {
-      "lastCommit": "04cae7ea5ba3a5c4e62c22884938699c73705651",
-      "lastSync": "2026-01-05T20:04:59+00:00Z",
-      "status": "unchanged"
-    },
-    "modelcontextprotocol/modelcontextprotocol": {
-      "lastCommit": "edeb0b74f53790739cdf5c2a80bd49033c3f2451",
-      "lastSync": "2026-01-05T20:04:59+00:00Z",
-      "status": "unchanged"
-    },
-    "ericbuess/claude-code-docs": {
-      "lastCommit": "36a4ced60d584614e5b32c1b35440189ac433cce",
-      "lastSync": "2026-01-05T20:04:59+00:00Z",
-      "status": "unchanged"
-    },
-    "anthropics/claude-agent-sdk-python": {
-      "lastCommit": "23c9df3fe9559495acb2cd70baa5363fc40111c4",
-      "lastSync": "2026-01-05T20:04:59+00:00Z",
-      "status": "unchanged"
-    },
-    "stanfordnlp/dspy": {
-      "lastCommit": "becb4c9e849a292f71a1f1623acd375aaa32edef",
-      "lastSync": "2026-01-05T20:04:59+00:00Z",
-      "status": "unchanged"
-    },
-    "browserbase/sdk-python": {
-      "lastCommit": "f6e02411245d100e5290d74c30f2a6d3eb5a12c6",
-      "lastSync": "2026-01-05T04:18:43+00:00Z",
-      "status": "unchanged"
-    },
-    "browser-use/browser-use": {
-      "lastCommit": "c9b6fe76dde25583b56086d918b7d4eef90eb77b",
-      "lastSync": "2026-01-05T20:04:59+00:00Z",
-      "status": "unchanged"
-    },
-    "browser-use/workflow-use": {
-      "lastCommit": "cb8fea77de3dc73d88dd6d8d73b12b5200ffaaec",
-      "lastSync": "2026-01-05T20:04:59+00:00Z",
-      "status": "unchanged"
-    },
-    "python-trio/trio": {
-      "lastCommit": "4f905c2d46071f0b3cc687371bdacb2df45e5c37",
-      "lastSync": "2026-01-05T20:04:59+00:00Z",
-      "status": "unchanged"
-    },
-    "metatool-ai/metamcp": {
-      "lastCommit": "95bf679938a66764fe9cb0368dfd511d3de08c34",
-      "lastSync": "2026-01-05T04:18:43+00:00Z",
-      "status": "unchanged"
-    },
-    "router-for-me/CLIProxyAPIDocs": {
-      "lastCommit": "429ad842efcfb1e611a3a082537638789aa41aca",
-      "lastSync": "2026-01-05T04:18:43+00:00Z",
-      "status": "unchanged"
-    },
-    "Factory-AI/factory": {
-      "lastCommit": "e85e1c64ef83b31870d18ba32541b0a7172dfa4d",
-      "lastSync": "2026-01-05T20:04:59+00:00Z",
-      "status": "unchanged"
-    },
-    "raycast/extensions": {
-      "lastCommit": "8990fa17f6174ccfe523833a8fbcba36d601186f",
-      "lastSync": "2026-01-05T20:04:59+00:00Z",
-      "status": "unchanged"
-    },
-    "modelcontextprotocol/python-sdk": {
-      "lastCommit": "bb6cb029f0fee1a47419b8ebe13f188a813dda22",
-      "lastSync": "2026-01-05T20:04:59+00:00Z",
-      "status": "unchanged"
-    },
-    "MoonshotAI/kimi-cli": {
-      "lastCommit": "8007d2f2875acf7300a1ae0f9a5d7f42dffd0953",
-      "lastSync": "2026-01-05T20:04:59+00:00Z",
-      "status": "unchanged"
-    }
-  },
-  "gemini": {
-    "storesUpdated": 9,
-    "filesUploaded": 691,
-    "totalCost": 0.20996759999999998,
-    "lastSync": "2026-01-05T20:06:39+00:00Z",
-    "stores": {
-      "browser-use": {
-        "status": "success",
-        "files": 149,
-        "cost": 0.041806949999999996,
-        "lastSync": "2026-01-05T20:06:39+00:00Z"
+  "lastSync": "2026-01-05T20:19:58+00:00Z",
+  "lastCommit": "262de1d06ed5e04e1f084788d369a9907a8b8850",
+  "owners": {
+    "MoonshotAI": {
+      "mirrors": {
+        "kosong": {
+          "commit": "2b8a732301101a016a1617023b0a151c64b1a313",
+          "synced": "2025-12-26T03:58:48+00:00Z",
+          "status": "unchanged"
+        },
+        "kimi-cli": {
+          "commit": "8007d2f2875acf7300a1ae0f9a5d7f42dffd0953",
+          "synced": "2026-01-05T20:19:58+00:00Z",
+          "status": "unchanged"
+        }
       },
-      "MoonshotAI": {
-        "status": "success",
+      "gemini": {
         "files": 48,
         "cost": 0.01291455,
-        "lastSync": "2026-01-05T19:33:37+00:00Z"
+        "synced": "2026-01-05T19:33:37+00:00Z",
+        "status": "success"
+      }
+    },
+    "lastmile-ai": {
+      "mirrors": {
+        "mcp-agent": {
+          "commit": "04cae7ea5ba3a5c4e62c22884938699c73705651",
+          "synced": "2026-01-05T20:19:58+00:00Z",
+          "status": "unchanged"
+        }
       },
-      "anthropics": {
-        "status": "success",
-        "files": 18,
-        "cost": 0.00306435,
-        "lastSync": "2026-01-05T20:05:14+00:00Z"
-      },
-      "modelcontextprotocol": {
-        "status": "success",
-        "files": 21,
-        "cost": 0.0105183,
-        "lastSync": "2026-01-05T20:05:18+00:00Z"
-      },
-      "python-trio": {
-        "status": "success",
-        "files": 29,
-        "cost": 0.0158922,
-        "lastSync": "2026-01-05T20:05:19+00:00Z"
-      },
-      "ericbuess": {
-        "status": "success",
-        "files": 50,
-        "cost": 0.0282762,
-        "lastSync": "2026-01-05T20:05:28+00:00Z"
-      },
-      "Factory-AI": {
-        "status": "success",
-        "files": 115,
-        "cost": 0.035202449999999996,
-        "lastSync": "2026-01-05T20:05:42+00:00Z"
-      },
-      "lastmile-ai": {
-        "status": "success",
+      "gemini": {
         "files": 78,
         "cost": 0.029252399999999998,
-        "lastSync": "2026-01-05T20:05:48+00:00Z"
+        "synced": "2026-01-05T20:05:48+00:00Z",
+        "status": "success"
+      }
+    },
+    "modelcontextprotocol": {
+      "mirrors": {
+        "modelcontextprotocol": {
+          "commit": "edeb0b74f53790739cdf5c2a80bd49033c3f2451",
+          "synced": "2026-01-05T20:19:58+00:00Z",
+          "status": "unchanged"
+        },
+        "python-sdk": {
+          "commit": "bb6cb029f0fee1a47419b8ebe13f188a813dda22",
+          "synced": "2026-01-05T20:19:58+00:00Z",
+          "status": "unchanged"
+        }
       },
-      "raycast": {
-        "status": "success",
-        "files": 108,
-        "cost": 0.02672265,
-        "lastSync": "2026-01-05T20:05:53+00:00Z"
+      "gemini": {
+        "files": 21,
+        "cost": 0.0105183,
+        "synced": "2026-01-05T20:05:18+00:00Z",
+        "status": "success"
+      }
+    },
+    "ericbuess": {
+      "mirrors": {
+        "claude-code-docs": {
+          "commit": "36a4ced60d584614e5b32c1b35440189ac433cce",
+          "synced": "2026-01-05T20:19:58+00:00Z",
+          "status": "unchanged"
+        }
       },
-      "stanfordnlp": {
-        "status": "success",
+      "gemini": {
+        "files": 50,
+        "cost": 0.0282762,
+        "synced": "2026-01-05T20:05:28+00:00Z",
+        "status": "success"
+      }
+    },
+    "anthropics": {
+      "mirrors": {
+        "claude-agent-sdk-python": {
+          "commit": "23c9df3fe9559495acb2cd70baa5363fc40111c4",
+          "synced": "2026-01-05T20:19:58+00:00Z",
+          "status": "unchanged"
+        }
+      },
+      "gemini": {
+        "files": 18,
+        "cost": 0.00306435,
+        "synced": "2026-01-05T20:05:14+00:00Z",
+        "status": "success"
+      }
+    },
+    "stanfordnlp": {
+      "mirrors": {
+        "dspy": {
+          "commit": "becb4c9e849a292f71a1f1623acd375aaa32edef",
+          "synced": "2026-01-05T20:19:58+00:00Z",
+          "status": "unchanged"
+        }
+      },
+      "gemini": {
         "files": 123,
         "cost": 0.0192321,
-        "lastSync": "2026-01-05T20:06:24+00:00Z"
+        "synced": "2026-01-05T20:06:24+00:00Z",
+        "status": "success"
+      }
+    },
+    "browser-use": {
+      "mirrors": {
+        "browser-use": {
+          "commit": "c9b6fe76dde25583b56086d918b7d4eef90eb77b",
+          "synced": "2026-01-05T20:19:58+00:00Z",
+          "status": "unchanged"
+        },
+        "workflow-use": {
+          "commit": "cb8fea77de3dc73d88dd6d8d73b12b5200ffaaec",
+          "synced": "2026-01-05T20:19:58+00:00Z",
+          "status": "unchanged"
+        }
+      },
+      "gemini": {
+        "files": 149,
+        "cost": 0.041806949999999996,
+        "synced": "2026-01-05T20:06:39+00:00Z",
+        "status": "success"
+      }
+    },
+    "python-trio": {
+      "mirrors": {
+        "trio": {
+          "commit": "4f905c2d46071f0b3cc687371bdacb2df45e5c37",
+          "synced": "2026-01-05T20:19:58+00:00Z",
+          "status": "unchanged"
+        }
+      },
+      "gemini": {
+        "files": 29,
+        "cost": 0.0158922,
+        "synced": "2026-01-05T20:05:19+00:00Z",
+        "status": "success"
+      }
+    },
+    "Factory-AI": {
+      "mirrors": {
+        "factory": {
+          "commit": "e85e1c64ef83b31870d18ba32541b0a7172dfa4d",
+          "synced": "2026-01-05T20:19:58+00:00Z",
+          "status": "unchanged"
+        }
+      },
+      "gemini": {
+        "files": 115,
+        "cost": 0.035202449999999996,
+        "synced": "2026-01-05T20:05:42+00:00Z",
+        "status": "success"
+      }
+    },
+    "raycast": {
+      "mirrors": {
+        "extensions": {
+          "commit": "8990fa17f6174ccfe523833a8fbcba36d601186f",
+          "synced": "2026-01-05T20:19:58+00:00Z",
+          "status": "unchanged"
+        }
+      },
+      "gemini": {
+        "files": 108,
+        "cost": 0.02672265,
+        "synced": "2026-01-05T20:05:53+00:00Z",
+        "status": "success"
       }
     }
   }
