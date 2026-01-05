@@ -410,8 +410,13 @@ def has_indexable_files(dir_path: Path, max_depth: int = 0) -> bool:
     return check_depth(dir_path, 0)
 
 
-def discover_all_stores(exclusions: List[str]) -> List[str]:
-    """Discover all indexable directories in the repository."""
+def get_mirror_owners(mirrors: List[dict]) -> Set[str]:
+    """Get unique owner names from mirrors config."""
+    return {m["owner"] for m in mirrors}
+
+
+def discover_all_stores(exclusions: List[str], mirror_owners: Set[str] = None) -> List[str]:
+    """Discover indexable directories for mirror owners only."""
     stores = []
 
     for item in REPO_ROOT.iterdir():
@@ -419,6 +424,10 @@ def discover_all_stores(exclusions: List[str]) -> List[str]:
             continue
 
         item_name = item.name
+
+        # Only include directories that are mirror owners
+        if mirror_owners and item_name not in mirror_owners:
+            continue
 
         if is_excluded(item_name, exclusions):
             continue
@@ -480,14 +489,17 @@ def map_files_to_stores(changed_files: List[str], all_stores: List[str]) -> Set[
     return changed_stores
 
 
-def detect_changed_stores(state: dict, exclusions: List[str]) -> List[str]:
+def detect_changed_stores(state: dict, exclusions: List[str], mirrors: List[dict]) -> List[str]:
     """Detect which stores need updating based on git diff or missing from state."""
     print(f"\n{'='*60}")
     print("🔍 DETECTING CHANGED STORES")
     print(f"{'='*60}")
 
-    # Always discover all stores on disk first
-    all_stores = set(discover_all_stores(exclusions))
+    # Get valid mirror owners from config
+    mirror_owners = get_mirror_owners(mirrors)
+
+    # Discover stores only for current mirror owners
+    all_stores = set(discover_all_stores(exclusions, mirror_owners))
 
     # Check which stores are tracked in state
     tracked_stores = set(state.get("gemini", {}).get("stores", {}).keys())
@@ -1033,8 +1045,10 @@ def main() -> None:
         mirror_results = {}
 
     # Step 2: Detect and sync Gemini stores
+    mirror_owners = get_mirror_owners(mirrors)
+
     if not args.skip_gemini:
-        changed_stores = detect_changed_stores(state, gemini_exclusions)
+        changed_stores = detect_changed_stores(state, gemini_exclusions, mirrors)
 
         if changed_stores:
             gemini_results = sync_gemini_stores(changed_stores)
@@ -1043,15 +1057,26 @@ def main() -> None:
             existing_stores = existing_gemini.get("stores", {})
             # Update existing stores with newly synced ones
             existing_stores.update(gemini_results.get("stores", {}))
+            # Filter out stale stores that are no longer in mirrors.json
+            valid_stores = {k: v for k, v in existing_stores.items() if k in mirror_owners}
             # Update top-level gemini state with new sync info, keeping merged stores
             state["gemini"] = {
                 "storesUpdated": gemini_results.get("storesUpdated", 0),
                 "filesUploaded": gemini_results.get("filesUploaded", 0),
                 "totalCost": gemini_results.get("totalCost", 0.0),
                 "lastSync": gemini_results.get("lastSync", format_timestamp()),
-                "stores": existing_stores,
+                "stores": valid_stores,
             }
         else:
+            # Even with no changes, clean up stale stores
+            existing_gemini = state.get("gemini", {})
+            existing_stores = existing_gemini.get("stores", {})
+            valid_stores = {k: v for k, v in existing_stores.items() if k in mirror_owners}
+            if len(valid_stores) != len(existing_stores):
+                stale = set(existing_stores.keys()) - set(valid_stores.keys())
+                print(f"  🧹 Removing {len(stale)} stale stores: {', '.join(sorted(stale))}")
+                existing_gemini["stores"] = valid_stores
+                state["gemini"] = existing_gemini
             print("\n✨ No Gemini changes detected")
     else:
         print("\n⏭️  Skipping Gemini sync (--skip-gemini)")
