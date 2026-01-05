@@ -1,6 +1,6 @@
 {
-  "lastSync": "2026-01-05T18:36:51+00:00Z",
-  "lastCommit": "3b3abcb88014f5395b91dbf2f986c3a9d65a891e",
+  "lastSync": "2026-01-05T18:54:55+00:00Z",
+  "lastCommit": "08c267f146d29ad2e32b74810e5893106f00e161",
   "mirrors": {
     "MoonshotAI/kosong": {
       "lastCommit": "2b8a732301101a016a1617023b0a151c64b1a313",
@@ -14,27 +14,27 @@
     },
     "lastmile-ai/mcp-agent": {
       "lastCommit": "04cae7ea5ba3a5c4e62c22884938699c73705651",
-      "lastSync": "2026-01-05T18:36:26+00:00Z",
+      "lastSync": "2026-01-05T18:53:31+00:00Z",
       "status": "unchanged"
     },
     "modelcontextprotocol/modelcontextprotocol": {
       "lastCommit": "7893514a94d6288fe3e685f538a53ce64baf3d38",
-      "lastSync": "2026-01-05T18:36:26+00:00Z",
-      "status": "success"
+      "lastSync": "2026-01-05T18:53:31+00:00Z",
+      "status": "unchanged"
     },
     "ericbuess/claude-code-docs": {
       "lastCommit": "36a4ced60d584614e5b32c1b35440189ac433cce",
-      "lastSync": "2026-01-05T18:36:26+00:00Z",
-      "status": "success"
+      "lastSync": "2026-01-05T18:53:31+00:00Z",
+      "status": "unchanged"
     },
     "anthropics/claude-agent-sdk-python": {
       "lastCommit": "23c9df3fe9559495acb2cd70baa5363fc40111c4",
-      "lastSync": "2026-01-05T18:36:26+00:00Z",
-      "status": "success"
+      "lastSync": "2026-01-05T18:53:31+00:00Z",
+      "status": "unchanged"
     },
     "stanfordnlp/dspy": {
       "lastCommit": "becb4c9e849a292f71a1f1623acd375aaa32edef",
-      "lastSync": "2026-01-05T18:36:26+00:00Z",
+      "lastSync": "2026-01-05T18:53:31+00:00Z",
       "status": "unchanged"
     },
     "browserbase/sdk-python": {
@@ -43,18 +43,18 @@
       "status": "unchanged"
     },
     "browser-use/browser-use": {
-      "lastCommit": "630f85dd05127c9d42810a5db235a14f5bac9043",
-      "lastSync": "2026-01-05T18:36:26+00:00Z",
-      "status": "unchanged"
+      "lastCommit": "9cfec600d43815a9bd90a737f1a224d606d029d7",
+      "lastSync": "2026-01-05T18:53:31+00:00Z",
+      "status": "success"
     },
     "browser-use/workflow-use": {
       "lastCommit": "cb8fea77de3dc73d88dd6d8d73b12b5200ffaaec",
-      "lastSync": "2026-01-05T18:36:26+00:00Z",
+      "lastSync": "2026-01-05T18:53:31+00:00Z",
       "status": "unchanged"
     },
     "python-trio/trio": {
       "lastCommit": "4f905c2d46071f0b3cc687371bdacb2df45e5c37",
-      "lastSync": "2026-01-05T18:36:26+00:00Z",
+      "lastSync": "2026-01-05T18:53:31+00:00Z",
       "status": "unchanged"
     },
     "metatool-ai/metamcp": {
@@ -69,31 +69,43 @@
     },
     "Factory-AI/factory": {
       "lastCommit": "e85e1c64ef83b31870d18ba32541b0a7172dfa4d",
-      "lastSync": "2026-01-05T18:36:26+00:00Z",
+      "lastSync": "2026-01-05T18:53:31+00:00Z",
       "status": "unchanged"
     },
     "raycast/extensions": {
       "lastCommit": "8990fa17f6174ccfe523833a8fbcba36d601186f",
-      "lastSync": "2026-01-05T18:36:26+00:00Z",
-      "status": "success"
+      "lastSync": "2026-01-05T18:53:31+00:00Z",
+      "status": "unchanged"
     },
     "modelcontextprotocol/python-sdk": {
       "lastCommit": "bb6cb029f0fee1a47419b8ebe13f188a813dda22",
-      "lastSync": "2026-01-05T18:36:26+00:00Z",
-      "status": "success"
+      "lastSync": "2026-01-05T18:53:31+00:00Z",
+      "status": "unchanged"
     }
   },
   "gemini": {
-    "storesUpdated": 1,
-    "filesUploaded": 50,
-    "totalCost": 0.0282762,
-    "lastSync": "2026-01-05T18:36:51+00:00Z",
+    "storesUpdated": 3,
+    "filesUploaded": 221,
+    "totalCost": 0.08063175,
+    "lastSync": "2026-01-05T18:54:55+00:00Z",
     "stores": {
+      "modelcontextprotocol": {
+        "status": "success",
+        "files": 21,
+        "cost": 0.0105183,
+        "lastSync": "2026-01-05T18:53:46+00:00Z"
+      },
       "ericbuess": {
         "status": "success",
         "files": 50,
         "cost": 0.0282762,
-        "lastSync": "2026-01-05T18:36:51+00:00Z"
+        "lastSync": "2026-01-05T18:53:55+00:00Z"
+      },
+      "browser-use": {
+        "status": "success",
+        "files": 150,
+        "cost": 0.04183725,
+        "lastSync": "2026-01-05T18:54:55+00:00Z"
       }
     }
   }

@@ -15,7 +15,7 @@ A curated collection of documentation mirrors with automated semantic search ind
 | modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | bb6cb02 | 2026-01-05T18:36:23+00:00Z |
 | ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | 36a4ced | 2026-01-05T18:36:23+00:00Z |
 | anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | 23c9df3 | 2026-01-05T18:36:23+00:00Z |
-| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 630f85d | 2026-01-04T04:13:09+00:00Z |
+| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 9cfec60 | 2026-01-05T18:53:31+00:00Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | cb8fea7 | 2025-11-20T03:45:08+00:00Z |
 | python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 4f905c2 | 2025-12-31T04:01:08+00:00Z |
 | raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | 8990fa1 | 2026-01-05T18:36:26+00:00Z |
@@ -26,10 +26,10 @@ A curated collection of documentation mirrors with automated semantic search ind
 
 This repository includes automated indexing for Gemini File Search API.
 
-- **Stores updated**: 1
-- **Files indexed**: 50
-- **Total cost**: $0.0283
-- **Last sync**: 2026-01-05T18:36:51+00:00Z
+- **Stores updated**: 3
+- **Files indexed**: 221
+- **Total cost**: $0.0806
+- **Last sync**: 2026-01-05T18:54:55+00:00Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
