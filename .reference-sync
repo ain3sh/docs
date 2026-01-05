@@ -1,6 +1,6 @@
 {
-  "lastSync": "2026-01-05T20:19:58+00:00Z",
-  "lastCommit": "262de1d06ed5e04e1f084788d369a9907a8b8850",
+  "lastSync": "2026-01-05T20:28:24+00:00Z",
+  "lastCommit": "42e337798412007e53b8137092e25ccb9814b93e",
   "owners": {
     "MoonshotAI": {
       "mirrors": {
@@ -11,7 +11,7 @@
         },
         "kimi-cli": {
           "commit": "8007d2f2875acf7300a1ae0f9a5d7f42dffd0953",
-          "synced": "2026-01-05T20:19:58+00:00Z",
+          "synced": "2026-01-05T20:28:21+00:00Z",
           "status": "unchanged"
         }
       },
@@ -26,7 +26,7 @@
       "mirrors": {
         "mcp-agent": {
           "commit": "04cae7ea5ba3a5c4e62c22884938699c73705651",
-          "synced": "2026-01-05T20:19:58+00:00Z",
+          "synced": "2026-01-05T20:28:21+00:00Z",
           "status": "unchanged"
         }
       },
@@ -41,12 +41,12 @@
       "mirrors": {
         "modelcontextprotocol": {
           "commit": "edeb0b74f53790739cdf5c2a80bd49033c3f2451",
-          "synced": "2026-01-05T20:19:58+00:00Z",
+          "synced": "2026-01-05T20:28:21+00:00Z",
           "status": "unchanged"
         },
         "python-sdk": {
           "commit": "bb6cb029f0fee1a47419b8ebe13f188a813dda22",
-          "synced": "2026-01-05T20:19:58+00:00Z",
+          "synced": "2026-01-05T20:28:21+00:00Z",
           "status": "unchanged"
         }
       },
@@ -61,7 +61,7 @@
       "mirrors": {
         "claude-code-docs": {
           "commit": "36a4ced60d584614e5b32c1b35440189ac433cce",
-          "synced": "2026-01-05T20:19:58+00:00Z",
+          "synced": "2026-01-05T20:28:21+00:00Z",
           "status": "unchanged"
         }
       },
@@ -76,7 +76,7 @@
       "mirrors": {
         "claude-agent-sdk-python": {
           "commit": "23c9df3fe9559495acb2cd70baa5363fc40111c4",
-          "synced": "2026-01-05T20:19:58+00:00Z",
+          "synced": "2026-01-05T20:28:21+00:00Z",
           "status": "unchanged"
         }
       },
@@ -91,7 +91,7 @@
       "mirrors": {
         "dspy": {
           "commit": "becb4c9e849a292f71a1f1623acd375aaa32edef",
-          "synced": "2026-01-05T20:19:58+00:00Z",
+          "synced": "2026-01-05T20:28:21+00:00Z",
           "status": "unchanged"
         }
       },
@@ -106,12 +106,12 @@
       "mirrors": {
         "browser-use": {
           "commit": "c9b6fe76dde25583b56086d918b7d4eef90eb77b",
-          "synced": "2026-01-05T20:19:58+00:00Z",
+          "synced": "2026-01-05T20:28:21+00:00Z",
           "status": "unchanged"
         },
         "workflow-use": {
           "commit": "cb8fea77de3dc73d88dd6d8d73b12b5200ffaaec",
-          "synced": "2026-01-05T20:19:58+00:00Z",
+          "synced": "2026-01-05T20:28:21+00:00Z",
           "status": "unchanged"
         }
       },
@@ -126,7 +126,7 @@
       "mirrors": {
         "trio": {
           "commit": "4f905c2d46071f0b3cc687371bdacb2df45e5c37",
-          "synced": "2026-01-05T20:19:58+00:00Z",
+          "synced": "2026-01-05T20:28:21+00:00Z",
           "status": "unchanged"
         }
       },
@@ -141,7 +141,7 @@
       "mirrors": {
         "factory": {
           "commit": "e85e1c64ef83b31870d18ba32541b0a7172dfa4d",
-          "synced": "2026-01-05T20:19:58+00:00Z",
+          "synced": "2026-01-05T20:28:21+00:00Z",
           "status": "unchanged"
         }
       },
@@ -155,9 +155,9 @@
     "raycast": {
       "mirrors": {
         "extensions": {
-          "commit": "8990fa17f6174ccfe523833a8fbcba36d601186f",
-          "synced": "2026-01-05T20:19:58+00:00Z",
-          "status": "unchanged"
+          "commit": "cf4f09ec0d6b2b748e5fac6a2c837f8ab01e9afc",
+          "synced": "2026-01-05T20:28:21+00:00Z",
+          "status": "success"
         }
       },
       "gemini": {
