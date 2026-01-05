@@ -415,6 +415,11 @@ def get_mirror_owners(mirrors: List[dict]) -> Set[str]:
     return {m["owner"] for m in mirrors}
 
 
+def get_valid_mirror_ids(mirrors: List[dict]) -> Set[str]:
+    """Get valid mirror IDs (owner/repo) from mirrors config."""
+    return {f"{m['owner']}/{m['repo']}" for m in mirrors}
+
+
 def discover_all_stores(exclusions: List[str], mirror_owners: Set[str] = None) -> List[str]:
     """Discover indexable directories for mirror owners only."""
     stores = []
@@ -1028,11 +1033,14 @@ def main() -> None:
         ]
         print(f"  Limiting to {len(mirrors)} mirror(s)")
 
+    # Get valid mirror IDs from config
+    valid_mirror_ids = get_valid_mirror_ids(mirrors)
+
     # Step 1: Sync mirrors
     if not args.skip_mirrors:
         mirror_results = sync_all_mirrors(mirrors, state, parallel=not args.no_parallel)
 
-        # Update state
+        # Update state with new results
         for mirror_id, result in mirror_results.items():
             if result["status"] in ("success", "unchanged"):
                 state.setdefault("mirrors", {})[mirror_id] = {
@@ -1043,6 +1051,14 @@ def main() -> None:
     else:
         print("\n⏭️  Skipping mirror sync (--skip-mirrors)")
         mirror_results = {}
+
+    # Filter out stale mirrors not in mirrors.json
+    existing_mirrors = state.get("mirrors", {})
+    valid_mirrors = {k: v for k, v in existing_mirrors.items() if k in valid_mirror_ids}
+    if len(valid_mirrors) != len(existing_mirrors):
+        stale = set(existing_mirrors.keys()) - valid_mirror_ids
+        print(f"  🧹 Removing {len(stale)} stale mirrors: {', '.join(sorted(stale))}")
+    state["mirrors"] = valid_mirrors
 
     # Step 2: Detect and sync Gemini stores
     mirror_owners = get_mirror_owners(mirrors)
