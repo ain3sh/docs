@@ -481,43 +481,55 @@ def map_files_to_stores(changed_files: List[str], all_stores: List[str]) -> Set[
 
 
 def detect_changed_stores(state: dict, exclusions: List[str]) -> List[str]:
-    """Detect which stores need updating based on git diff or full discovery."""
+    """Detect which stores need updating based on git diff or missing from state."""
     print(f"\n{'='*60}")
     print("🔍 DETECTING CHANGED STORES")
     print(f"{'='*60}")
+
+    # Always discover all stores on disk first
+    all_stores = set(discover_all_stores(exclusions))
+
+    # Check which stores are tracked in state
+    tracked_stores = set(state.get("gemini", {}).get("stores", {}).keys())
+
+    # Stores that exist on disk but aren't tracked need to be synced
+    untracked_stores = all_stores - tracked_stores
 
     last_commit = state.get("lastCommit")
 
     if not last_commit:
         print("  First run - discovering all stores...")
-        stores = discover_all_stores(exclusions)
-        print(f"  Found {len(stores)} indexable stores")
-        return stores
+        print(f"  Found {len(all_stores)} indexable stores")
+        return sorted(all_stores)
 
-    # Try incremental detection
+    # Try incremental detection for changed files
     print(f"  Incremental sync from {last_commit[:7]}...")
     changed_files = get_changed_files_since_commit(last_commit)
 
     if changed_files is None:
         # Fallback to full discovery
-        stores = discover_all_stores(exclusions)
-        print(f"  Found {len(stores)} indexable stores (full scan)")
-        return stores
+        print(f"  Found {len(all_stores)} indexable stores (full scan)")
+        return sorted(all_stores)
 
-    if not changed_files:
+    # Map changed files to stores
+    changed_stores = map_files_to_stores(changed_files, all_stores) if changed_files else set()
+
+    # Combine: stores with changed files + stores missing from tracking
+    stores_to_sync = changed_stores | untracked_stores
+
+    if not stores_to_sync:
         print("  No changes detected")
         return []
 
-    # Map changes to stores
-    all_stores = discover_all_stores(exclusions)
-    changed_stores = map_files_to_stores(changed_files, all_stores)
-
     print(f"  {len(changed_files)} files changed → {len(changed_stores)} stores affected")
-    if changed_stores:
-        for store in sorted(changed_stores):
-            print(f"    - {store}")
+    if untracked_stores:
+        print(f"  {len(untracked_stores)} untracked stores need syncing")
 
-    return sorted(changed_stores)
+    for store in sorted(stores_to_sync):
+        suffix = " (untracked)" if store in untracked_stores else ""
+        print(f"    - {store}{suffix}")
+
+    return sorted(stores_to_sync)
 
 
 # ============================================================================
