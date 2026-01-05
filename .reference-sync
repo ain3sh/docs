@@ -1,6 +1,6 @@
 {
-  "lastSync": "2026-01-05T18:58:56+00:00Z",
-  "lastCommit": "35fcbddbe98f170a3e539ec26028a164fdbffffb",
+  "lastSync": "2026-01-05T19:34:44+00:00Z",
+  "lastCommit": "5a17941f19029c80ba3dcdb65bad343d00cd39e5",
   "mirrors": {
     "MoonshotAI/kosong": {
       "lastCommit": "2b8a732301101a016a1617023b0a151c64b1a313",
@@ -14,27 +14,27 @@
     },
     "lastmile-ai/mcp-agent": {
       "lastCommit": "04cae7ea5ba3a5c4e62c22884938699c73705651",
-      "lastSync": "2026-01-05T18:57:14+00:00Z",
+      "lastSync": "2026-01-05T19:32:59+00:00Z",
       "status": "unchanged"
     },
     "modelcontextprotocol/modelcontextprotocol": {
-      "lastCommit": "7893514a94d6288fe3e685f538a53ce64baf3d38",
-      "lastSync": "2026-01-05T18:57:14+00:00Z",
-      "status": "unchanged"
+      "lastCommit": "edeb0b74f53790739cdf5c2a80bd49033c3f2451",
+      "lastSync": "2026-01-05T19:32:59+00:00Z",
+      "status": "success"
     },
     "ericbuess/claude-code-docs": {
       "lastCommit": "36a4ced60d584614e5b32c1b35440189ac433cce",
-      "lastSync": "2026-01-05T18:57:14+00:00Z",
+      "lastSync": "2026-01-05T19:32:59+00:00Z",
       "status": "unchanged"
     },
     "anthropics/claude-agent-sdk-python": {
       "lastCommit": "23c9df3fe9559495acb2cd70baa5363fc40111c4",
-      "lastSync": "2026-01-05T18:57:14+00:00Z",
+      "lastSync": "2026-01-05T19:32:59+00:00Z",
       "status": "unchanged"
     },
     "stanfordnlp/dspy": {
       "lastCommit": "becb4c9e849a292f71a1f1623acd375aaa32edef",
-      "lastSync": "2026-01-05T18:57:14+00:00Z",
+      "lastSync": "2026-01-05T19:32:59+00:00Z",
       "status": "unchanged"
     },
     "browserbase/sdk-python": {
@@ -43,18 +43,18 @@
       "status": "unchanged"
     },
     "browser-use/browser-use": {
-      "lastCommit": "9cfec600d43815a9bd90a737f1a224d606d029d7",
-      "lastSync": "2026-01-05T18:57:14+00:00Z",
-      "status": "unchanged"
+      "lastCommit": "c9b6fe76dde25583b56086d918b7d4eef90eb77b",
+      "lastSync": "2026-01-05T19:32:59+00:00Z",
+      "status": "success"
     },
     "browser-use/workflow-use": {
       "lastCommit": "cb8fea77de3dc73d88dd6d8d73b12b5200ffaaec",
-      "lastSync": "2026-01-05T18:57:14+00:00Z",
+      "lastSync": "2026-01-05T19:32:59+00:00Z",
       "status": "unchanged"
     },
     "python-trio/trio": {
       "lastCommit": "4f905c2d46071f0b3cc687371bdacb2df45e5c37",
-      "lastSync": "2026-01-05T18:57:14+00:00Z",
+      "lastSync": "2026-01-05T19:32:59+00:00Z",
       "status": "unchanged"
     },
     "metatool-ai/metamcp": {
@@ -69,36 +69,42 @@
     },
     "Factory-AI/factory": {
       "lastCommit": "e85e1c64ef83b31870d18ba32541b0a7172dfa4d",
-      "lastSync": "2026-01-05T18:57:14+00:00Z",
+      "lastSync": "2026-01-05T19:32:59+00:00Z",
       "status": "unchanged"
     },
     "raycast/extensions": {
       "lastCommit": "8990fa17f6174ccfe523833a8fbcba36d601186f",
-      "lastSync": "2026-01-05T18:57:14+00:00Z",
+      "lastSync": "2026-01-05T19:32:59+00:00Z",
       "status": "unchanged"
     },
     "modelcontextprotocol/python-sdk": {
       "lastCommit": "bb6cb029f0fee1a47419b8ebe13f188a813dda22",
-      "lastSync": "2026-01-05T18:57:14+00:00Z",
+      "lastSync": "2026-01-05T19:32:59+00:00Z",
       "status": "unchanged"
     },
     "MoonshotAI/kimi-cli": {
       "lastCommit": "8007d2f2875acf7300a1ae0f9a5d7f42dffd0953",
-      "lastSync": "2026-01-05T18:57:14+00:00Z",
-      "status": "success"
+      "lastSync": "2026-01-05T19:32:59+00:00Z",
+      "status": "unchanged"
     }
   },
   "gemini": {
-    "storesUpdated": 1,
-    "filesUploaded": 150,
-    "totalCost": 0.0415824,
-    "lastSync": "2026-01-05T18:58:56+00:00Z",
+    "storesUpdated": 2,
+    "filesUploaded": 199,
+    "totalCost": 0.0547764,
+    "lastSync": "2026-01-05T19:34:44+00:00Z",
     "stores": {
       "browser-use": {
         "status": "success",
-        "files": 150,
-        "cost": 0.0415824,
-        "lastSync": "2026-01-05T18:58:56+00:00Z"
+        "files": 151,
+        "cost": 0.04186185,
+        "lastSync": "2026-01-05T19:34:44+00:00Z"
+      },
+      "MoonshotAI": {
+        "status": "success",
+        "files": 48,
+        "cost": 0.01291455,
+        "lastSync": "2026-01-05T19:33:37+00:00Z"
       }
     }
   }
