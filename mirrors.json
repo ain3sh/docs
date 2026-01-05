@@ -7,12 +7,6 @@
       "docsPath": "docs"
     },
     {
-      "owner": "openai",
-      "repo": "codex",
-      "branch": "main",
-      "docsPath": "docs"
-    },
-    {
       "owner": "stanfordnlp",
       "repo": "dspy",
       "branch": "main",
@@ -37,6 +31,12 @@
       "docsPath": "docs/docs"
     },
     {
+      "owner": "modelcontextprotocol",
+      "repo": "python-sdk",
+      "branch": "main",
+      "docsPath": "docs"
+    },
+    {
       "owner": "ericbuess",
       "repo": "claude-code-docs",
       "branch": "main",
@@ -45,12 +45,6 @@
     {
       "owner": "anthropics",
       "repo": "claude-agent-sdk-python",
-      "branch": "main",
-      "docsPath": "examples"
-    },
-    {
-      "owner": "browserbase",
-      "repo": "sdk-python",
       "branch": "main",
       "docsPath": "examples"
     },
@@ -71,18 +65,6 @@
       "repo": "trio",
       "branch": "main",
       "docsPath": "docs/source"
-    },
-    {
-      "owner": "metatool-ai",
-      "repo": "metamcp",
-      "branch": "main",
-      "docsPath": "docs/en"
-    },
-    {
-      "owner": "router-for-me",
-      "repo": "CLIProxyAPIDocs",
-      "branch": "main",
-      "docsPath": "docs/en"
     },
     {
       "owner": "raycast",
