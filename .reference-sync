@@ -1,171 +1,140 @@
 {
-  "lastSync": "2026-01-05T20:28:24+00:00Z",
-  "lastCommit": "42e337798412007e53b8137092e25ccb9814b93e",
-  "owners": {
-    "MoonshotAI": {
-      "mirrors": {
-        "kosong": {
-          "commit": "2b8a732301101a016a1617023b0a151c64b1a313",
-          "synced": "2025-12-26T03:58:48+00:00Z",
-          "status": "unchanged"
-        },
-        "kimi-cli": {
-          "commit": "8007d2f2875acf7300a1ae0f9a5d7f42dffd0953",
-          "synced": "2026-01-05T20:28:21+00:00Z",
-          "status": "unchanged"
-        }
-      },
-      "gemini": {
-        "files": 48,
-        "cost": 0.01291455,
-        "synced": "2026-01-05T19:33:37+00:00Z",
-        "status": "success"
-      }
+  "lastSync": "2026-01-05T20:37:28+00:00Z",
+  "lastCommit": "942b23d808ca805160db78458bf021e3f9783338",
+  "mirrors": {
+    "MoonshotAI/kimi-cli": {
+      "lastCommit": "8007d2f2875acf7300a1ae0f9a5d7f42dffd0953",
+      "lastSync": "2026-01-05T20:36:21+00:00Z",
+      "status": "unchanged"
     },
-    "lastmile-ai": {
-      "mirrors": {
-        "mcp-agent": {
-          "commit": "04cae7ea5ba3a5c4e62c22884938699c73705651",
-          "synced": "2026-01-05T20:28:21+00:00Z",
-          "status": "unchanged"
-        }
-      },
-      "gemini": {
-        "files": 78,
-        "cost": 0.029252399999999998,
-        "synced": "2026-01-05T20:05:48+00:00Z",
-        "status": "success"
-      }
+    "lastmile-ai/mcp-agent": {
+      "lastCommit": "04cae7ea5ba3a5c4e62c22884938699c73705651",
+      "lastSync": "2026-01-05T20:36:21+00:00Z",
+      "status": "unchanged"
     },
-    "modelcontextprotocol": {
-      "mirrors": {
-        "modelcontextprotocol": {
-          "commit": "edeb0b74f53790739cdf5c2a80bd49033c3f2451",
-          "synced": "2026-01-05T20:28:21+00:00Z",
-          "status": "unchanged"
-        },
-        "python-sdk": {
-          "commit": "bb6cb029f0fee1a47419b8ebe13f188a813dda22",
-          "synced": "2026-01-05T20:28:21+00:00Z",
-          "status": "unchanged"
-        }
-      },
-      "gemini": {
-        "files": 21,
-        "cost": 0.0105183,
-        "synced": "2026-01-05T20:05:18+00:00Z",
-        "status": "success"
-      }
+    "modelcontextprotocol/modelcontextprotocol": {
+      "lastCommit": "edeb0b74f53790739cdf5c2a80bd49033c3f2451",
+      "lastSync": "2026-01-05T20:36:21+00:00Z",
+      "status": "unchanged"
     },
-    "ericbuess": {
-      "mirrors": {
-        "claude-code-docs": {
-          "commit": "36a4ced60d584614e5b32c1b35440189ac433cce",
-          "synced": "2026-01-05T20:28:21+00:00Z",
-          "status": "unchanged"
-        }
-      },
-      "gemini": {
-        "files": 50,
-        "cost": 0.0282762,
-        "synced": "2026-01-05T20:05:28+00:00Z",
-        "status": "success"
-      }
+    "modelcontextprotocol/python-sdk": {
+      "lastCommit": "bb6cb029f0fee1a47419b8ebe13f188a813dda22",
+      "lastSync": "2026-01-05T20:36:21+00:00Z",
+      "status": "unchanged"
     },
-    "anthropics": {
-      "mirrors": {
-        "claude-agent-sdk-python": {
-          "commit": "23c9df3fe9559495acb2cd70baa5363fc40111c4",
-          "synced": "2026-01-05T20:28:21+00:00Z",
-          "status": "unchanged"
-        }
-      },
-      "gemini": {
-        "files": 18,
-        "cost": 0.00306435,
-        "synced": "2026-01-05T20:05:14+00:00Z",
-        "status": "success"
-      }
+    "ericbuess/claude-code-docs": {
+      "lastCommit": "36a4ced60d584614e5b32c1b35440189ac433cce",
+      "lastSync": "2026-01-05T20:36:21+00:00Z",
+      "status": "unchanged"
     },
-    "stanfordnlp": {
-      "mirrors": {
-        "dspy": {
-          "commit": "becb4c9e849a292f71a1f1623acd375aaa32edef",
-          "synced": "2026-01-05T20:28:21+00:00Z",
-          "status": "unchanged"
-        }
-      },
-      "gemini": {
-        "files": 123,
-        "cost": 0.0192321,
-        "synced": "2026-01-05T20:06:24+00:00Z",
-        "status": "success"
-      }
+    "anthropics/claude-agent-sdk-python": {
+      "lastCommit": "23c9df3fe9559495acb2cd70baa5363fc40111c4",
+      "lastSync": "2026-01-05T20:36:21+00:00Z",
+      "status": "unchanged"
     },
-    "browser-use": {
-      "mirrors": {
-        "browser-use": {
-          "commit": "c9b6fe76dde25583b56086d918b7d4eef90eb77b",
-          "synced": "2026-01-05T20:28:21+00:00Z",
-          "status": "unchanged"
-        },
-        "workflow-use": {
-          "commit": "cb8fea77de3dc73d88dd6d8d73b12b5200ffaaec",
-          "synced": "2026-01-05T20:28:21+00:00Z",
-          "status": "unchanged"
-        }
-      },
-      "gemini": {
-        "files": 149,
-        "cost": 0.041806949999999996,
-        "synced": "2026-01-05T20:06:39+00:00Z",
-        "status": "success"
-      }
+    "stanfordnlp/dspy": {
+      "lastCommit": "becb4c9e849a292f71a1f1623acd375aaa32edef",
+      "lastSync": "2026-01-05T20:36:21+00:00Z",
+      "status": "unchanged"
     },
-    "python-trio": {
-      "mirrors": {
-        "trio": {
-          "commit": "4f905c2d46071f0b3cc687371bdacb2df45e5c37",
-          "synced": "2026-01-05T20:28:21+00:00Z",
-          "status": "unchanged"
-        }
-      },
-      "gemini": {
-        "files": 29,
-        "cost": 0.0158922,
-        "synced": "2026-01-05T20:05:19+00:00Z",
-        "status": "success"
-      }
+    "browser-use/browser-use": {
+      "lastCommit": "c9b6fe76dde25583b56086d918b7d4eef90eb77b",
+      "lastSync": "2026-01-05T20:36:21+00:00Z",
+      "status": "unchanged"
     },
-    "Factory-AI": {
-      "mirrors": {
-        "factory": {
-          "commit": "e85e1c64ef83b31870d18ba32541b0a7172dfa4d",
-          "synced": "2026-01-05T20:28:21+00:00Z",
-          "status": "unchanged"
-        }
-      },
-      "gemini": {
-        "files": 115,
-        "cost": 0.035202449999999996,
-        "synced": "2026-01-05T20:05:42+00:00Z",
-        "status": "success"
-      }
+    "browser-use/workflow-use": {
+      "lastCommit": "cb8fea77de3dc73d88dd6d8d73b12b5200ffaaec",
+      "lastSync": "2026-01-05T20:36:21+00:00Z",
+      "status": "unchanged"
     },
-    "raycast": {
-      "mirrors": {
-        "extensions": {
-          "commit": "cf4f09ec0d6b2b748e5fac6a2c837f8ab01e9afc",
-          "synced": "2026-01-05T20:28:21+00:00Z",
-          "status": "success"
-        }
-      },
-      "gemini": {
-        "files": 108,
-        "cost": 0.02672265,
-        "synced": "2026-01-05T20:05:53+00:00Z",
-        "status": "success"
-      }
+    "python-trio/trio": {
+      "lastCommit": "4f905c2d46071f0b3cc687371bdacb2df45e5c37",
+      "lastSync": "2026-01-05T20:36:21+00:00Z",
+      "status": "unchanged"
+    },
+    "Factory-AI/factory": {
+      "lastCommit": "e85e1c64ef83b31870d18ba32541b0a7172dfa4d",
+      "lastSync": "2026-01-05T20:36:21+00:00Z",
+      "status": "unchanged"
+    },
+    "raycast/extensions": {
+      "lastCommit": "164f778d5691594a2d3cbebd26aff19aac38ad5d",
+      "lastSync": "2026-01-05T20:36:21+00:00Z",
+      "status": "success"
+    }
+  },
+  "gemini_stores": {
+    "modelcontextprotocol/python-sdk": {
+      "files": 10,
+      "cost": 0.0016617,
+      "lastSync": "2026-01-05T20:36:32+00:00Z",
+      "status": "success"
+    },
+    "modelcontextprotocol/modelcontextprotocol": {
+      "files": 11,
+      "cost": 0.0088566,
+      "lastSync": "2026-01-05T20:36:33+00:00Z",
+      "status": "success"
+    },
+    "anthropics/claude-agent-sdk-python": {
+      "files": 18,
+      "cost": 0.00306435,
+      "lastSync": "2026-01-05T20:36:35+00:00Z",
+      "status": "success"
+    },
+    "MoonshotAI/kimi-cli": {
+      "files": 24,
+      "cost": 0.0064863,
+      "lastSync": "2026-01-05T20:36:37+00:00Z",
+      "status": "success"
+    },
+    "python-trio/trio": {
+      "files": 29,
+      "cost": 0.0158922,
+      "lastSync": "2026-01-05T20:36:38+00:00Z",
+      "status": "success"
+    },
+    "ericbuess/claude-code-docs": {
+      "files": 50,
+      "cost": 0.0282762,
+      "lastSync": "2026-01-05T20:36:44+00:00Z",
+      "status": "success"
+    },
+    "browser-use/browser-use": {
+      "files": 54,
+      "cost": 0.00557955,
+      "lastSync": "2026-01-05T20:36:54+00:00Z",
+      "status": "success"
+    },
+    "lastmile-ai/mcp-agent": {
+      "files": 78,
+      "cost": 0.029252399999999998,
+      "lastSync": "2026-01-05T20:36:58+00:00Z",
+      "status": "success"
+    },
+    "Factory-AI/factory": {
+      "files": 115,
+      "cost": 0.035202449999999996,
+      "lastSync": "2026-01-05T20:37:05+00:00Z",
+      "status": "success"
+    },
+    "raycast/extensions": {
+      "files": 108,
+      "cost": 0.02672265,
+      "lastSync": "2026-01-05T20:37:06+00:00Z",
+      "status": "success"
+    },
+    "browser-use/workflow-use": {
+      "files": 95,
+      "cost": 0.03593925,
+      "lastSync": "2026-01-05T20:37:07+00:00Z",
+      "status": "success"
+    },
+    "stanfordnlp/dspy": {
+      "files": 123,
+      "cost": 0.0192321,
+      "lastSync": "2026-01-05T20:37:28+00:00Z",
+      "status": "success"
     }
   }
 }
