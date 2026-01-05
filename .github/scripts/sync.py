@@ -150,25 +150,51 @@ def load_config() -> dict:
 
 def load_state() -> dict:
     """Load .reference-sync state file."""
+    empty_state = {"lastSync": None, "lastCommit": None, "owners": {}}
+
     if not STATE_FILE.exists():
-        return {
-            "lastSync": None,
-            "lastCommit": None,
-            "mirrors": {},
-            "gemini": {"stores": {}, "storesUpdated": 0, "filesUploaded": 0, "totalCost": 0.0},
-        }
+        return empty_state
 
     try:
-        return json.loads(STATE_FILE.read_text())
+        data = json.loads(STATE_FILE.read_text())
     except Exception as e:
         print(f"  ⚠️  Warning: Could not load state file: {e}", file=sys.stderr)
         print("  Starting with fresh state", file=sys.stderr)
+        return empty_state
+
+    # Migrate from old structure if needed
+    if "mirrors" in data and "owners" not in data:
+        print("  📦 Migrating state to new unified structure...")
+        owners = {}
+        old_mirrors = data.get("mirrors", {})
+        old_stores = data.get("gemini", {}).get("stores", {})
+
+        for mirror_id, mirror_data in old_mirrors.items():
+            owner, repo = mirror_id.split("/", 1)
+            if owner not in owners:
+                owners[owner] = {"mirrors": {}, "gemini": None}
+            owners[owner]["mirrors"][repo] = {
+                "commit": mirror_data.get("lastCommit"),
+                "synced": mirror_data.get("lastSync"),
+                "status": mirror_data.get("status"),
+            }
+
+        for store_name, store_data in old_stores.items():
+            if store_name in owners:
+                owners[store_name]["gemini"] = {
+                    "files": store_data.get("files", 0),
+                    "cost": store_data.get("cost", 0.0),
+                    "synced": store_data.get("lastSync"),
+                    "status": store_data.get("status"),
+                }
+
         return {
-            "lastSync": None,
-            "lastCommit": None,
-            "mirrors": {},
-            "gemini": {"stores": {}, "storesUpdated": 0, "filesUploaded": 0, "totalCost": 0.0},
+            "lastSync": data.get("lastSync"),
+            "lastCommit": data.get("lastCommit"),
+            "owners": owners,
         }
+
+    return data
 
 
 def save_state(state: dict) -> None:
@@ -300,7 +326,8 @@ def sync_mirror(entry: dict, state: dict) -> dict:
         print(f"  ⚠️  {mirror_id}: {e}", file=sys.stderr)
         return {"status": "failed", "error": str(e), "changed": False}
 
-    last_commit = state.get("mirrors", {}).get(mirror_id, {}).get("lastCommit")
+    # Check last commit from new unified structure
+    last_commit = state.get("owners", {}).get(owner, {}).get("mirrors", {}).get(repo, {}).get("commit")
 
     if upstream_commit == last_commit:
         return {"status": "unchanged", "commit": upstream_commit, "changed": False}
@@ -415,11 +442,6 @@ def get_mirror_owners(mirrors: List[dict]) -> Set[str]:
     return {m["owner"] for m in mirrors}
 
 
-def get_valid_mirror_ids(mirrors: List[dict]) -> Set[str]:
-    """Get valid mirror IDs (owner/repo) from mirrors config."""
-    return {f"{m['owner']}/{m['repo']}" for m in mirrors}
-
-
 def discover_all_stores(exclusions: List[str], mirror_owners: Set[str] = None) -> List[str]:
     """Discover indexable directories for mirror owners only."""
     stores = []
@@ -506,10 +528,11 @@ def detect_changed_stores(state: dict, exclusions: List[str], mirrors: List[dict
     # Discover stores only for current mirror owners
     all_stores = set(discover_all_stores(exclusions, mirror_owners))
 
-    # Check which stores are tracked in state
-    tracked_stores = set(state.get("gemini", {}).get("stores", {}).keys())
+    # Check which stores have gemini info in state (using new unified structure)
+    owners_data = state.get("owners", {})
+    tracked_stores = {owner for owner, data in owners_data.items() if data.get("gemini")}
 
-    # Stores that exist on disk but aren't tracked need to be synced
+    # Stores that exist but have no gemini sync need to be synced
     untracked_stores = all_stores - tracked_stores
 
     last_commit = state.get("lastCommit")
@@ -906,12 +929,16 @@ def update_readme(config: dict, state: dict) -> None:
 
     table = "\n".join(table_lines)
 
-    # Build Gemini stats
-    gemini_stats = state.get("gemini", {})
-    gemini_section = f"""- **Stores updated**: {gemini_stats.get('storesUpdated', 0)}
-- **Files indexed**: {gemini_stats.get('filesUploaded', 0)}
-- **Total cost**: ${gemini_stats.get('totalCost', 0.0):.4f}
-- **Last sync**: {gemini_stats.get('lastSync', 'Never')}"""
+    # Build Gemini stats from unified structure
+    owners_data = state.get("owners", {})
+    total_files = sum(o.get("gemini", {}).get("files", 0) for o in owners_data.values() if o.get("gemini"))
+    total_cost = sum(o.get("gemini", {}).get("cost", 0.0) for o in owners_data.values() if o.get("gemini"))
+    stores_count = sum(1 for o in owners_data.values() if o.get("gemini"))
+    last_sync = state.get("lastSync", "Never")
+    gemini_section = f"""- **Stores**: {stores_count}
+- **Files indexed**: {total_files}
+- **Total cost**: ${total_cost:.4f}
+- **Last sync**: {last_sync}"""
 
     # Read existing README or create template
     if README_FILE.exists():
@@ -1033,69 +1060,65 @@ def main() -> None:
         ]
         print(f"  Limiting to {len(mirrors)} mirror(s)")
 
-    # Get valid mirror IDs from config
-    valid_mirror_ids = get_valid_mirror_ids(mirrors)
+    # Get valid owners from config
+    mirror_owners = get_mirror_owners(mirrors)
 
     # Step 1: Sync mirrors
     if not args.skip_mirrors:
         mirror_results = sync_all_mirrors(mirrors, state, parallel=not args.no_parallel)
 
-        # Update state with new results
+        # Update state with new results (unified structure)
         for mirror_id, result in mirror_results.items():
             if result["status"] in ("success", "unchanged"):
-                state.setdefault("mirrors", {})[mirror_id] = {
-                    "lastCommit": result["commit"],
-                    "lastSync": format_timestamp(),
+                owner, repo = mirror_id.split("/", 1)
+                if owner not in state["owners"]:
+                    state["owners"][owner] = {"mirrors": {}, "gemini": None}
+                state["owners"][owner]["mirrors"][repo] = {
+                    "commit": result["commit"],
+                    "synced": format_timestamp(),
                     "status": result["status"],
                 }
     else:
         print("\n⏭️  Skipping mirror sync (--skip-mirrors)")
         mirror_results = {}
 
-    # Filter out stale mirrors not in mirrors.json
-    existing_mirrors = state.get("mirrors", {})
-    valid_mirrors = {k: v for k, v in existing_mirrors.items() if k in valid_mirror_ids}
-    if len(valid_mirrors) != len(existing_mirrors):
-        stale = set(existing_mirrors.keys()) - valid_mirror_ids
-        print(f"  🧹 Removing {len(stale)} stale mirrors: {', '.join(sorted(stale))}")
-    state["mirrors"] = valid_mirrors
+    # Filter out stale owners not in mirrors.json
+    existing_owners = set(state.get("owners", {}).keys())
+    stale_owners = existing_owners - mirror_owners
+    if stale_owners:
+        print(f"  🧹 Removing {len(stale_owners)} stale owners: {', '.join(sorted(stale_owners))}")
+        for owner in stale_owners:
+            del state["owners"][owner]
 
     # Step 2: Detect and sync Gemini stores
-    mirror_owners = get_mirror_owners(mirrors)
-
     if not args.skip_gemini:
         changed_stores = detect_changed_stores(state, gemini_exclusions, mirrors)
 
         if changed_stores:
             gemini_results = sync_gemini_stores(changed_stores)
-            # Merge new results with existing gemini state (preserve unchanged stores)
-            existing_gemini = state.get("gemini", {})
-            existing_stores = existing_gemini.get("stores", {})
-            # Update existing stores with newly synced ones
-            existing_stores.update(gemini_results.get("stores", {}))
-            # Filter out stale stores that are no longer in mirrors.json
-            valid_stores = {k: v for k, v in existing_stores.items() if k in mirror_owners}
-            # Update top-level gemini state with new sync info, keeping merged stores
-            state["gemini"] = {
-                "storesUpdated": gemini_results.get("storesUpdated", 0),
-                "filesUploaded": gemini_results.get("filesUploaded", 0),
-                "totalCost": gemini_results.get("totalCost", 0.0),
-                "lastSync": gemini_results.get("lastSync", format_timestamp()),
-                "stores": valid_stores,
-            }
+            # Update gemini info for each synced store in unified structure
+            for store_name, store_data in gemini_results.get("stores", {}).items():
+                if store_name in state["owners"]:
+                    state["owners"][store_name]["gemini"] = {
+                        "files": store_data.get("files", 0),
+                        "cost": store_data.get("cost", 0.0),
+                        "synced": store_data.get("lastSync", format_timestamp()),
+                        "status": store_data.get("status", "unknown"),
+                    }
         else:
-            # Even with no changes, clean up stale stores
-            existing_gemini = state.get("gemini", {})
-            existing_stores = existing_gemini.get("stores", {})
-            valid_stores = {k: v for k, v in existing_stores.items() if k in mirror_owners}
-            if len(valid_stores) != len(existing_stores):
-                stale = set(existing_stores.keys()) - set(valid_stores.keys())
-                print(f"  🧹 Removing {len(stale)} stale stores: {', '.join(sorted(stale))}")
-                existing_gemini["stores"] = valid_stores
-                state["gemini"] = existing_gemini
             print("\n✨ No Gemini changes detected")
     else:
         print("\n⏭️  Skipping Gemini sync (--skip-gemini)")
+
+    # Compute aggregate stats for summary
+    total_files = sum(
+        o.get("gemini", {}).get("files", 0)
+        for o in state.get("owners", {}).values() if o.get("gemini")
+    )
+    total_cost = sum(
+        o.get("gemini", {}).get("cost", 0.0)
+        for o in state.get("owners", {}).values() if o.get("gemini")
+    )
 
     # Step 3: Update state and README
     save_state(state)
@@ -1109,10 +1132,11 @@ def main() -> None:
         success_count = sum(1 for r in mirror_results.values() if r["status"] == "success")
         unchanged_count = sum(1 for r in mirror_results.values() if r["status"] == "unchanged")
         print(f"  Mirrors synced: {success_count} updated, {unchanged_count} unchanged")
-    if not args.skip_gemini and "gemini" in state:
-        print(f"  Gemini stores updated: {state['gemini'].get('storesUpdated', 0)}")
-        print(f"  Files uploaded: {state['gemini'].get('filesUploaded', 0)}")
-        print(f"  Total cost: ${state['gemini'].get('totalCost', 0.0):.4f}")
+    if not args.skip_gemini:
+        stores_with_gemini = sum(1 for o in state.get("owners", {}).values() if o.get("gemini"))
+        print(f"  Gemini stores: {stores_with_gemini}")
+        print(f"  Total files indexed: {total_files}")
+        print(f"  Total cost: ${total_cost:.4f}")
     print(f"{'='*60}")
 
 
