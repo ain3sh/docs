@@ -743,8 +743,8 @@ def sync_gemini_store(client, store_name: str, stores_by_display: dict) -> dict:
     }
 
 
-def sync_gemini_stores(changed_stores: List[str]) -> dict:
-    """Sync all changed stores to Gemini FileSearchStores."""
+def sync_gemini_stores(changed_stores: List[str], valid_stores: Set[str]) -> dict:
+    """Sync changed stores and clean up stale stores from Gemini."""
     print(f"\n{'='*60}")
     print(f"🚀 SYNCING {len(changed_stores)} GEMINI STORES")
     print(f"{'='*60}")
@@ -792,6 +792,18 @@ def sync_gemini_stores(changed_stores: List[str]) -> dict:
     except Exception as e:
         print(f"  ⚠️  Could not list stores: {e}", file=sys.stderr)
         stores_by_display = {}
+
+    # Delete stale stores not in valid_stores
+    stale_store_names = set(stores_by_display.keys()) - valid_stores
+    if stale_store_names:
+        print(f"  🧹 Deleting {len(stale_store_names)} stale Gemini stores...")
+        for store_name in sorted(stale_store_names):
+            try:
+                store = stores_by_display[store_name]
+                client.file_search_stores.delete(name=store.name, config={"force": True})
+                print(f"    ✅ Deleted: {store_name}")
+            except Exception as e:
+                print(f"    ⚠️  Failed to delete {store_name}: {e}", file=sys.stderr)
 
     # Sync each store in parallel
     results = {}
@@ -1094,19 +1106,21 @@ def main() -> None:
     if not args.skip_gemini:
         changed_stores = detect_changed_stores(state, gemini_exclusions, mirrors)
 
-        if changed_stores:
-            gemini_results = sync_gemini_stores(changed_stores)
-            # Update gemini info for each synced store in unified structure
-            for store_name, store_data in gemini_results.get("stores", {}).items():
-                if store_name in state["owners"]:
-                    state["owners"][store_name]["gemini"] = {
-                        "files": store_data.get("files", 0),
-                        "cost": store_data.get("cost", 0.0),
-                        "synced": store_data.get("lastSync", format_timestamp()),
-                        "status": store_data.get("status", "unknown"),
-                    }
-        else:
-            print("\n✨ No Gemini changes detected")
+        # Valid stores are owner-level directories from mirrors.json
+        valid_stores = mirror_owners
+
+        # Always run sync to cleanup stale stores, even if no changes detected
+        gemini_results = sync_gemini_stores(changed_stores, valid_stores)
+
+        # Update gemini info for each synced store in unified structure
+        for store_name, store_data in gemini_results.get("stores", {}).items():
+            if store_name in state["owners"]:
+                state["owners"][store_name]["gemini"] = {
+                    "files": store_data.get("files", 0),
+                    "cost": store_data.get("cost", 0.0),
+                    "synced": store_data.get("lastSync", format_timestamp()),
+                    "status": store_data.get("status", "unknown"),
+                }
     else:
         print("\n⏭️  Skipping Gemini sync (--skip-gemini)")
 
