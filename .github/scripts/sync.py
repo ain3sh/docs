@@ -472,6 +472,46 @@ def get_valid_mirror_ids(mirrors: List[dict]) -> Set[str]:
     return {f"{m['owner']}/{m['repo']}" for m in mirrors}
 
 
+def cleanup_stale_mirror_directories(valid_mirror_ids: Set[str]) -> List[str]:
+    """Remove local mirror directories that are no longer present in mirrors.json.
+
+    Safety: only removes directories that contain a .mirror-meta.json file, since those
+    are explicitly managed by this sync workflow.
+    """
+    removed: List[str] = []
+
+    for owner_dir in REPO_ROOT.iterdir():
+        if not owner_dir.is_dir() or owner_dir.name.startswith("."):
+            continue
+        if owner_dir.name in TREE_EXCLUDES:
+            continue
+
+        for repo_dir in owner_dir.iterdir():
+            if not repo_dir.is_dir() or repo_dir.name.startswith("."):
+                continue
+
+            mirror_meta = repo_dir / META_FILENAME
+            if not mirror_meta.exists():
+                continue
+
+            mirror_id = f"{owner_dir.name}/{repo_dir.name}"
+            if mirror_id in valid_mirror_ids:
+                continue
+
+            print(f"  🧹 Removing stale mirror directory: {mirror_id}")
+            shutil.rmtree(repo_dir, ignore_errors=True)
+            removed.append(mirror_id)
+
+        # Clean up empty owner directories (only if they became empty)
+        try:
+            if owner_dir.exists() and not any(owner_dir.iterdir()):
+                owner_dir.rmdir()
+        except OSError:
+            pass
+
+    return removed
+
+
 def discover_all_stores(exclusions: List[str], valid_mirror_ids: Set[str] = None) -> List[str]:
     """Discover indexable directories at owner/repo level only."""
     stores = []
@@ -832,7 +872,11 @@ def sync_gemini_stores(changed_stores: List[str], valid_stores: Set[str]) -> dic
     # Fetch existing stores
     print("  Fetching existing stores...")
     try:
-        existing = list(client.file_search_stores.list())
+        existing = list(
+            client.file_search_stores.list(
+                config=types.ListFileSearchStoresConfig(page_size=100)
+            )
+        )
         stores_by_display = {s.display_name: s for s in existing}
         print(f"  Found {len(existing)} existing stores")
     except Exception as e:
@@ -1158,6 +1202,11 @@ def main() -> None:
         print(f"  🧹 Removing {len(stale_stores)} stale stores from state: {', '.join(sorted(stale_stores))}")
         for store_id in stale_stores:
             del state["stores"][store_id]
+
+    # Remove stale mirror directories on disk (those no longer in mirrors.json)
+    removed_dirs = cleanup_stale_mirror_directories(valid_mirror_ids)
+    if removed_dirs:
+        print(f"  ✅ Removed {len(removed_dirs)} stale mirror director(ies)")
 
     # Step 2: Detect and sync Gemini stores
     if not args.skip_gemini:
