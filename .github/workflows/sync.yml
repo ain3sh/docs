@@ -48,7 +48,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # Add only expected sync outputs (README, state, and mirror directories)
-          git add -A README.md .reference-sync */
+          # NOTE: Using only `*/` misses deletions of top-level mirror dirs (because the shell
+          # expands `*/` to existing directories only). Include `.` so deletions are staged.
+          git add -A README.md .reference-sync .
           if ! git diff --cached --quiet; then
             git commit -m "chore: sync references"
             git push
