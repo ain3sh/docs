@@ -7,18 +7,18 @@ A curated collection of documentation mirrors with automated semantic search ind
 
 | Mirror | Upstream | Branch | Docs Path | Last Commit | Synced At |
 | --- | --- | --- | --- | --- | --- |
-| Factory-AI/factory | [https://github.com/Factory-AI/factory](https://github.com/Factory-AI/factory) | main | docs | e85e1c6 | 2026-01-05T21:10:01+00:00Z |
-| stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | becb4c9 | 2026-01-05T21:09:59+00:00Z |
+| Factory-AI/factory | [https://github.com/Factory-AI/factory](https://github.com/Factory-AI/factory) | main | docs | 53896c6 | 2026-01-06T15:47:56+00:00Z |
+| stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | f8805bd | 2026-01-06T15:47:54+00:00Z |
 | lastmile-ai/mcp-agent | [https://github.com/lastmile-ai/mcp-agent](https://github.com/lastmile-ai/mcp-agent) | main | docs | 04cae7e | 2026-01-05T21:09:58+00:00Z |
-| MoonshotAI/kimi-cli | [https://github.com/MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | main | packages/kosong/src/kosong | 8007d2f | 2026-01-05T21:09:58+00:00Z |
-| modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | e32d742 | 2026-01-06T04:03:17+00:00Z |
-| modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | bb6cb02 | 2026-01-05T21:10:00+00:00Z |
-| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | cb41493 | 2026-01-06T04:03:17+00:00Z |
+| MoonshotAI/kimi-cli | [https://github.com/MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | main | packages/kosong/src/kosong | f39a82d | 2026-01-06T15:47:52+00:00Z |
+| modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 1545991 | 2026-01-06T15:47:52+00:00Z |
+| modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | 37de501 | 2026-01-06T15:47:53+00:00Z |
+| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | 3e2b8f5 | 2026-01-06T15:47:54+00:00Z |
 | anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | 23c9df3 | 2026-01-05T21:10:00+00:00Z |
 | browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | c9b6fe7 | 2026-01-05T21:10:01+00:00Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | cb8fea7 | 2026-01-05T21:10:01+00:00Z |
 | python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | befe650 | 2026-01-06T04:03:17+00:00Z |
-| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | 8534452 | 2026-01-06T04:03:18+00:00Z |
+| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | c23ef52 | 2026-01-06T15:47:57+00:00Z |
 <!-- /AUTO:MIRROR_STATUS -->
 
 <!-- AUTO:SEMANTIC_SEARCH -->
@@ -29,7 +29,7 @@ This repository includes automated indexing for Gemini File Search API.
 - **Stores**: 12
 - **Files indexed**: 716
 - **Total cost**: $0.2161
-- **Last sync**: 2026-01-06T04:03:41+00:00Z
+- **Last sync**: 2026-01-06T15:48:50+00:00Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
@@ -91,34 +91,6 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │       ├── README.md
 │       ├── test_max_alternatives_bug_fix.py
 │       └── uv.lock
-├── browserbase
-│   └── sdk-python
-│       ├── e2e
-│       │   ├── __init__.py
-│       │   ├── README.md
-│       │   ├── test_playwright.py
-│       │   └── test_selenium.py
-│       ├── packages
-│       │   ├── extensions
-│       │   │   ├── browserbase-test
-│       │   │   │   ├── images
-│       │   │   │   │   └── logo.png
-│       │   │   │   ├── scripts
-│       │   │   │   │   └── content.js
-│       │   │   │   ├── hello.html
-│       │   │   │   └── manifest.json
-│       │   │   └── .gitignore
-│       │   └── logo.png
-│       ├── .keep
-│       ├── __init__.py
-│       ├── playwright_basic.py
-│       ├── playwright_captcha.py
-│       ├── playwright_contexts.py
-│       ├── playwright_downloads.py
-│       ├── playwright_extensions.py
-│       ├── playwright_proxy.py
-│       ├── playwright_upload.py
-│       └── selenium_basic.py
 ├── ericbuess
 │   └── claude-code-docs
 │       ├── amazon-bedrock.md
@@ -216,32 +188,6 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │       ├── oauth_support_design.md
 │       ├── README.md
 │       └── roadmap.mdx
-├── metatool-ai
-│   └── metamcp
-│       ├── concepts
-│       │   ├── endpoints.mdx
-│       │   ├── inspector.mdx
-│       │   ├── mcp-servers.mdx
-│       │   ├── middleware-future.mdx
-│       │   ├── middleware.mdx
-│       │   └── namespaces.mdx
-│       ├── deployment
-│       │   └── custom-deployment.mdx
-│       ├── development
-│       │   ├── architecture.mdx
-│       │   ├── contributing.mdx
-│       │   └── i18n.mdx
-│       ├── integrations
-│       │   ├── claude-desktop.mdx
-│       │   ├── cursor.mdx
-│       │   ├── general-stdio-with-api-key.mdx
-│       │   ├── general-stdio-with-oauth.mdx
-│       │   ├── open-web-ui.mdx
-│       │   └── troubleshooting-future.mdx
-│       ├── troubleshooting
-│       │   └── oauth-troubleshooting.mdx
-│       ├── index.mdx
-│       └── quickstart.mdx
 ├── modelcontextprotocol
 │   ├── modelcontextprotocol
 │   │   ├── develop
@@ -260,72 +206,16 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │       ├── low-level-server.md
 │       └── testing.md
 ├── MoonshotAI
-│   ├── kimi-cli
-│   │   ├── chat_provider
-│   │   ├── contrib
-│   │   ├── tooling
-│   │   ├── utils
-│   │   ├── __init__.py
-│   │   ├── __main__.py
-│   │   ├── _generate.py
-│   │   ├── message.py
-│   │   └── py.typed
-│   └── kosong
+│   └── kimi-cli
 │       ├── chat_provider
-│       │   ├── __init__.py
-│       │   ├── chaos.py
-│       │   ├── echo.py
-│       │   ├── kimi.py
-│       │   ├── mock.py
-│       │   └── openai_common.py
 │       ├── contrib
-│       │   ├── chat_provider
-│       │   │   ├── __init__.py
-│       │   │   ├── anthropic.py
-│       │   │   ├── common.py
-│       │   │   ├── google_genai.py
-│       │   │   ├── openai_legacy.py
-│       │   │   └── openai_responses.py
-│       │   ├── context
-│       │   │   ├── __init__.py
-│       │   │   └── linear.py
-│       │   └── __init__.py
 │       ├── tooling
-│       │   ├── __init__.py
-│       │   ├── empty.py
-│       │   ├── error.py
-│       │   ├── mcp.py
-│       │   └── simple.py
 │       ├── utils
-│       │   ├── __init__.py
-│       │   ├── aio.py
-│       │   ├── jsonschema.py
-│       │   └── typing.py
 │       ├── __init__.py
 │       ├── __main__.py
 │       ├── _generate.py
 │       ├── message.py
 │       └── py.typed
-├── openai
-│   └── codex
-│       ├── tui2
-│       │   └── performance-testing.md
-│       ├── agents_md.md
-│       ├── authentication.md
-│       ├── CLA.md
-│       ├── config.md
-│       ├── contributing.md
-│       ├── example-config.md
-│       ├── exec.md
-│       ├── execpolicy.md
-│       ├── getting-started.md
-│       ├── install.md
-│       ├── license.md
-│       ├── open-source-fund.md
-│       ├── prompts.md
-│       ├── sandbox.md
-│       ├── skills.md
-│       └── slash_commands.md
 ├── python-trio
 │   └── trio
 │       ├── _static
@@ -367,62 +257,6 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │       ├── faq.md
 │       ├── README.md
 │       └── SUMMARY.md
-├── router-for-me
-│   └── CLIProxyAPIDocs
-│       ├── agent-client
-│       │   ├── amp-cli.md
-│       │   ├── claude-code.md
-│       │   ├── codex.md
-│       │   ├── droid.md
-│       │   └── gemini-cli.md
-│       ├── configuration
-│       │   ├── provider
-│       │   │   ├── ai-studio.md
-│       │   │   ├── antigravity.md
-│       │   │   ├── claude-code-compatibility.md
-│       │   │   ├── claude-code.md
-│       │   │   ├── codex-compatibility.md
-│       │   │   ├── codex.md
-│       │   │   ├── gemini-cli.md
-│       │   │   ├── gemini-compatibility.md
-│       │   │   ├── gemini.md
-│       │   │   ├── iflow.md
-│       │   │   ├── openai-compatibility.md
-│       │   │   └── qwen-code.md
-│       │   ├── storage
-│       │   │   ├── git.md
-│       │   │   ├── pgsql.md
-│       │   │   └── s3.md
-│       │   ├── auth-dir.md
-│       │   ├── basic.md
-│       │   ├── hot-reloading.md
-│       │   ├── options.md
-│       │   └── thinking.md
-│       ├── docker
-│       │   ├── docker-compose.md
-│       │   └── docker.md
-│       ├── hands-on
-│       │   ├── tutorial-0.md
-│       │   ├── tutorial-1.md
-│       │   ├── tutorial-10.md
-│       │   ├── tutorial-11.md
-│       │   ├── tutorial-12.md
-│       │   ├── tutorial-2.md
-│       │   ├── tutorial-3.md
-│       │   ├── tutorial-4.md
-│       │   ├── tutorial-5.md
-│       │   ├── tutorial-6.md
-│       │   ├── tutorial-7.md
-│       │   ├── tutorial-8.md
-│       │   └── tutorial-9.md
-│       ├── introduction
-│       │   ├── quick-start.md
-│       │   └── what-is-cliproxyapi.md
-│       ├── management
-│       │   ├── api.md
-│       │   ├── gui.md
-│       │   └── webui.md
-│       └── index.md
 ├── stanfordnlp
 │   └── dspy
 │       ├── docs
