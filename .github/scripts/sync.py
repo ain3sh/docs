@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
 import json
 import os
 import re
@@ -24,7 +25,7 @@ import tempfile
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
-from typing import Dict, Iterable, List, Set
+from typing import Dict, Iterable, List, Optional, Set
 
 # ============================================================================
 # CONSTANTS
@@ -61,7 +62,6 @@ GEMINI_SUPPORTED_EXTENSIONS = {
 }
 
 MIN_FILE_SIZE = 10
-MAX_INDEXING_DEPTH = 2
 GEMINI_COST_PER_MILLION_TOKENS = 0.15  # Gemini File Search indexing cost
 
 # ============================================================================
@@ -100,7 +100,19 @@ def get_current_commit() -> str:
 
 def format_timestamp() -> str:
     """Return current UTC timestamp in ISO format."""
-    return dt.datetime.now(dt.UTC).replace(microsecond=0).isoformat() + "Z"
+    # RFC 3339, Z-normalized (no redundant "+00:00Z")
+    return (
+        dt.datetime.now(dt.timezone.utc)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z")
+    )
+
+
+def stable_json_hash(value: object) -> str:
+    """Compute a stable hash for JSON-serializable values."""
+    payload = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
 # ============================================================================
@@ -351,16 +363,24 @@ def sync_mirror(entry: dict, state: dict) -> dict:
         print(f"  ⚠️  {mirror_id}: {e}", file=sys.stderr)
         return {"status": "failed", "error": str(e), "changed": False}
 
-    # Check last commit from unified stores structure
-    last_commit = state.get("stores", {}).get(mirror_id, {}).get("commit")
+    # Mirror configuration and local state must match mirrors.json (branch/docsPath)
+    last = state.get("stores", {}).get(mirror_id, {})
+    last_commit = last.get("commit")
+    last_branch = last.get("branch")
+    last_docs_path = last.get("docsPath")
+    dest_dir = REPO_ROOT / owner / repo
 
-    if upstream_commit == last_commit:
+    config_changed = (
+        last_branch != entry.get("branch") or last_docs_path != entry.get("docsPath")
+    )
+    dest_missing = not dest_dir.exists()
+
+    if upstream_commit == last_commit and not config_changed and not dest_missing:
         return {"status": "unchanged", "commit": upstream_commit, "changed": False}
 
     # Perform sync
     try:
         source_dir, commit = sparse_checkout(entry)
-        dest_dir = REPO_ROOT / owner / repo
         try:
             copy_tree(source_dir, dest_dir)
             write_mirror_meta(dest_dir, entry, commit)
@@ -434,39 +454,6 @@ def is_excluded(path: str, exclusions: List[str]) -> bool:
     return False
 
 
-def has_indexable_files(dir_path: Path, max_depth: int = 0) -> bool:
-    """Check if directory has files at root or within max_depth."""
-
-    def check_depth(path: Path, current_depth: int) -> bool:
-        if current_depth > max_depth:
-            return False
-
-        try:
-            entries = list(path.iterdir())
-        except (PermissionError, FileNotFoundError):
-            return False
-
-        # Check for files at this level
-        if any(e.is_file() and not e.name.startswith(".") for e in entries):
-            return True
-
-        # Check subdirectories if we haven't hit max depth
-        if current_depth < max_depth:
-            for e in entries:
-                if e.is_dir() and not e.name.startswith("."):
-                    if check_depth(e, current_depth + 1):
-                        return True
-
-        return False
-
-    return check_depth(dir_path, 0)
-
-
-def get_mirror_owners(mirrors: List[dict]) -> Set[str]:
-    """Get unique owner names from mirrors config."""
-    return {m["owner"] for m in mirrors}
-
-
 def get_valid_mirror_ids(mirrors: List[dict]) -> Set[str]:
     """Get the set of valid mirror IDs (owner/repo format) from config."""
     return {f"{m['owner']}/{m['repo']}" for m in mirrors}
@@ -512,131 +499,58 @@ def cleanup_stale_mirror_directories(valid_mirror_ids: Set[str]) -> List[str]:
     return removed
 
 
-def discover_all_stores(exclusions: List[str], valid_mirror_ids: Set[str] = None) -> List[str]:
-    """Discover indexable directories at owner/repo level only."""
-    stores = []
+def determine_stores_to_index(
+    *,
+    mirrors: List[dict],
+    state: dict,
+    mirror_results: Dict[str, dict],
+    gemini_exclusions: List[str],
+) -> List[str]:
+    """Decide which mirror stores require (re)indexing.
 
-    for item in REPO_ROOT.iterdir():
-        if not item.is_dir() or item.name.startswith("."):
-            continue
+    mirrors.json is the source of truth.
 
-        owner_name = item.name
+    Index when:
+      - a mirror was updated in this run, or
+      - the store has never been indexed successfully, or
+      - geminiExclusions changed since last run (forces a full reindex).
+    """
 
-        if is_excluded(owner_name, exclusions):
-            continue
+    valid_ids = get_valid_mirror_ids(mirrors)
 
-        # Always iterate subdirectories to get owner/repo format
-        try:
-            for subitem in item.iterdir():
-                if not subitem.is_dir() or subitem.name.startswith("."):
-                    continue
+    exclusions_hash = stable_json_hash(gemini_exclusions)
+    previous_hash = state.get("geminiExclusionsHash")
+    if previous_hash == exclusions_hash:
+        exclusions_changed = False
+    elif previous_hash is None:
+        # If we have existing successful indexes but no recorded hash, play it safe
+        # and rebuild once to ensure exclusions are applied.
+        has_any_index = any(
+            (s.get("gemini") or {}).get("status") == "success"
+            for s in state.get("stores", {}).values()
+        )
+        exclusions_changed = has_any_index
+    else:
+        exclusions_changed = True
 
-                store_path = f"{owner_name}/{subitem.name}"
-
-                # Only include if it's a valid mirror from config
-                if valid_mirror_ids and store_path not in valid_mirror_ids:
-                    continue
-
-                if is_excluded(store_path, exclusions):
-                    continue
-
-                if has_indexable_files(subitem, max_depth=MAX_INDEXING_DEPTH):
-                    stores.append(store_path)
-        except (PermissionError, FileNotFoundError):
-            continue
-
-    return sorted(stores)
-
-
-def get_changed_files_since_commit(commit_sha: str) -> List[str]:
-    """Get list of changed files since the given commit (including working tree)."""
-    try:
-        # Verify commit exists
-        run(["git", "cat-file", "-e", f"{commit_sha}^{{commit}}"])
-
-        # Get changed files (includes working tree changes, not just HEAD)
-        output = run(["git", "diff", "--name-only", commit_sha])
-        return [line.strip() for line in output.split("\n") if line.strip()]
-    except subprocess.CalledProcessError:
-        print(f"  ⚠️  Commit {commit_sha} not found, falling back to full discovery", file=sys.stderr)
-        return None
-
-
-def map_files_to_stores(changed_files: List[str], all_stores: List[str]) -> Set[str]:
-    """Map changed files to their parent stores."""
-    changed_stores = set()
-
-    for file_path in changed_files:
-        # Skip .github and hidden paths
-        parts = file_path.split("/")
-        if parts[0] == ".github" or any(p.startswith(".") for p in parts):
-            continue
-
-        # Find matching store
-        for store in all_stores:
-            if file_path == store or file_path.startswith(store + "/"):
-                changed_stores.add(store)
-                break
-
-    return changed_stores
-
-
-def detect_changed_stores(state: dict, exclusions: List[str], mirrors: List[dict]) -> List[str]:
-    """Detect which stores need updating based on git diff or missing from state."""
-    print(f"\n{'='*60}")
-    print("🔍 DETECTING CHANGED STORES")
-    print(f"{'='*60}")
-
-    # Get valid mirror IDs (owner/repo format) from config
-    valid_mirror_ids = get_valid_mirror_ids(mirrors)
-
-    # Discover stores only for valid mirrors (at owner/repo level)
-    all_stores = set(discover_all_stores(exclusions, valid_mirror_ids))
-
-    # Check which stores have gemini info in state (unified structure)
-    tracked_stores = {
-        store_id for store_id, data in state.get("stores", {}).items()
-        if data.get("gemini") and data["gemini"].get("status") == "success"
+    changed_mirrors = {
+        mirror_id
+        for mirror_id, result in mirror_results.items()
+        if result.get("status") == "success" and result.get("changed") is True
     }
 
-    # Stores that exist but have no gemini sync need to be synced
-    untracked_stores = all_stores - tracked_stores
+    needs_first_index = {
+        store_id
+        for store_id in valid_ids
+        if (state.get("stores", {}).get(store_id, {}) or {}).get("gemini") is None
+        or ((state.get("stores", {}).get(store_id, {}) or {}).get("gemini") or {}).get("status") != "success"
+    }
 
-    last_commit = state.get("lastCommit")
+    if exclusions_changed:
+        print("  🔁 geminiExclusions changed - forcing full reindex")
+        return sorted(valid_ids)
 
-    if not last_commit:
-        print("  First run - discovering all stores...")
-        print(f"  Found {len(all_stores)} indexable stores")
-        return sorted(all_stores)
-
-    # Try incremental detection for changed files
-    print(f"  Incremental sync from {last_commit[:7]}...")
-    changed_files = get_changed_files_since_commit(last_commit)
-
-    if changed_files is None:
-        # Fallback to full discovery
-        print(f"  Found {len(all_stores)} indexable stores (full scan)")
-        return sorted(all_stores)
-
-    # Map changed files to stores
-    changed_stores = map_files_to_stores(changed_files, all_stores) if changed_files else set()
-
-    # Combine: stores with changed files + stores missing from tracking
-    stores_to_sync = changed_stores | untracked_stores
-
-    if not stores_to_sync:
-        print("  No changes detected")
-        return []
-
-    print(f"  {len(changed_files)} files changed → {len(changed_stores)} stores affected")
-    if untracked_stores:
-        print(f"  {len(untracked_stores)} untracked stores need syncing")
-
-    for store in sorted(stores_to_sync):
-        suffix = " (untracked)" if store in untracked_stores else ""
-        print(f"    - {store}{suffix}")
-
-    return sorted(stores_to_sync)
+    return sorted(changed_mirrors | needs_first_index)
 
 
 # ============================================================================
@@ -664,17 +578,32 @@ def should_process_file(file_path: Path) -> bool:
     return True
 
 
-def prepare_file_for_upload(file_path: Path, temp_dir: Path) -> tuple[Path, str]:
-    """Prepare file for upload, converting .mdx to .md if needed."""
+def prepare_file_for_upload(file_path: Path, *, store_dir: Path, temp_dir: Path) -> tuple[Path, str]:
+    """Prepare file for upload.
+
+    - Uses the store-relative path as the display name (so citations match the repo).
+    - Converts `.mdx` to `.md` for upload to ensure markdown parsing, while preserving
+      the original `.mdx` display name.
+    """
+    rel = file_path.relative_to(store_dir)
+    display_name = rel.as_posix()
+
     if file_path.suffix.lower() == ".mdx":
-        temp_name = file_path.stem + ".md"
-        temp_path = temp_dir / temp_name
-        shutil.copy2(file_path, temp_path)
-        return temp_path, file_path.name
-    return file_path, file_path.name
+        upload_rel = rel.with_suffix(".md")
+        upload_path = temp_dir / upload_rel
+        upload_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(file_path, upload_path)
+        return upload_path, display_name
+
+    return file_path, display_name
 
 
-def sync_gemini_store(client, store_name: str, stores_by_display: dict) -> dict:
+def sync_gemini_store(
+    client,
+    store_name: str,
+    stores_by_display: dict,
+    gemini_exclusions: List[str],
+) -> dict:
     """
     Sync a single Gemini FileSearchStore.
     Returns dict with keys: status, files, cost, lastSync
@@ -685,18 +614,19 @@ def sync_gemini_store(client, store_name: str, stores_by_display: dict) -> dict:
     print(f"📤 Processing store: {store_name}")
     print(f"{'='*60}")
 
-    # Delete existing store
-    existing_store = stores_by_display.get(store_name)
-    if existing_store:
-        try:
-            print(f"  Deleting existing store: {existing_store.name}")
-            client.file_search_stores.delete(
-                name=existing_store.name,
-                config=types.DeleteFileSearchStoreConfig(force=True)
-            )
-            time.sleep(2)  # Allow backend cleanup
-        except Exception as e:
-            print(f"  ⚠️  Error deleting store: {e}", file=sys.stderr)
+    # Delete any existing stores with this display name (dedupe + ensure correctness)
+    existing_stores = stores_by_display.get(store_name, [])
+    if existing_stores:
+        for existing_store in existing_stores:
+            try:
+                print(f"  Deleting existing store: {existing_store.name}")
+                client.file_search_stores.delete(
+                    name=existing_store.name,
+                    config=types.DeleteFileSearchStoreConfig(force=True)
+                )
+            except Exception as e:
+                print(f"  ⚠️  Error deleting store: {e}", file=sys.stderr)
+        time.sleep(2)  # Allow backend cleanup
 
     # Create new store
     try:
@@ -733,6 +663,10 @@ def sync_gemini_store(client, store_name: str, stores_by_display: dict) -> dict:
         if file_path.name.startswith(".") or file_path.name == META_FILENAME:
             skipped += 1
             continue
+        rel = file_path.relative_to(store_dir).as_posix()
+        if is_excluded(rel, gemini_exclusions):
+            skipped += 1
+            continue
         if should_process_file(file_path):
             files.append(file_path)
         else:
@@ -753,13 +687,19 @@ def sync_gemini_store(client, store_name: str, stores_by_display: dict) -> dict:
 
         def upload_one(fp: Path):
             try:
-                up_path, display_name = prepare_file_for_upload(fp, tmp_dir)
+                up_path, display_name = prepare_file_for_upload(
+                    fp,
+                    store_dir=store_dir,
+                    temp_dir=tmp_dir,
+                )
                 size = up_path.stat().st_size
                 est_tokens = size // 4
                 op = client.file_search_stores.upload_to_file_search_store(
                     file=str(up_path),
                     file_search_store_name=store.name,
-                    config={"display_name": display_name},
+                    config=types.UploadToFileSearchStoreConfig(
+                        display_name=display_name,
+                    ),
                 )
                 return (op, est_tokens, fp, None)
             except Exception as ex:
@@ -828,10 +768,14 @@ def sync_gemini_store(client, store_name: str, stores_by_display: dict) -> dict:
     }
 
 
-def sync_gemini_stores(changed_stores: List[str], valid_stores: Set[str]) -> dict:
+def sync_gemini_stores(
+    stores_to_sync: List[str],
+    valid_stores: Set[str],
+    gemini_exclusions: List[str],
+) -> dict:
     """Sync changed stores and clean up stale stores from Gemini."""
     print(f"\n{'='*60}")
-    print(f"🚀 SYNCING {len(changed_stores)} GEMINI STORES")
+    print(f"🚀 SYNCING {len(stores_to_sync)} GEMINI STORES")
     print(f"{'='*60}")
 
     api_key = os.getenv("GEMINI_API_KEY")
@@ -874,10 +818,14 @@ def sync_gemini_stores(changed_stores: List[str], valid_stores: Set[str]) -> dic
     try:
         existing = list(
             client.file_search_stores.list(
-                config=types.ListFileSearchStoresConfig(page_size=100)
+                config=types.ListFileSearchStoresConfig(page_size=20)
             )
         )
-        stores_by_display = {s.display_name: s for s in existing}
+        stores_by_display: Dict[str, list] = {}
+        for s in existing:
+            if not getattr(s, "display_name", None):
+                continue
+            stores_by_display.setdefault(s.display_name, []).append(s)
         print(f"  Found {len(existing)} existing stores")
     except Exception as e:
         print(f"  ⚠️  Could not list stores: {e}", file=sys.stderr)
@@ -889,21 +837,33 @@ def sync_gemini_stores(changed_stores: List[str], valid_stores: Set[str]) -> dic
         print(f"  🧹 Deleting {len(stale_store_names)} stale Gemini stores: {', '.join(sorted(stale_store_names))}")
         for store_name in sorted(stale_store_names):
             try:
-                store = stores_by_display[store_name]
-                print(f"    Deleting {store_name} ({store.name})...")
-                client.file_search_stores.delete(
-                    name=store.name,
-                    config=types.DeleteFileSearchStoreConfig(force=True)
-                )
-                # Verify deletion
-                time.sleep(1)
-                try:
-                    client.file_search_stores.get(name=store.name)
-                    print(f"    ⚠️  {store_name}: Delete called but store still exists!", file=sys.stderr)
-                except Exception:
-                    print(f"    ✅ Deleted: {store_name}")
+                for store in stores_by_display.get(store_name, []):
+                    print(f"    Deleting {store_name} ({store.name})...")
+                    client.file_search_stores.delete(
+                        name=store.name,
+                        config=types.DeleteFileSearchStoreConfig(force=True)
+                    )
+                stores_by_display.pop(store_name, None)
             except Exception as e:
                 print(f"    ❌ Failed to delete {store_name}: {e}", file=sys.stderr)
+
+    # If duplicates exist for a valid display name, delete them all and force a reindex.
+    forced_reindex: Set[str] = set()
+    for display_name, stores in list(stores_by_display.items()):
+        if display_name in valid_stores and len(stores) > 1:
+            forced_reindex.add(display_name)
+            print(f"  🧹 {display_name}: {len(stores)} duplicate stores found; deleting and rebuilding")
+            for store in stores:
+                try:
+                    client.file_search_stores.delete(
+                        name=store.name,
+                        config=types.DeleteFileSearchStoreConfig(force=True)
+                    )
+                except Exception as e:
+                    print(f"    ❌ Failed to delete duplicate {store.name}: {e}", file=sys.stderr)
+            stores_by_display[display_name] = []
+
+    stores_to_sync = sorted(set(stores_to_sync) | forced_reindex)
 
     # Sync each store in parallel
     results = {}
@@ -912,8 +872,8 @@ def sync_gemini_stores(changed_stores: List[str], valid_stores: Set[str]) -> dic
 
     with ThreadPoolExecutor(max_workers=10) as executor:
         futures = {
-            executor.submit(sync_gemini_store, client, store_name, stores_by_display): store_name
-            for store_name in changed_stores
+            executor.submit(sync_gemini_store, client, store_name, stores_by_display, gemini_exclusions): store_name
+            for store_name in stores_to_sync
         }
 
         for future in as_completed(futures):
@@ -934,7 +894,7 @@ def sync_gemini_stores(changed_stores: List[str], valid_stores: Set[str]) -> dic
 
     print(f"\n{'='*60}")
     print("✅ GEMINI SYNC COMPLETE")
-    print(f"  Stores updated: {successful}/{len(changed_stores)}")
+    print(f"  Stores updated: {successful}/{len(stores_to_sync)}")
     print(f"  Files uploaded: {total_files}")
     print(f"  Total cost: ${total_cost:.4f}")
     print(f"{'='*60}")
@@ -1174,6 +1134,7 @@ def main() -> None:
 
     # Get valid mirror IDs (owner/repo format) from config
     valid_mirror_ids = get_valid_mirror_ids(mirrors)
+    mirror_config_by_id = {f"{m['owner']}/{m['repo']}": m for m in mirrors}
 
     # Ensure stores dict exists
     if "stores" not in state:
@@ -1188,7 +1149,10 @@ def main() -> None:
             if result["status"] in ("success", "unchanged"):
                 if mirror_id not in state["stores"]:
                     state["stores"][mirror_id] = {"gemini": None}
+                mirror_cfg = mirror_config_by_id.get(mirror_id, {})
                 state["stores"][mirror_id]["commit"] = result["commit"]
+                state["stores"][mirror_id]["branch"] = mirror_cfg.get("branch")
+                state["stores"][mirror_id]["docsPath"] = mirror_cfg.get("docsPath")
                 state["stores"][mirror_id]["synced"] = format_timestamp()
                 state["stores"][mirror_id]["status"] = result["status"]
     else:
@@ -1210,13 +1174,22 @@ def main() -> None:
 
     # Step 2: Detect and sync Gemini stores
     if not args.skip_gemini:
-        changed_stores = detect_changed_stores(state, gemini_exclusions, mirrors)
-
-        # Valid stores are at owner/repo level from mirrors.json
-        valid_stores = valid_mirror_ids
+        stores_to_sync = determine_stores_to_index(
+            mirrors=mirrors,
+            state=state,
+            mirror_results=mirror_results,
+            gemini_exclusions=gemini_exclusions,
+        )
 
         # Always run sync to cleanup stale stores, even if no changes detected
-        gemini_results = sync_gemini_stores(changed_stores, valid_stores)
+        gemini_results = sync_gemini_stores(
+            stores_to_sync,
+            valid_mirror_ids,
+            gemini_exclusions,
+        )
+
+        # Record exclusions hash only when we attempted Gemini sync
+        state["geminiExclusionsHash"] = stable_json_hash(gemini_exclusions)
 
         # Update gemini info in unified stores structure
         for store_name, store_data in gemini_results.get("stores", {}).items():
