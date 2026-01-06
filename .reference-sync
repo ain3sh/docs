@@ -1,6 +1,6 @@
 {
-  "lastSync": "2026-01-06T18:38:37Z",
-  "lastCommit": "68b108014132d4b4efcc38dbb00a7d521a5945e5",
+  "lastSync": "2026-01-06T19:20:19Z",
+  "lastCommit": "32f3b441030b20c835ce459bc48055b7c645b8d9",
   "geminiExclusionsHash": "4b2f4a34af1ed7dfc5d3ed505747999518b9a9d1e106a78a626634934e393db2",
   "stores": {
     "MoonshotAI/kimi-cli": {
@@ -11,8 +11,8 @@
         "status": "success"
       },
       "commit": "735c8f8601e49bd8b83935c79f04906106750b7f",
-      "synced": "2026-01-06T18:35:33Z",
-      "status": "success",
+      "synced": "2026-01-06T19:19:37Z",
+      "status": "unchanged",
       "branch": "main",
       "docsPath": "packages/kosong/src/kosong"
     },
@@ -24,8 +24,8 @@
         "status": "success"
       },
       "commit": "154599149c59c39903f5656936fa8340fd0ba8e9",
-      "synced": "2026-01-06T18:35:33Z",
-      "status": "success",
+      "synced": "2026-01-06T19:19:37Z",
+      "status": "unchanged",
       "branch": "main",
       "docsPath": "docs/docs"
     },
@@ -37,8 +37,8 @@
         "status": "success"
       },
       "commit": "04cae7ea5ba3a5c4e62c22884938699c73705651",
-      "synced": "2026-01-06T18:35:33Z",
-      "status": "success",
+      "synced": "2026-01-06T19:19:37Z",
+      "status": "unchanged",
       "branch": "main",
       "docsPath": "docs"
     },
@@ -46,11 +46,11 @@
       "gemini": {
         "files": 123,
         "cost": 0.0192321,
-        "synced": "2026-01-06T18:37:02Z",
+        "synced": "2026-01-06T19:20:19Z",
         "status": "success"
       },
-      "commit": "f8805bd9713e28af7d198f80c3613644df25c8b0",
-      "synced": "2026-01-06T18:35:33Z",
+      "commit": "e23f9eaa7f242dca016389bff9a8bb08021b7e98",
+      "synced": "2026-01-06T19:19:37Z",
       "status": "success",
       "branch": "main",
       "docsPath": "docs"
@@ -59,11 +59,11 @@
       "gemini": {
         "files": 10,
         "cost": 0.0016617,
-        "synced": "2026-01-06T18:35:47Z",
+        "synced": "2026-01-06T19:19:45Z",
         "status": "success"
       },
-      "commit": "37de50144f5a6d5bd44d31f2573b8a59bca8605d",
-      "synced": "2026-01-06T18:35:33Z",
+      "commit": "201de920a0d8c4e18e9c9796aa49b1d4bb75deb3",
+      "synced": "2026-01-06T19:19:37Z",
       "status": "success",
       "branch": "main",
       "docsPath": "docs"
@@ -76,8 +76,8 @@
         "status": "success"
       },
       "commit": "0019a0e9f9a997a65d95c85483cbbca7d16a02d9",
-      "synced": "2026-01-06T18:35:33Z",
-      "status": "success",
+      "synced": "2026-01-06T19:19:37Z",
+      "status": "unchanged",
       "branch": "main",
       "docsPath": "docs"
     },
@@ -89,8 +89,8 @@
         "status": "success"
       },
       "commit": "23c9df3fe9559495acb2cd70baa5363fc40111c4",
-      "synced": "2026-01-06T18:35:33Z",
-      "status": "success",
+      "synced": "2026-01-06T19:19:37Z",
+      "status": "unchanged",
       "branch": "main",
       "docsPath": "examples"
     },
@@ -102,8 +102,8 @@
         "status": "success"
       },
       "commit": "c9b6fe76dde25583b56086d918b7d4eef90eb77b",
-      "synced": "2026-01-06T18:35:33Z",
-      "status": "success",
+      "synced": "2026-01-06T19:19:37Z",
+      "status": "unchanged",
       "branch": "main",
       "docsPath": "docs"
     },
@@ -115,8 +115,8 @@
         "status": "success"
       },
       "commit": "befe650a621a5d990c66c7bcb6756deb547ccd14",
-      "synced": "2026-01-06T18:35:33Z",
-      "status": "success",
+      "synced": "2026-01-06T19:19:37Z",
+      "status": "unchanged",
       "branch": "main",
       "docsPath": "docs/source"
     },
@@ -128,8 +128,8 @@
         "status": "success"
       },
       "commit": "cb8fea77de3dc73d88dd6d8d73b12b5200ffaaec",
-      "synced": "2026-01-06T18:35:33Z",
-      "status": "success",
+      "synced": "2026-01-06T19:19:37Z",
+      "status": "unchanged",
       "branch": "main",
       "docsPath": "workflows"
     },
@@ -141,8 +141,8 @@
         "status": "success"
       },
       "commit": "53896c6e94aa2cc606668771fb81c125d696b5f1",
-      "synced": "2026-01-06T18:35:33Z",
-      "status": "success",
+      "synced": "2026-01-06T19:19:37Z",
+      "status": "unchanged",
       "branch": "main",
       "docsPath": "docs"
     },
@@ -154,8 +154,8 @@
         "status": "success"
       },
       "commit": "c23ef5203f1763958a047e035d44534840be86e7",
-      "synced": "2026-01-06T18:35:33Z",
-      "status": "success",
+      "synced": "2026-01-06T19:19:37Z",
+      "status": "unchanged",
       "branch": "main",
       "docsPath": "docs"
     }

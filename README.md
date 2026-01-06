@@ -8,11 +8,11 @@ A curated collection of documentation mirrors with automated semantic search ind
 | Mirror | Upstream | Branch | Docs Path | Last Commit | Synced At |
 | --- | --- | --- | --- | --- | --- |
 | Factory-AI/factory | [https://github.com/Factory-AI/factory](https://github.com/Factory-AI/factory) | main | docs | 53896c6 | 2026-01-06T18:35:31Z |
-| stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | f8805bd | 2026-01-06T18:35:29Z |
+| stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | e23f9ea | 2026-01-06T19:19:37Z |
 | lastmile-ai/mcp-agent | [https://github.com/lastmile-ai/mcp-agent](https://github.com/lastmile-ai/mcp-agent) | main | docs | 04cae7e | 2026-01-06T18:35:28Z |
 | MoonshotAI/kimi-cli | [https://github.com/MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | main | packages/kosong/src/kosong | 735c8f8 | 2026-01-06T18:35:28Z |
 | modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 1545991 | 2026-01-06T18:35:28Z |
-| modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | 37de501 | 2026-01-06T18:35:29Z |
+| modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | 201de92 | 2026-01-06T19:19:33Z |
 | ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | 0019a0e | 2026-01-06T18:35:29Z |
 | anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | 23c9df3 | 2026-01-06T18:35:30Z |
 | browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | c9b6fe7 | 2026-01-06T18:35:31Z |
@@ -29,7 +29,7 @@ This repository includes automated indexing for Gemini File Search API.
 - **Stores**: 12
 - **Files indexed**: 723
 - **Total cost**: $0.2173
-- **Last sync**: 2026-01-06T18:38:37Z
+- **Last sync**: 2026-01-06T19:20:19Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
@@ -76,7 +76,6 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │   │   ├── README.md
 │   │   └── supported-models.mdx
 │   └── workflow-use
-│       ├── .vscode
 │       ├── backend
 │       ├── docs
 │       ├── examples
