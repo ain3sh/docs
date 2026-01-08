@@ -71,6 +71,12 @@
       "repo": "extensions",
       "branch": "main",
       "docsPath": "docs"
+    },
+    {
+      "owner": "typst",
+      "repo": "typst",
+      "branch": "main",
+      "docsPath": "docs/reference"
     }
   ],
   "geminiExclusions": [
