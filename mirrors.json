@@ -37,6 +37,12 @@
       "docsPath": "docs"
     },
     {
+      "owner": "modelcontextprotocol",
+      "repo": "go-sdk",
+      "branch": "main",
+      "docsPath": "docs"
+    },
+    {
       "owner": "ericbuess",
       "repo": "claude-code-docs",
       "branch": "main",
