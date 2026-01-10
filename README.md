@@ -13,7 +13,8 @@ A curated collection of documentation mirrors with automated semantic search ind
 | MoonshotAI/kimi-cli | [https://github.com/MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | main | packages/kosong/src/kosong | 6eaf8bd | 2026-01-10T03:57:44Z |
 | modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | b438f60 | 2026-01-10T03:57:44Z |
 | modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | 6b69f63 | 2026-01-08T18:50:54Z |
-| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | bd3d5ed | 2026-01-10T03:57:44Z |
+| modelcontextprotocol/go-sdk | [https://github.com/modelcontextprotocol/go-sdk](https://github.com/modelcontextprotocol/go-sdk) | main | docs | a225d4d | 2026-01-10T20:56:28Z |
+| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | fbfb596 | 2026-01-10T20:56:28Z |
 | anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | 55372da | 2026-01-10T03:57:44Z |
 | browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 31ed79d | 2026-01-08T04:03:41Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | cb8fea7 | 2026-01-06T19:38:21Z |
@@ -27,10 +28,10 @@ A curated collection of documentation mirrors with automated semantic search ind
 
 This repository includes automated indexing for Gemini File Search API.
 
-- **Stores**: 13
-- **Files indexed**: 741
-- **Total cost**: $0.2217
-- **Last sync**: 2026-01-10T03:58:32Z
+- **Stores**: 14
+- **Files indexed**: 747
+- **Total cost**: $0.2240
+- **Last sync**: 2026-01-10T20:56:48Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
@@ -190,6 +191,14 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │       ├── README.md
 │       └── roadmap.mdx
 ├── modelcontextprotocol
+│   ├── go-sdk
+│   │   ├── client.md
+│   │   ├── index.html
+│   │   ├── protocol.md
+│   │   ├── README.md
+│   │   ├── rough_edges.md
+│   │   ├── server.md
+│   │   └── troubleshooting.md
 │   ├── modelcontextprotocol
 │   │   ├── develop
 │   │   ├── getting-started
