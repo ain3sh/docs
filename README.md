@@ -14,13 +14,13 @@ A curated collection of documentation mirrors with automated semantic search ind
 | modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 51e417c | 2026-01-31T04:27:32Z |
 | modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | 2182205 | 2026-01-31T04:27:32Z |
 | modelcontextprotocol/go-sdk | [https://github.com/modelcontextprotocol/go-sdk](https://github.com/modelcontextprotocol/go-sdk) | main | docs | bba5acd | 2026-01-31T04:27:32Z |
-| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | 18908e9 | 2026-01-31T04:27:33Z |
-| anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | 438ddf7 | 2026-01-31T04:27:33Z |
-| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 8a703f7 | 2026-01-31T04:27:33Z |
+| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | e570dd1 | 2026-02-01T05:04:50Z |
+| anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | b82f9b9 | 2026-02-01T05:04:50Z |
+| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 3f3fb0e | 2026-02-01T05:04:51Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | 59ec570 | 2026-01-31T04:27:33Z |
-| python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 4a9c6db | 2026-01-30T04:44:10Z |
-| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | 87b9977 | 2026-01-31T04:27:35Z |
-| typst/typst | [https://github.com/typst/typst](https://github.com/typst/typst) | main | docs/reference | bf94617 | 2026-01-28T04:08:43Z |
+| python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 95d9205 | 2026-02-01T05:04:51Z |
+| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | 4a4f247 | 2026-02-01T05:04:53Z |
+| typst/typst | [https://github.com/typst/typst](https://github.com/typst/typst) | main | docs/reference | 0ca1bfe | 2026-02-01T05:04:52Z |
 <!-- /AUTO:MIRROR_STATUS -->
 
 <!-- AUTO:SEMANTIC_SEARCH -->
@@ -31,7 +31,7 @@ This repository includes automated indexing for Gemini File Search API.
 - **Stores**: 14
 - **Files indexed**: 763
 - **Total cost**: $0.2384
-- **Last sync**: 2026-01-31T04:38:03Z
+- **Last sync**: 2026-02-01T05:05:40Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
@@ -78,7 +78,6 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │   │   ├── README.md
 │   │   └── supported-models.mdx
 │   └── workflow-use
-│       ├── .vscode
 │       ├── backend
 │       ├── docs
 │       ├── examples
