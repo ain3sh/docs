@@ -1,6 +1,6 @@
 {
-  "lastSync": "2026-02-01T05:05:40Z",
-  "lastCommit": "a574e06387d3c492bf69ae73141c343cb375891c",
+  "lastSync": "2026-02-02T05:02:26Z",
+  "lastCommit": "253bbcfe07f02e344dc5619b9ef03dc7eaf77436",
   "stores": {
     "modelcontextprotocol/modelcontextprotocol": {
       "gemini": {
@@ -12,7 +12,7 @@
       "commit": "51e417c2c72b674eded541905feafb2dd4e33368",
       "branch": "main",
       "docsPath": "docs/docs",
-      "synced": "2026-02-01T05:04:53Z",
+      "synced": "2026-02-02T05:01:32Z",
       "status": "unchanged"
     },
     "MoonshotAI/kimi-cli": {
@@ -25,7 +25,7 @@
       "commit": "e056888967134784969128e9746f3128ca35580b",
       "branch": "main",
       "docsPath": "packages/kosong/src/kosong",
-      "synced": "2026-02-01T05:04:53Z",
+      "synced": "2026-02-02T05:01:32Z",
       "status": "unchanged"
     },
     "lastmile-ai/mcp-agent": {
@@ -38,33 +38,33 @@
       "commit": "f62d849350816588b1c6294e7914bbe4d8b84072",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-02-01T05:04:53Z",
+      "synced": "2026-02-02T05:01:32Z",
       "status": "unchanged"
     },
     "modelcontextprotocol/python-sdk": {
       "gemini": {
         "files": 11,
         "cost": 0.0022339499999999997,
-        "synced": "2026-01-31T04:27:47Z",
+        "synced": "2026-02-02T05:01:43Z",
         "status": "success"
       },
-      "commit": "21822053df54bdfc3d7016b922c020482f6b284b",
+      "commit": "6f8b791faf219329d97f422a009ac1d1674e46bb",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-02-01T05:04:53Z",
-      "status": "unchanged"
+      "synced": "2026-02-02T05:01:32Z",
+      "status": "success"
     },
     "ericbuess/claude-code-docs": {
       "gemini": {
         "files": 53,
-        "cost": 0.03909914999999999,
-        "synced": "2026-02-01T05:05:31Z",
+        "cost": 0.03937125,
+        "synced": "2026-02-02T05:02:06Z",
         "status": "success"
       },
-      "commit": "e570dd14b56f7439f8731228c54b6b8f473a82f5",
+      "commit": "23b38ff5d12697f8904442e5aa0d4db65e48abfc",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-02-01T05:04:53Z",
+      "synced": "2026-02-02T05:01:32Z",
       "status": "success"
     },
     "stanfordnlp/dspy": {
@@ -77,7 +77,7 @@
       "commit": "586156eb92692f6eb6a9ef4749cd774bd5b92eaf",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-02-01T05:04:53Z",
+      "synced": "2026-02-02T05:01:32Z",
       "status": "unchanged"
     },
     "anthropics/claude-agent-sdk-python": {
@@ -90,8 +90,8 @@
       "commit": "b82f9b9bf5ee729a058f52e834722f49da7292dd",
       "branch": "main",
       "docsPath": "examples",
-      "synced": "2026-02-01T05:04:53Z",
-      "status": "success"
+      "synced": "2026-02-02T05:01:32Z",
+      "status": "unchanged"
     },
     "python-trio/trio": {
       "gemini": {
@@ -103,8 +103,8 @@
       "commit": "95d92051c5acf71d717c77c7c996d4d0db3ab952",
       "branch": "main",
       "docsPath": "docs/source",
-      "synced": "2026-02-01T05:04:53Z",
-      "status": "success"
+      "synced": "2026-02-02T05:01:32Z",
+      "status": "unchanged"
     },
     "browser-use/workflow-use": {
       "gemini": {
@@ -116,20 +116,20 @@
       "commit": "59ec570d07266ebf0b1a767b240c51e47b7ebe3d",
       "branch": "main",
       "docsPath": "workflows",
-      "synced": "2026-02-01T05:04:53Z",
+      "synced": "2026-02-02T05:01:32Z",
       "status": "unchanged"
     },
     "browser-use/browser-use": {
       "gemini": {
         "files": 56,
         "cost": 0.0061638,
-        "synced": "2026-02-01T05:05:16Z",
+        "synced": "2026-02-02T05:02:03Z",
         "status": "success"
       },
-      "commit": "3f3fb0efcc7b643b83a94b06690e16b2732c01da",
+      "commit": "3b51ba7db6d2ae8188bf1e9b1391430274197f18",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-02-01T05:04:53Z",
+      "synced": "2026-02-02T05:01:32Z",
       "status": "success"
     },
     "Factory-AI/factory": {
@@ -142,20 +142,20 @@
       "commit": "5013789063ba17e90bc322fa37eb2b4a103720f7",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-02-01T05:04:53Z",
+      "synced": "2026-02-02T05:01:32Z",
       "status": "unchanged"
     },
     "raycast/extensions": {
       "gemini": {
         "files": 108,
         "cost": 0.02672295,
-        "synced": "2026-02-01T05:05:40Z",
+        "synced": "2026-02-02T05:02:26Z",
         "status": "success"
       },
-      "commit": "4a4f247af7a1c38c12d7c94bed8cd5ee977fa131",
+      "commit": "4b357c8fc0c319e85d4e174d0b36e4851650be83",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-02-01T05:04:53Z",
+      "synced": "2026-02-02T05:01:32Z",
       "status": "success"
     },
     "typst/typst": {
@@ -168,8 +168,8 @@
       "commit": "0ca1bfe38df2fd0b45e97e108207b2d287816cf5",
       "branch": "main",
       "docsPath": "docs/reference",
-      "synced": "2026-02-01T05:04:53Z",
-      "status": "success"
+      "synced": "2026-02-02T05:01:32Z",
+      "status": "unchanged"
     },
     "modelcontextprotocol/go-sdk": {
       "gemini": {
@@ -181,7 +181,7 @@
       "commit": "bba5acdc8b93e308c45170198b29a3d155ad649f",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-02-01T05:04:53Z",
+      "synced": "2026-02-02T05:01:32Z",
       "status": "unchanged"
     }
   },
