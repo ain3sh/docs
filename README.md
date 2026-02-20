@@ -7,20 +7,20 @@ A curated collection of documentation mirrors with automated semantic search ind
 
 | Mirror | Upstream | Branch | Docs Path | Last Commit | Synced At |
 | --- | --- | --- | --- | --- | --- |
-| Factory-AI/factory | [https://github.com/Factory-AI/factory](https://github.com/Factory-AI/factory) | main | docs | 22a519c | 2026-02-18T04:57:52Z |
+| Factory-AI/factory | [https://github.com/Factory-AI/factory](https://github.com/Factory-AI/factory) | main | docs | 7d21bfc | 2026-02-20T04:50:42Z |
 | stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | 4507ef3 | 2026-02-16T05:03:33Z |
 | lastmile-ai/mcp-agent | [https://github.com/lastmile-ai/mcp-agent](https://github.com/lastmile-ai/mcp-agent) | main | docs | f62d849 | 2026-01-26T04:18:33Z |
 | MoonshotAI/kimi-cli | [https://github.com/MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | main | packages/kosong/src/kosong | 62baaca | 2026-02-12T05:02:39Z |
-| modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 0afe298 | 2026-02-19T04:57:04Z |
-| modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | 43d709c | 2026-02-19T04:57:04Z |
-| modelcontextprotocol/go-sdk | [https://github.com/modelcontextprotocol/go-sdk](https://github.com/modelcontextprotocol/go-sdk) | main | docs | ac65640 | 2026-02-19T04:57:04Z |
-| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | e7f22f4 | 2026-02-19T04:57:05Z |
-| anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | 0e9397e | 2026-02-19T04:57:04Z |
-| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | a0c8e06 | 2026-02-19T04:57:05Z |
+| modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 69b0abc | 2026-02-20T04:50:38Z |
+| modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | 0fe16dd | 2026-02-20T04:50:38Z |
+| modelcontextprotocol/go-sdk | [https://github.com/modelcontextprotocol/go-sdk](https://github.com/modelcontextprotocol/go-sdk) | main | docs | 86d05a1 | 2026-02-20T04:50:38Z |
+| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | 99bb619 | 2026-02-20T04:50:38Z |
+| anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | d36db81 | 2026-02-20T04:50:38Z |
+| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 2a009f6 | 2026-02-20T04:50:38Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | 59ec570 | 2026-01-31T04:27:33Z |
 | python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 2fd138e | 2026-02-19T04:57:05Z |
-| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | e92cc45 | 2026-02-19T04:57:06Z |
-| typst/typst | [https://github.com/typst/typst](https://github.com/typst/typst) | main | docs/reference | 6d03f2a | 2026-02-19T04:57:05Z |
+| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | 4800bfa | 2026-02-20T04:50:40Z |
+| typst/typst | [https://github.com/typst/typst](https://github.com/typst/typst) | main | docs/reference | 5dcc0cb | 2026-02-20T04:50:39Z |
 <!-- /AUTO:MIRROR_STATUS -->
 
 <!-- AUTO:SEMANTIC_SEARCH -->
@@ -30,8 +30,8 @@ This repository includes automated indexing for Gemini File Search API.
 
 - **Stores**: 14
 - **Files indexed**: 777
-- **Total cost**: $0.2513
-- **Last sync**: 2026-02-19T04:57:47Z
+- **Total cost**: $0.2516
+- **Last sync**: 2026-02-20T04:58:50Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
