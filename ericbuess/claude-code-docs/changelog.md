@@ -8,6 +8,14 @@
 
 # Changelog
 
+## 2.1.62
+
+- Fixed prompt suggestion cache regression that reduced cache hit rates
+
+## 2.1.61
+
+- Fixed concurrent writes corrupting config file on Windows
+
 ## 2.1.59
 
 - Claude automatically saves useful context to auto-memory. Manage with /memory
@@ -17,6 +25,7 @@
 - Improved memory usage in multi-agent sessions by releasing completed subagent task state
 - Fixed MCP OAuth token refresh race condition when running multiple Claude Code instances simultaneously
 - Fixed shell commands not showing a clear error message when the working directory has been deleted
+- Fixed config file corruption that could wipe authentication when multiple Claude Code instances ran simultaneously
 
 ## 2.1.58
 
