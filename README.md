@@ -14,12 +14,12 @@ A curated collection of documentation mirrors with automated semantic search ind
 | modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 8e2634d | 2026-03-07T04:24:22Z |
 | modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | 7ba41dc | 2026-03-07T04:24:22Z |
 | modelcontextprotocol/go-sdk | [https://github.com/modelcontextprotocol/go-sdk](https://github.com/modelcontextprotocol/go-sdk) | main | docs | 16d990b | 2026-03-04T04:44:16Z |
-| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | f4601d1 | 2026-03-07T04:24:23Z |
+| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | b854b45 | 2026-03-08T04:46:51Z |
 | anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | d6f0352 | 2026-03-07T04:24:23Z |
-| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 7a2f554 | 2026-03-07T04:24:24Z |
+| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 9b103bb | 2026-03-08T04:46:51Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | 59ec570 | 2026-01-31T04:27:33Z |
 | python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 3dd35d7 | 2026-03-01T04:57:52Z |
-| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | fc70c87 | 2026-03-07T04:24:26Z |
+| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | 33237f9 | 2026-03-08T04:46:52Z |
 | typst/typst | [https://github.com/typst/typst](https://github.com/typst/typst) | main | docs/reference | 364ece3 | 2026-03-06T04:45:21Z |
 <!-- /AUTO:MIRROR_STATUS -->
 
@@ -31,7 +31,7 @@ This repository includes automated indexing for Gemini File Search API.
 - **Stores**: 14
 - **Files indexed**: 889
 - **Total cost**: $0.3059
-- **Last sync**: 2026-03-07T04:31:14Z
+- **Last sync**: 2026-03-08T04:47:30Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
