@@ -15,7 +15,7 @@ A curated collection of documentation mirrors with automated semantic search ind
 | modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 8e2634d | 2026-03-07T04:24:22Z |
 | modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | 7ba41dc | 2026-03-07T04:24:22Z |
 | anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | d6f0352 | 2026-03-07T04:24:23Z |
-| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 9b103bb | 2026-03-08T04:46:51Z |
+| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | browser_use | 028c286 | 2026-03-09T08:07:15Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | 59ec570 | 2026-01-31T04:27:33Z |
 | python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 3dd35d7 | 2026-03-01T04:57:52Z |
 | raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | 8285828 | 2026-03-09T08:03:26Z |
@@ -28,9 +28,9 @@ A curated collection of documentation mirrors with automated semantic search ind
 This repository includes automated indexing for Gemini File Search API.
 
 - **Stores**: 13
-- **Files indexed**: 872
-- **Total cost**: $0.2546
-- **Last sync**: 2026-03-09T08:04:10Z
+- **Files indexed**: 1008
+- **Total cost**: $0.3432
+- **Last sync**: 2026-03-09T08:08:38Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
@@ -61,23 +61,34 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │       └── tools_option.py
 ├── browser-use
 │   ├── browser-use
-│   │   ├── customize
-│   │   ├── development
-│   │   ├── examples
-│   │   ├── images
-│   │   ├── legacy
-│   │   ├── logo
-│   │   ├── cloud.mdx
-│   │   ├── development.mdx
-│   │   ├── docs.json
-│   │   ├── favicon.ico
-│   │   ├── favicon.svg
-│   │   ├── introduction.mdx
-│   │   ├── quickstart.mdx
-│   │   ├── quickstart_llm.mdx
+│   │   ├── actor
+│   │   ├── agent
+│   │   ├── browser
+│   │   ├── code_use
+│   │   ├── controller
+│   │   ├── dom
+│   │   ├── filesystem
+│   │   ├── integrations
+│   │   ├── llm
+│   │   ├── mcp
+│   │   ├── sandbox
+│   │   ├── screenshots
+│   │   ├── skill_cli
+│   │   ├── skills
+│   │   ├── sync
+│   │   ├── telemetry
+│   │   ├── tokens
+│   │   ├── tools
+│   │   ├── __init__.py
+│   │   ├── cli.py
+│   │   ├── config.py
+│   │   ├── exceptions.py
+│   │   ├── init_cmd.py
+│   │   ├── logging_config.py
+│   │   ├── observability.py
+│   │   ├── py.typed
 │   │   ├── README.md
-│   │   ├── supported-models.mdx
-│   │   └── use-cloud.mdx
+│   │   └── utils.py
 │   └── workflow-use
 │       ├── backend
 │       ├── docs

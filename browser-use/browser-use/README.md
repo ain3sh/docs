@@ -1,17 +1,51 @@
-# Docs
+# Codebase Structure
 
-The official documentation for Browser Use. The docs are published to [Browser Use Docs](https://docs.browser-use.com).
+> The code structure inspired by https://github.com/Netflix/dispatch.
 
-### Development
+Very good structure on how to make a scalable codebase is also in [this repo](https://github.com/zhanymkanov/fastapi-best-practices).
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
+Just a brief document about how we should structure our backend codebase.
 
+## Code Structure
+
+```markdown
+src/
+/<service name>/
+models.py
+services.py
+prompts.py
+views.py
+utils.py
+routers.py
+
+    	/_<subservice name>/
 ```
-npm i -g mintlify
+
+### Service.py
+
+Always a single file, except if it becomes too long - more than ~500 lines, split it into \_subservices
+
+### Views.py
+
+Always split the views into two parts
+
+```python
+# All
+...
+
+# Requests
+...
+
+# Responses
+...
 ```
 
-Run the following command at the root of your documentation (where mint.json is)
+If too long → split into multiple files
 
-```
-mintlify dev
-```
+### Prompts.py
+
+Single file; if too long → split into multiple files (one prompt per file or so)
+
+### Routers.py
+
+Never split into more than one file

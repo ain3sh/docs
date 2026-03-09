@@ -2,7 +2,7 @@
   "owner": "browser-use",
   "repo": "browser-use",
   "branch": "main",
-  "docsPath": "docs",
-  "sourceCommit": "9b103bb1d469e49cfcff9edd007c4ff16d8577e0",
-  "syncedAt": "2026-03-08T04:46:51Z"
+  "docsPath": "browser_use",
+  "sourceCommit": "028c2868cf958634828280be0a0727cee4084174",
+  "syncedAt": "2026-03-09T08:07:15Z"
 }
