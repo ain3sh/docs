@@ -8,18 +8,17 @@ A curated collection of documentation mirrors with automated semantic search ind
 | Mirror | Upstream | Branch | Docs Path | Last Commit | Synced At |
 | --- | --- | --- | --- | --- | --- |
 | Factory-AI/factory | [https://github.com/Factory-AI/factory](https://github.com/Factory-AI/factory) | main | docs | e6995b2 | 2026-03-07T04:24:27Z |
+| vadimdemedes/ink | [https://github.com/vadimdemedes/ink](https://github.com/vadimdemedes/ink) | master | src | a27a17e | 2026-03-09T08:03:23Z |
 | stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | 43bf2c5 | 2026-03-07T04:24:23Z |
 | lastmile-ai/mcp-agent | [https://github.com/lastmile-ai/mcp-agent](https://github.com/lastmile-ai/mcp-agent) | main | docs | f62d849 | 2026-01-26T04:18:33Z |
-| MoonshotAI/kimi-cli | [https://github.com/MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | main | packages/kosong/src/kosong | 0c08b6b | 2026-03-05T04:48:55Z |
+| MoonshotAI/kimi-cli | [https://github.com/MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | main | packages/kosong/src/kosong | 0a92cf6 | 2026-03-09T08:03:23Z |
 | modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 8e2634d | 2026-03-07T04:24:22Z |
 | modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | 7ba41dc | 2026-03-07T04:24:22Z |
-| modelcontextprotocol/go-sdk | [https://github.com/modelcontextprotocol/go-sdk](https://github.com/modelcontextprotocol/go-sdk) | main | docs | 16d990b | 2026-03-04T04:44:16Z |
-| ericbuess/claude-code-docs | [https://github.com/ericbuess/claude-code-docs](https://github.com/ericbuess/claude-code-docs) | main | docs | cf1f66c | 2026-03-09T04:56:11Z |
 | anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | d6f0352 | 2026-03-07T04:24:23Z |
 | browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | docs | 9b103bb | 2026-03-08T04:46:51Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | 59ec570 | 2026-01-31T04:27:33Z |
 | python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 3dd35d7 | 2026-03-01T04:57:52Z |
-| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | 21e1803 | 2026-03-09T04:56:13Z |
+| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | 8285828 | 2026-03-09T08:03:26Z |
 | typst/typst | [https://github.com/typst/typst](https://github.com/typst/typst) | main | docs/reference | 364ece3 | 2026-03-06T04:45:21Z |
 <!-- /AUTO:MIRROR_STATUS -->
 
@@ -28,10 +27,10 @@ A curated collection of documentation mirrors with automated semantic search ind
 
 This repository includes automated indexing for Gemini File Search API.
 
-- **Stores**: 14
-- **Files indexed**: 889
-- **Total cost**: $0.3059
-- **Last sync**: 2026-03-09T04:56:52Z
+- **Stores**: 13
+- **Files indexed**: 872
+- **Total cost**: $0.2546
+- **Last sync**: 2026-03-09T08:04:10Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
@@ -95,69 +94,6 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │       ├── README.md
 │       ├── test_max_alternatives_bug_fix.py
 │       └── uv.lock
-├── ericbuess
-│   └── claude-code-docs
-│       ├── agent-teams.md
-│       ├── amazon-bedrock.md
-│       ├── analytics.md
-│       ├── authentication.md
-│       ├── best-practices.md
-│       ├── changelog.md
-│       ├── checkpointing.md
-│       ├── chrome.md
-│       ├── claude-code-on-the-web.md
-│       ├── cli-reference.md
-│       ├── common-workflows.md
-│       ├── costs.md
-│       ├── data-usage.md
-│       ├── desktop-quickstart.md
-│       ├── desktop.md
-│       ├── devcontainer.md
-│       ├── discover-plugins.md
-│       ├── docs_manifest.json
-│       ├── fast-mode.md
-│       ├── features-overview.md
-│       ├── github-actions.md
-│       ├── gitlab-ci-cd.md
-│       ├── google-vertex-ai.md
-│       ├── headless.md
-│       ├── hooks-guide.md
-│       ├── hooks.md
-│       ├── how-claude-code-works.md
-│       ├── interactive-mode.md
-│       ├── jetbrains.md
-│       ├── keybindings.md
-│       ├── legal-and-compliance.md
-│       ├── llm-gateway.md
-│       ├── mcp.md
-│       ├── memory.md
-│       ├── microsoft-foundry.md
-│       ├── model-config.md
-│       ├── monitoring-usage.md
-│       ├── network-config.md
-│       ├── output-styles.md
-│       ├── overview.md
-│       ├── permissions.md
-│       ├── plugin-marketplaces.md
-│       ├── plugins-reference.md
-│       ├── plugins.md
-│       ├── quickstart.md
-│       ├── remote-control.md
-│       ├── sandboxing.md
-│       ├── scheduled-tasks.md
-│       ├── security.md
-│       ├── server-managed-settings.md
-│       ├── settings.md
-│       ├── setup.md
-│       ├── skills.md
-│       ├── slack.md
-│       ├── statusline.md
-│       ├── sub-agents.md
-│       ├── terminal-config.md
-│       ├── third-party-integrations.md
-│       ├── troubleshooting.md
-│       ├── vs-code.md
-│       └── zero-data-retention.md
 ├── Factory-AI
 │   └── factory
 │       ├── changelog
@@ -207,14 +143,6 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │       ├── roadmap.mdx
 │       └── streaming_guide.md
 ├── modelcontextprotocol
-│   ├── go-sdk
-│   │   ├── client.md
-│   │   ├── index.html
-│   │   ├── protocol.md
-│   │   ├── README.md
-│   │   ├── rough_edges.md
-│   │   ├── server.md
-│   │   └── troubleshooting.md
 │   ├── modelcontextprotocol
 │   │   ├── develop
 │   │   ├── getting-started
@@ -308,6 +236,41 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │   ├── blog.google_technology_developers_file-search-gemini-api_.2025-11-09T18_07_43.675Z.md
 │   ├── CONTEXT_SEARCH_MCP_SPEC.md
 │   └── nodejs.org_api_single-executable-applications.html.2025-11-09T19_17_34.546Z.md
+├── vadimdemedes
+│   └── ink
+│       ├── components
+│       ├── hooks
+│       ├── ansi-tokenizer.ts
+│       ├── colorize.ts
+│       ├── cursor-helpers.ts
+│       ├── devtools-window-polyfill.ts
+│       ├── devtools.ts
+│       ├── dom.ts
+│       ├── get-max-width.ts
+│       ├── global.d.ts
+│       ├── index.ts
+│       ├── ink.tsx
+│       ├── input-parser.ts
+│       ├── instances.ts
+│       ├── kitty-keyboard.ts
+│       ├── log-update.ts
+│       ├── measure-element.ts
+│       ├── measure-text.ts
+│       ├── output.ts
+│       ├── parse-keypress.ts
+│       ├── reconciler.ts
+│       ├── render-background.ts
+│       ├── render-border.ts
+│       ├── render-node-to-output.ts
+│       ├── render-to-string.ts
+│       ├── render.ts
+│       ├── renderer.ts
+│       ├── sanitize-ansi.ts
+│       ├── squash-text-nodes.ts
+│       ├── styles.ts
+│       ├── utils.ts
+│       ├── wrap-text.ts
+│       └── write-synchronized.ts
 ├── .gitignore
 ├── .reference-sync
 ├── LICENSE
