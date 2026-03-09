@@ -7,6 +7,12 @@
       "docsPath": "docs"
     },
     {
+      "owner": "vadimdemedes",
+      "repo": "ink",
+      "branch": "master",
+      "docsPath": "src"
+    },
+    {
       "owner": "stanfordnlp",
       "repo": "dspy",
       "branch": "main",
@@ -33,18 +39,6 @@
     {
       "owner": "modelcontextprotocol",
       "repo": "python-sdk",
-      "branch": "main",
-      "docsPath": "docs"
-    },
-    {
-      "owner": "modelcontextprotocol",
-      "repo": "go-sdk",
-      "branch": "main",
-      "docsPath": "docs"
-    },
-    {
-      "owner": "ericbuess",
-      "repo": "claude-code-docs",
       "branch": "main",
       "docsPath": "docs"
     },
