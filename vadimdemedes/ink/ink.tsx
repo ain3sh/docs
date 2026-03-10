@@ -11,7 +11,7 @@ import {LegacyRoot, ConcurrentRoot} from 'react-reconciler/constants.js';
 import {type FiberRoot} from 'react-reconciler';
 import Yoga from 'yoga-layout';
 import wrapAnsi from 'wrap-ansi';
-import {isDev, getWindowSize} from './utils.js';
+import {getWindowSize} from './utils.js';
 import reconciler from './reconciler.js';
 import render from './renderer.js';
 import * as dom from './dom.js';
@@ -421,7 +421,7 @@ export default class Ink {
 
 		this.setAlternateScreen(Boolean(options.alternateScreen));
 
-		if (isDev()) {
+		if (process.env['DEV'] === 'true') {
 			// @ts-expect-error outdated types
 			reconciler.injectIntoDevTools();
 		}
@@ -1122,19 +1122,11 @@ export default class Ink {
 			return;
 		}
 
-		// Auto mode: use heuristic precheck, then confirm with protocol query
-		const term = process.env['TERM'] ?? '';
-		const termProgram = process.env['TERM_PROGRAM'] ?? '';
-
-		const isKnownSupportingTerminal =
-			'KITTY_WINDOW_ID' in process.env ||
-			term === 'xterm-kitty' ||
-			termProgram === 'WezTerm' ||
-			termProgram === 'ghostty';
-
-		if (isKnownSupportingTerminal) {
-			this.confirmKittySupport(flags);
-		}
+		// Auto mode: query the terminal for kitty keyboard protocol support.
+		// The CSI ? u query is safe to send to any terminal — unsupporting
+		// terminals simply won't respond, and the 200ms timeout handles that.
+		// This avoids maintaining a hardcoded whitelist of terminal names.
+		this.confirmKittySupport(flags);
 	}
 
 	private confirmKittySupport(flags: KittyFlagName[]): void {
