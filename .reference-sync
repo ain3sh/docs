@@ -1,31 +1,31 @@
 {
-  "lastSync": "2026-03-12T04:58:59Z",
-  "lastCommit": "8e96deb45fa7914aa512b20797b8cb2f73bc1bde",
+  "lastSync": "2026-03-13T04:52:34Z",
+  "lastCommit": "dad935d76e0be04b5faaacf25f401e56ad193478",
   "stores": {
     "modelcontextprotocol/modelcontextprotocol": {
       "gemini": {
         "files": 12,
-        "cost": 0.0104763,
-        "synced": "2026-03-12T04:51:12Z",
+        "cost": 0.0107808,
+        "synced": "2026-03-13T04:48:22Z",
         "status": "success"
       },
-      "commit": "d52f406ab5275ba286bef6a8396ab36ce5340393",
+      "commit": "9e7768c802b606e2d3dc4ebdaeaf07c40f943054",
       "branch": "main",
       "docsPath": "docs/docs",
-      "synced": "2026-03-12T04:51:01Z",
+      "synced": "2026-03-13T04:48:12Z",
       "status": "success"
     },
     "MoonshotAI/kimi-cli": {
       "gemini": {
         "files": 27,
         "cost": 0.007109099999999999,
-        "synced": "2026-03-12T04:51:20Z",
+        "synced": "2026-03-13T04:48:28Z",
         "status": "success"
       },
-      "commit": "ae182efd6909bce913bbabe661c3dafcaad32bf9",
+      "commit": "2e2eb2a1d868357eb48f96e2fc7f8ef9bec664d4",
       "branch": "main",
       "docsPath": "packages/kosong/src/kosong",
-      "synced": "2026-03-12T04:51:01Z",
+      "synced": "2026-03-13T04:48:12Z",
       "status": "success"
     },
     "lastmile-ai/mcp-agent": {
@@ -38,46 +38,46 @@
       "commit": "f62d849350816588b1c6294e7914bbe4d8b84072",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-03-12T04:51:01Z",
+      "synced": "2026-03-13T04:48:12Z",
       "status": "unchanged"
     },
     "modelcontextprotocol/python-sdk": {
       "gemini": {
         "files": 11,
         "cost": 0.0027627,
-        "synced": "2026-03-10T04:45:48Z",
+        "synced": "2026-03-13T04:48:23Z",
         "status": "success"
       },
-      "commit": "62eb08e5b23944510b8ec500a51c8f895fb58553",
+      "commit": "dd52713517d88541f9233cb2af62012ad65bb993",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-03-12T04:51:01Z",
-      "status": "unchanged"
+      "synced": "2026-03-13T04:48:12Z",
+      "status": "success"
     },
     "stanfordnlp/dspy": {
       "gemini": {
         "files": 126,
         "cost": 0.0198648,
-        "synced": "2026-03-12T04:54:33Z",
+        "synced": "2026-03-13T04:51:38Z",
         "status": "success"
       },
-      "commit": "71493dba02ca864a3b2326c2c143e5a65e8ee15d",
+      "commit": "7794dbf54b3ef44c167eaa28da72d9c9f28ac69b",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-03-12T04:51:01Z",
+      "synced": "2026-03-13T04:48:12Z",
       "status": "success"
     },
     "anthropics/claude-agent-sdk-python": {
       "gemini": {
         "files": 18,
         "cost": 0.00306435,
-        "synced": "2026-03-12T04:51:15Z",
+        "synced": "2026-03-13T04:48:24Z",
         "status": "success"
       },
-      "commit": "f74bd48bccfc8a65015120faaea95733672e0b19",
+      "commit": "2513c45b9920f63a499d86a7e9b9f855a6aca9ea",
       "branch": "main",
       "docsPath": "examples",
-      "synced": "2026-03-12T04:51:01Z",
+      "synced": "2026-03-13T04:48:12Z",
       "status": "success"
     },
     "python-trio/trio": {
@@ -90,7 +90,7 @@
       "commit": "f51968be9e2e563e37a52c332e7684bd14336574",
       "branch": "main",
       "docsPath": "docs/source",
-      "synced": "2026-03-12T04:51:01Z",
+      "synced": "2026-03-13T04:48:12Z",
       "status": "unchanged"
     },
     "browser-use/workflow-use": {
@@ -103,20 +103,20 @@
       "commit": "59ec570d07266ebf0b1a767b240c51e47b7ebe3d",
       "branch": "main",
       "docsPath": "workflows",
-      "synced": "2026-03-12T04:51:01Z",
+      "synced": "2026-03-13T04:48:12Z",
       "status": "unchanged"
     },
     "browser-use/browser-use": {
       "gemini": {
-        "files": 194,
-        "cost": 0.09543164999999999,
-        "synced": "2026-03-12T04:58:59Z",
+        "files": 193,
+        "cost": 0.09440115,
+        "synced": "2026-03-13T04:52:34Z",
         "status": "success"
       },
-      "commit": "5991c7ff8677caace735bddc75cc2ef2d46ae81a",
+      "commit": "6e2add1c8139b17b01a549eea944687486724fda",
       "branch": "main",
       "docsPath": "browser_use",
-      "synced": "2026-03-12T04:51:01Z",
+      "synced": "2026-03-13T04:48:12Z",
       "status": "success"
     },
     "Factory-AI/factory": {
@@ -129,33 +129,33 @@
       "commit": "728e19cdebdd0e6d8476100491b30f20d3f77387",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-03-12T04:51:01Z",
-      "status": "success"
+      "synced": "2026-03-13T04:48:12Z",
+      "status": "unchanged"
     },
     "raycast/extensions": {
       "gemini": {
         "files": 108,
         "cost": 0.02657685,
-        "synced": "2026-03-12T04:54:22Z",
+        "synced": "2026-03-13T04:51:28Z",
         "status": "success"
       },
-      "commit": "365c9557780eb21293979aed3de9e06c05fab51f",
+      "commit": "4940520129db53ac262fe8c5c31ef81876c7e77f",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-03-12T04:51:01Z",
+      "synced": "2026-03-13T04:48:12Z",
       "status": "success"
     },
     "typst/typst": {
       "gemini": {
         "files": 19,
         "cost": 0.00281475,
-        "synced": "2026-03-12T04:51:18Z",
+        "synced": "2026-03-13T04:48:24Z",
         "status": "success"
       },
-      "commit": "8626c05abceea8514cbbb4eabcf1a77cf70bad19",
+      "commit": "83122f0ab6e5505566a49b51308a628ce1ce2b78",
       "branch": "main",
       "docsPath": "docs/reference",
-      "synced": "2026-03-12T04:51:01Z",
+      "synced": "2026-03-13T04:48:12Z",
       "status": "success"
     },
     "vadimdemedes/ink": {
@@ -168,8 +168,8 @@
       "commit": "243e962f7e4f00510a322cf0ebf494c9e109273f",
       "branch": "master",
       "docsPath": "src",
-      "synced": "2026-03-12T04:51:01Z",
-      "status": "success"
+      "synced": "2026-03-13T04:48:12Z",
+      "status": "unchanged"
     }
   },
   "geminiExclusionsHash": "4b2f4a34af1ed7dfc5d3ed505747999518b9a9d1e106a78a626634934e393db2"
