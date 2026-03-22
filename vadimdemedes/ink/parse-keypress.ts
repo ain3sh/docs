@@ -1,6 +1,7 @@
 // Copied from https://github.com/enquirer/enquirer/blob/36785f3399a41cd61e9d28d1eb9c2fcd73d69b4c/lib/keypress.js
-import {Buffer} from 'node:buffer';
 import {kittyModifiers} from './kitty-keyboard.js';
+
+const textDecoder = new TextDecoder();
 
 const metaKeyCodeRe = /^(?:\x1b)([a-zA-Z0-9])$/;
 
@@ -13,6 +14,11 @@ const keyName: Record<string, string> = {
 	OQ: 'f2',
 	OR: 'f3',
 	OS: 'f4',
+	/* vt220-style ESC [ letter (e.g. Ctrl+F1 sends ESC [ 1 ; 5 P) */
+	'[P': 'f1',
+	'[Q': 'f2',
+	'[R': 'f3',
+	'[S': 'f4',
 	/* xterm/rxvt ESC [ number ~ */
 	'[11~': 'f1',
 	'[12~': 'f2',
@@ -422,15 +428,15 @@ const parseKittySpecialKey = (s: string): ParsedKey | null => {
 	};
 };
 
-const parseKeypress = (s: Buffer | string = ''): ParsedKey => {
+const parseKeypress = (s: Uint8Array | string = ''): ParsedKey => {
 	let parts;
 
-	if (Buffer.isBuffer(s)) {
+	if (s instanceof Uint8Array) {
 		if (s[0]! > 127 && s[1] === undefined) {
 			(s[0] as unknown as number) -= 128;
-			s = '\x1b' + String(s);
+			s = '\x1b' + textDecoder.decode(s);
 		} else {
-			s = String(s);
+			s = textDecoder.decode(s);
 		}
 	} else if (s !== undefined && typeof s !== 'string') {
 		s = String(s);
@@ -541,7 +547,7 @@ const parseKeypress = (s: Buffer | string = ''): ParsedKey => {
 		key.shift = !!(modifier & 1);
 		key.code = code;
 
-		key.name = keyName[code]!;
+		key.name = keyName[code] ?? '';
 		key.shift = isShiftKey(code) || key.shift;
 		key.ctrl = isCtrlKey(code) || key.ctrl;
 	}
