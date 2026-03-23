@@ -8,17 +8,17 @@ A curated collection of documentation mirrors with automated semantic search ind
 | Mirror | Upstream | Branch | Docs Path | Last Commit | Synced At |
 | --- | --- | --- | --- | --- | --- |
 | Factory-AI/factory | [https://github.com/Factory-AI/factory](https://github.com/Factory-AI/factory) | main | docs | 2e3b759 | 2026-03-21T04:41:04Z |
-| vadimdemedes/ink | [https://github.com/vadimdemedes/ink](https://github.com/vadimdemedes/ink) | master | src | 33c07e3 | 2026-03-22T04:56:27Z |
+| vadimdemedes/ink | [https://github.com/vadimdemedes/ink](https://github.com/vadimdemedes/ink) | master | src | d856a6c | 2026-03-23T05:07:25Z |
 | stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | e342311 | 2026-03-21T04:41:01Z |
 | lastmile-ai/mcp-agent | [https://github.com/lastmile-ai/mcp-agent](https://github.com/lastmile-ai/mcp-agent) | main | docs | f62d849 | 2026-01-26T04:18:33Z |
 | MoonshotAI/kimi-cli | [https://github.com/MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | main | packages/kosong/src/kosong | 8283d78 | 2026-03-21T04:41:00Z |
-| modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | fe36698 | 2026-03-20T04:50:42Z |
+| modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 4fc7e5a | 2026-03-23T05:07:25Z |
 | modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | 92c693b | 2026-03-21T04:41:00Z |
 | anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | a7fd631 | 2026-03-21T04:41:01Z |
-| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | browser_use | 73e11b0 | 2026-03-22T04:56:28Z |
+| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | browser_use | d9a3065 | 2026-03-23T05:07:25Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | 59ec570 | 2026-01-31T04:27:33Z |
 | python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 1a69344 | 2026-03-22T04:56:28Z |
-| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | cf93064 | 2026-03-22T04:56:30Z |
+| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | 295f18f | 2026-03-23T05:07:27Z |
 | typst/typst | [https://github.com/typst/typst](https://github.com/typst/typst) | main | docs/reference | e7256a6 | 2026-03-21T04:41:03Z |
 <!-- /AUTO:MIRROR_STATUS -->
 
@@ -30,7 +30,7 @@ This repository includes automated indexing for Gemini File Search API.
 - **Stores**: 13
 - **Files indexed**: 998
 - **Total cost**: $0.3320
-- **Last sync**: 2026-03-22T05:00:29Z
+- **Last sync**: 2026-03-23T05:10:57Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
