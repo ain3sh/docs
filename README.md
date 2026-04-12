@@ -14,11 +14,11 @@ A curated collection of documentation mirrors with automated semantic search ind
 | MoonshotAI/kimi-cli | [https://github.com/MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | main | packages/kosong/src/kosong | bbd81d0 | 2026-04-11T04:59:22Z |
 | modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 4a1cb3e | 2026-04-11T04:59:22Z |
 | modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | f27d2aa | 2026-04-10T05:29:39Z |
-| anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | a2a3b2a | 2026-04-11T04:59:22Z |
-| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | browser_use | cd60e6b | 2026-04-11T04:59:23Z |
+| anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | c26fd62 | 2026-04-12T05:27:57Z |
+| browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | browser_use | 1324a88 | 2026-04-12T05:27:57Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | 59ec570 | 2026-01-31T04:27:33Z |
 | python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | c5c4b7c | 2026-04-09T05:14:30Z |
-| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | d513fc6 | 2026-04-11T04:59:26Z |
+| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | ef2bd32 | 2026-04-12T05:28:00Z |
 | typst/typst | [https://github.com/typst/typst](https://github.com/typst/typst) | main | docs/reference | a0fe766 | 2026-04-11T04:59:23Z |
 <!-- /AUTO:MIRROR_STATUS -->
 
@@ -28,9 +28,9 @@ A curated collection of documentation mirrors with automated semantic search ind
 This repository includes automated indexing for Gemini File Search API.
 
 - **Stores**: 13
-- **Files indexed**: 1008
-- **Total cost**: $0.3366
-- **Last sync**: 2026-04-11T05:03:10Z
+- **Files indexed**: 1003
+- **Total cost**: $0.3309
+- **Last sync**: 2026-04-12T05:31:45Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
