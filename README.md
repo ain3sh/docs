@@ -14,7 +14,7 @@ A curated collection of documentation mirrors with automated semantic search ind
 | MoonshotAI/kimi-cli | [https://github.com/MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | main | packages/kosong/src/kosong | 21038b6 | 2026-04-18T05:11:29Z |
 | modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | fb8438c | 2026-04-19T05:32:43Z |
 | modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | 3d7b311 | 2026-04-15T05:28:51Z |
-| anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | 7ca64f6 | 2026-04-18T05:11:29Z |
+| anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | 2d7df08 | 2026-04-20T05:45:21Z |
 | browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | browser_use | 702b735 | 2026-04-16T05:34:21Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | 59ec570 | 2026-01-31T04:27:33Z |
 | python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | c7ce5de | 2026-04-14T05:28:51Z |
@@ -28,9 +28,9 @@ A curated collection of documentation mirrors with automated semantic search ind
 This repository includes automated indexing for Gemini File Search API.
 
 - **Stores**: 13
-- **Files indexed**: 1011
-- **Total cost**: $0.3385
-- **Last sync**: 2026-04-19T05:32:53Z
+- **Files indexed**: 1015
+- **Total cost**: $0.3403
+- **Last sync**: 2026-04-20T05:45:34Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
@@ -43,6 +43,7 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 ├── anthropics
 │   └── claude-agent-sdk-python
 │       ├── plugins
+│       ├── session_stores
 │       ├── agents.py
 │       ├── filesystem_agents.py
 │       ├── hooks.py
