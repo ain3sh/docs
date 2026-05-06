@@ -86,6 +86,7 @@ function App({
 	// Count how many components enabled raw mode to avoid disabling
 	// raw mode until all components don't need it anymore
 	const rawModeEnabledCount = useRef(0);
+	const pendingDisableRawModeRef = useRef(false);
 	// Count how many components enabled bracketed paste mode
 	const bracketedPasteModeEnabledCount = useRef(0);
 	// eslint-disable-next-line @typescript-eslint/naming-convention
@@ -208,18 +209,26 @@ function App({
 		readableListenerRef.current = undefined;
 	}, [stdin]);
 
-	const disableRawMode = useCallback((): void => {
-		stdin.setRawMode(false);
-		detachReadableListener();
-		stdin.unref();
-		rawModeEnabledCount.current = 0;
+	const clearInputState = useCallback((): void => {
 		inputParserRef.current.reset();
 		clearPendingInputFlush();
-	}, [stdin, detachReadableListener, clearPendingInputFlush]);
+		detachReadableListener();
+	}, [clearPendingInputFlush, detachReadableListener]);
+
+	const disableRawMode = useCallback((): void => {
+		pendingDisableRawModeRef.current = false;
+		stdin.setRawMode(false);
+		stdin.unref();
+		rawModeEnabledCount.current = 0;
+		clearInputState();
+	}, [stdin, clearInputState]);
 
 	const handleExit = useCallback(
 		(errorOrResult?: unknown): void => {
-			if (isRawModeSupported && rawModeEnabledCount.current > 0) {
+			if (
+				isRawModeSupported &&
+				(rawModeEnabledCount.current > 0 || pendingDisableRawModeRef.current)
+			) {
 				disableRawMode();
 			}
 
@@ -293,6 +302,16 @@ function App({
 		}
 	}, [stdin, emitInput, clearPendingInputFlush, schedulePendingInputFlush]);
 
+	const attachReadableListener = useCallback((): void => {
+		if (readableListenerRef.current) {
+			return;
+		}
+
+		// Store the listener reference to avoid stale closure when removing
+		readableListenerRef.current = handleReadable;
+		stdin.addListener('readable', handleReadable);
+	}, [stdin, handleReadable]);
+
 	const handleSetRawMode = useCallback(
 		(isEnabled: boolean): void => {
 			if (!isRawModeSupported) {
@@ -310,29 +329,52 @@ function App({
 			stdin.setEncoding('utf8');
 
 			if (isEnabled) {
-				// Ensure raw mode is enabled only once
 				if (rawModeEnabledCount.current === 0) {
-					stdin.ref();
-					stdin.setRawMode(true);
-					// Store the listener reference to avoid stale closure when removing
-					readableListenerRef.current = handleReadable;
-					stdin.addListener('readable', handleReadable);
+					// A same-render component swap may have detached input handling while
+					// leaving terminal raw mode enabled until the queued disable runs.
+					const isRawModeAlreadyEnabled = pendingDisableRawModeRef.current;
+					pendingDisableRawModeRef.current = false;
+
+					if (!isRawModeAlreadyEnabled) {
+						stdin.ref();
+						stdin.setRawMode(true);
+					}
+
+					attachReadableListener();
 				}
 
 				rawModeEnabledCount.current++;
 				return;
 			}
 
-			// Disable raw mode only when no components left that are using it
 			if (rawModeEnabledCount.current === 0) {
 				return;
 			}
 
 			if (--rawModeEnabledCount.current === 0) {
-				disableRawMode();
+				// Stop owning input immediately so pending parser state cannot leak into
+				// a replacement `useInput` component mounted in the same React update.
+				clearInputState();
+
+				// Defer only the terminal raw-mode teardown so a same-render replacement
+				// can keep the process ref and raw mode active without a disable/enable cycle.
+				pendingDisableRawModeRef.current = true;
+				queueMicrotask(() => {
+					if (!pendingDisableRawModeRef.current) {
+						return;
+					}
+
+					disableRawMode();
+				});
 			}
 		},
-		[isRawModeSupported, stdin, handleReadable, disableRawMode],
+		[
+			isRawModeSupported,
+			stdin,
+			attachReadableListener,
+			clearInputState,
+			disableRawMode,
+		],
 	);
 
 	const handleSetBracketedPasteMode = useCallback(
@@ -581,7 +623,10 @@ function App({
 				cliCursor.show(stdout);
 			}
 
-			if (isRawModeSupported && rawModeEnabledCount.current > 0) {
+			if (
+				isRawModeSupported &&
+				(rawModeEnabledCount.current > 0 || pendingDisableRawModeRef.current)
+			) {
 				disableRawMode();
 			}
 
