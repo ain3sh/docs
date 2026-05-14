@@ -360,6 +360,7 @@ export default class Ink {
 		}
 
 		this.rootNode.onImmediateRender = this.onRender;
+		this.rootNode.onStaticChange = this.handleStaticChange;
 		this.log = logUpdate.create(options.stdout, {
 			incremental: options.incrementalRendering,
 		});
@@ -515,6 +516,11 @@ export default class Ink {
 			undefined,
 			Yoga.DIRECTION_LTR,
 		);
+	};
+
+	// Resets `fullStaticOutput` when the <Static> identity changes so stale items from a previous instance are not replayed on future rewrites.
+	handleStaticChange = (): void => {
+		this.fullStaticOutput = '';
 	};
 
 	onRender: () => void = () => {

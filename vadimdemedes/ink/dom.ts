@@ -66,9 +66,12 @@ export type DOMElement = {
 	// Internal properties
 	isStaticDirty?: boolean;
 	staticNode?: DOMElement;
+	// Tracks the previous commit's `staticNode` so the reconciler can detect identity changes (mount, unmount, key-driven remount) and reset `fullStaticOutput`.
+	previousStaticNode?: DOMElement;
 	onComputeLayout?: () => void;
 	onRender?: () => void;
 	onImmediateRender?: () => void;
+	onStaticChange?: () => void;
 	internal_layoutListeners?: Set<LayoutListener>;
 } & InkNode;
 
