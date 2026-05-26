@@ -85,6 +85,7 @@ nav:
         - Built with DSPy: community/built-with-dspy.md
         - Resources: community/community-resources.md
         - Contributing: community/how-to-contribute.md
+        - Normalized LM API Migration: community/normalized-lm-api-migration.md
     - FAQ:
         - FAQ: faqs.md
         - Cheatsheet: cheatsheet.md
@@ -158,6 +159,7 @@ nav:
             - Embeddings: api/tools/Embeddings.md
             - PythonInterpreter: api/tools/PythonInterpreter.md
         - Utils:
+            - Errors: api/utils/Errors.md
             - configure: api/utils/configure.md
             - context: api/utils/context.md
             - StatusMessage: api/utils/StatusMessage.md
