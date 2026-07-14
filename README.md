@@ -7,18 +7,18 @@ A curated collection of documentation mirrors with automated semantic search ind
 
 | Mirror | Upstream | Branch | Docs Path | Last Commit | Synced At |
 | --- | --- | --- | --- | --- | --- |
-| Factory-AI/factory | [https://github.com/Factory-AI/factory](https://github.com/Factory-AI/factory) | main | docs | dfbb8a5 | 2026-07-11T05:44:26Z |
+| Factory-AI/factory | [https://github.com/Factory-AI/factory](https://github.com/Factory-AI/factory) | main | docs | 173e438 | 2026-07-14T05:35:11Z |
 | vadimdemedes/ink | [https://github.com/vadimdemedes/ink](https://github.com/vadimdemedes/ink) | master | src | 25766ae | 2026-06-18T08:10:59Z |
-| stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | 6f1e17e | 2026-07-13T06:23:17Z |
+| stanfordnlp/dspy | [https://github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | main | docs | 5a1e873 | 2026-07-14T05:35:06Z |
 | lastmile-ai/mcp-agent | [https://github.com/lastmile-ai/mcp-agent](https://github.com/lastmile-ai/mcp-agent) | main | docs | f62d849 | 2026-01-26T04:18:33Z |
 | MoonshotAI/kimi-cli | [https://github.com/MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli) | main | packages/kosong/src/kosong | 2c34efb | 2026-06-23T06:53:58Z |
-| modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | 2807f9d | 2026-07-12T06:07:22Z |
+| modelcontextprotocol/modelcontextprotocol | [https://github.com/modelcontextprotocol/modelcontextprotocol](https://github.com/modelcontextprotocol/modelcontextprotocol) | main | docs/docs | cf85cc7 | 2026-07-14T05:35:05Z |
 | modelcontextprotocol/python-sdk | [https://github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | main | docs | 1216c53 | 2026-07-11T05:44:19Z |
-| anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | 528265f | 2026-07-11T05:44:19Z |
+| anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | 059d344 | 2026-07-14T05:35:05Z |
 | browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | browser_use | c920682 | 2026-07-13T06:23:17Z |
-| browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | d283fe6 | 2026-07-12T06:07:22Z |
-| python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 5a5111b | 2026-07-12T06:07:22Z |
-| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | c9b2a81 | 2026-07-13T06:23:19Z |
+| browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | 0a1142e | 2026-07-14T05:35:06Z |
+| python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 976c11b | 2026-07-14T05:35:07Z |
+| raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | 5e98ea3 | 2026-07-14T05:35:10Z |
 | typst/typst | [https://github.com/typst/typst](https://github.com/typst/typst) | main | docs/reference | e71382c | 2026-05-05T05:46:45Z |
 <!-- /AUTO:MIRROR_STATUS -->
 
@@ -28,9 +28,9 @@ A curated collection of documentation mirrors with automated semantic search ind
 This repository includes automated indexing for Gemini File Search API.
 
 - **Stores**: 13
-- **Files indexed**: 1113
-- **Total cost**: $0.3958
-- **Last sync**: 2026-07-13T06:27:11Z
+- **Files indexed**: 1112
+- **Total cost**: $0.3955
+- **Last sync**: 2026-07-14T05:38:43Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
@@ -90,6 +90,7 @@ Use the [search-context MCP server](https://github.com/ain3sh/search-context) to
 │   │   ├── README.md
 │   │   └── utils.py
 │   └── workflow-use
+│       ├── .vscode
 │       ├── backend
 │       ├── docs
 │       ├── examples
