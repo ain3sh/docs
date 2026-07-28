@@ -4,6 +4,26 @@ description: "Recent features and improvements to the Factory App, Droid CLI, an
 rss: true
 ---
 
+<Update label="July 27" rss={{ title: "CLI Updates", description: "Slash commands while the agent runs, MCP OAuth resource override, and subagent and Git fixes" }}>
+  `v0.181.0`
+
+## New features
+
+- **Slash commands while the agent runs** - Slash commands now work during an active agent turn, so you no longer have to wait for it to finish
+- **MCP OAuth resource override** - MCP server configs accept a `resource` field to send a different OAuth resource indicator, or omit it entirely
+
+## Improvements
+
+- **Subagent delegation** - The agent now delegates to subagents more selectively when using OpenAI models
+- **Subagent results** - The agent reuses a subagent's report instead of re-reading the files it already covered, making follow-up work faster
+
+## Bug fixes
+
+- **Git index lock** - Checkouts now retry when another process is holding the Git index lock instead of failing
+- **BYOK models** - Bring-your-own-key models are now scoped to the selected computer (app)
+
+</Update>
+
 <Update label="July 24" rss={{ title: "CLI Updates", description: "Gemini 3.6 Flash support, revamped keyboard shortcuts dialog, and faster session search" }}>
   `v0.180.0`
 
