@@ -186,8 +186,8 @@ in `httpx2`; build an `ssl.SSLContext` and configure it instead.
 
 Both commands run your server through a fresh `uv run --with ...` environment. In v1 the
 `mcp` requirement in that command was unpinned, so the spawned environment resolved to the
-newest stable release rather than the version you had installed; with a v2 pre-release
-installed, `mcp dev server.py` built a v1 environment that could not import a v2 server.
+newest stable release rather than the version you had installed; while v2 was in
+pre-release, `mcp dev server.py` built a v1 environment that could not import a v2 server.
 Both commands now pin the requirement to the version you are running
 (`mcp==<installed version>`). Source builds and other unpublished versions, which have
 nothing on PyPI to pin to, keep the unpinned form.
@@ -742,14 +742,14 @@ This parameter was redundant because the SSE transport already handles sub-path 
 
 ### Transport-specific parameters moved from MCPServer constructor to run()/app methods
 
-Transport-specific parameters have been moved off the `MCPServer` constructor and onto `run()`, `sse_app()`, and `streamable_http_app()`, so transport configuration is passed when starting or building the server. The rest of the constructor is unchanged: identity (`name`, `instructions`, `website_url`, `icons`, plus the newly added positional `title`, `description`, and `version` covered [above](#mcpserver-constructor-title-description-and-version-added-to-the-positional-parameters)), authentication (`auth`, `token_verifier`, `auth_server_provider`), `lifespan`, `dependencies`, `tools`, `debug`, `log_level`, and the `warn_on_duplicate_*` flags; the new keyword-only parameters (`resources`, `extensions`, `resource_security`, `request_state_security`, `cache_hints`, `subscriptions`) are additive.
+Transport-specific parameters have been moved off the `MCPServer` constructor and onto `run()`, `sse_app()`, and `streamable_http_app()`, so transport configuration is passed when starting or building the server. The rest of the constructor is unchanged: identity (`name`, `instructions`, `website_url`, `icons`, plus the newly added positional `title`, `description`, and `version` covered [above](#mcpserver-constructor-title-description-and-version-added-to-the-positional-parameters)), authentication (`auth`, `token_verifier`, `auth_server_provider`), `lifespan`, `dependencies`, `tools`, `debug`, `log_level`, and the `warn_on_duplicate_*` flags; the new keyword-only parameters (`resources`, `extensions`, `resource_security`, `request_state_security`, `cache_hints`, `subscriptions`, `middleware`) are additive.
 
 **Parameters moved:**
 
 - `host`, `port` - HTTP server binding, on `run()` only. The app factories have no `port` (`streamable_http_app(port=...)` raises `TypeError`; a mounted app binds wherever the outer ASGI server does) but do take `host` (default `"127.0.0.1"`), used only to decide whether DNS rebinding protection auto-enables (see the note below)
 - `sse_path`, `message_path` - SSE transport paths, on `run(transport="sse", ...)` and `sse_app()`
 - `streamable_http_path` - StreamableHTTP endpoint path, on `run(transport="streamable-http", ...)` and `streamable_http_app()`
-- `json_response`, `stateless_http` - StreamableHTTP behavior, same two places
+- `json_response`, `stateless_http` - StreamableHTTP behavior, same two places; each also removes a server-to-client channel, see [Server-initiated sampling, elicitation, and roots raise `NoBackChannelError`](#server-initiated-sampling-elicitation-and-roots-raise-nobackchannelerror)
 - `max_request_body_size` - StreamableHTTP request-body limit, same two places
 - `event_store`, `retry_interval` - StreamableHTTP event handling, same two places
 - `transport_security` - DNS rebinding protection, on `run()` for both HTTP transports and on both app methods
@@ -963,8 +963,11 @@ enforce the spec's egress rule: an undeclared capability (form-mode `elicitation
 or `tool_choice`) fails the call with a `-32021`
 `MISSING_REQUIRED_CLIENT_CAPABILITY` JSON-RPC error instead of sending a
 request the client cannot handle. This applies on 2025-11-25 sessions with a
-live back-channel too; a session with no back-channel keeps failing with its
-no-back-channel error. To migrate, declare the capability: the SDK client
+live back-channel too; a pre-`2026-07-28` session with no back-channel
+(stateless HTTP, or streamable HTTP with `json_response=True`) keeps failing
+with its no-back-channel error. At `2026-07-28` a resolver never uses a
+back-channel — it answers with an `InputRequiredResult` — so the `-32021`
+check applies there unconditionally. To migrate, declare the capability: the SDK client
 declares `elicitation`, `sampling`, and `roots` when the matching callback is
 set, and `sampling.tools` needs an explicit
 `Client(sampling_capabilities=SamplingCapability(tools=...))`. Direct
@@ -1617,7 +1620,7 @@ Nothing changes for callers of the built-in client: abandoning a call (cancellin
 
 The `stateless: bool` parameter on the lowlevel `Server.run()` has been removed. Stateless serving is now a property of how the connection is constructed (the streamable-HTTP manager builds a born-ready `Connection` per request), not a flag the loop driver inspects.
 
-Server-initiated requests that have no channel to travel on — a legacy session against a `stateless_http=True` server, or any connection negotiated at 2026-07-28 — now raise `NoBackChannelError` instead of stalling as they did in v1 (the transport silently dropped the outbound message), so a stateless-HTTP `ctx.elicit()` that used to hang now fails fast; see [Server-initiated sampling, elicitation, and roots raise `NoBackChannelError`](#server-initiated-sampling-elicitation-and-roots-raise-nobackchannelerror) for the exception and the migration paths.
+Server-initiated requests that have no channel to travel on — a legacy session against a `stateless_http=True` server, the request-scoped channel of a stateful legacy session against a `json_response=True` server, or any connection negotiated at 2026-07-28 — now raise `NoBackChannelError` instead of stalling as they did in v1 (the transport silently dropped the outbound message), so a stateless-HTTP or JSON-mode `ctx.elicit()` that used to hang now fails fast; see [Server-initiated sampling, elicitation, and roots raise `NoBackChannelError`](#server-initiated-sampling-elicitation-and-roots-raise-nobackchannelerror) for the exception and the migration paths.
 
 ### Lowlevel `Server`: `request_context` property removed
 
@@ -1715,7 +1718,7 @@ The helpers keep their v1 signatures, so calls through `ctx.session` are source-
 Behavior changes:
 
 - **A new `ServerSession` proxy is built for every inbound message.** In v1 one `ServerSession` lived for the whole connection, and servers commonly keyed per-client state on `ctx.session` identity (a `WeakKeyDictionary[ServerSession, ...]`, `id(ctx.session)`, a set of captured sessions to notify later). In v2 each request and notification gets a fresh proxy over the same connection, so those idioms silently misbehave: a session-keyed dict never finds an earlier key, and a broadcast set grows by one entry per request, sending duplicates. Key on something connection-stable instead — on stateful streamable HTTP the `mcp-session-id` request header names the transport session (read it via `ctx.headers` on `MCPServer` or `ctx.request.headers` in a lowlevel handler); on stdio there is one connection per process. The per-connection object the proxies share is `mcp.server.connection.Connection` (`state`, `session_id`, `exit_stack`), which is not currently reachable from `ctx`.
-- **A captured `ctx.session` stays usable after the handler returns.** The proxy holds the connection, not the request, so a background task can keep calling `send_resource_updated()` / `send_tool_list_changed()` on it while the client stays connected; with `related_request_id` omitted these ride the standalone stream as in v1. A request-scoped send is only meaningful while that request is in flight — once the handler returns, that stream is closed and the message is dropped with a debug log.
+- **A captured `ctx.session` stays usable after the handler returns.** The proxy holds the connection, not the request, so a background task can keep calling `send_resource_updated()` / `send_tool_list_changed()` on it while the client stays connected; with `related_request_id` omitted these ride the standalone stream as in v1 — except on a 2026-era connection, where change notifications are dropped and belong on the subscription bus instead ([change notifications travel only on `subscriptions/listen` streams](#change-notifications-travel-only-on-subscriptionslisten-streams)). A request-scoped send is only meaningful while that request is in flight — once the handler returns, that stream is closed and the message is dropped with a debug log.
 - **Notifications after the connection has closed are dropped instead of raising.** In v1 the notification helpers raised `anyio.ClosedResourceError`/`anyio.BrokenResourceError` on a dead connection, and broadcast loops used that exception to prune sessions. In v2 the send returns normally (the drop is debug-logged), so probe with a request instead: `await session.send_ping()` raises `MCPError` once the connection has closed. On a 2026-07-28 connection, though, every server-initiated request raises `NoBackChannelError` (an `MCPError`) regardless, so a ping is a liveness probe only on connections negotiated at 2025-11-25 or earlier.
 
 `ServerSession` is normally constructed for you by `Server.run()` and reached via `ctx.session` in handlers, so beyond the behavior changes above, most servers are unaffected. If you were constructing or subclassing it directly:
@@ -2107,7 +2110,7 @@ Client-side stream resumption is also unchanged: the transport reconnects a drop
 
 The `get_session_id` callback (third element of the returned tuple) has been removed from `streamable_http_client`. The function now returns a 2-tuple `(read_stream, write_stream)` instead of a 3-tuple.
 
-The `GetSessionIdCallback` type alias is gone as well, so `from mcp.client.streamable_http import GetSessionIdCallback` now raises `ImportError`. Drop the annotation, or inline `Callable[[], str | None]` if your own wrapper code still needs the type.
+The `GetSessionIdCallback` type alias is gone as well, so `from mcp.client.streamable_http import GetSessionIdCallback` now raises `ImportError`. Drop the annotation, or inline `Callable[[], str | None]` if your own wrapper code still needs the type. The `StreamableHTTPTransport.get_session_id()` method that backed the callback is removed too.
 
 If you need to capture the session ID (e.g., for session resumption testing), you can use httpx2 event hooks to capture it from the response headers:
 
@@ -2801,7 +2804,7 @@ rest of this guide stays focused on the v1-to-v2 upgrade itself.
 
 The 2026-07-28 protocol has no server-initiated requests, so a handler that reaches back to the client mid-request — `ctx.elicit()`, `ctx.elicit_url()`, `ctx.session.create_message()`, `ctx.session.list_roots()`, or any other `ServerSession` request helper — raises `NoBackChannelError` on such a connection instead of sending. An in-process `Client(server)` negotiates 2026-07-28 by default (see [`Client` defaults to `mode='auto'`](#client-defaults-to-modeauto)), so the first smoke test of an unchanged v1 sampling or elicitation tool fails, and setting `sampling_callback=` / `elicitation_callback=` on the client changes nothing because no request ever reaches the client.
 
-`NoBackChannelError` lives in `mcp.shared.exceptions` and subclasses `MCPError` (code `-32600`, message `Cannot send '<method>': this transport context has no back-channel for server-initiated requests.`). Raised inside an `@mcp.tool()` it reaches the client as a top-level JSON-RPC error, not `CallToolResult(is_error=True)` — see [`MCPError` raised from an `@mcp.tool()` handler now surfaces as a JSON-RPC error](#mcperror-raised-from-an-mcptool-handler-now-surfaces-as-a-json-rpc-error) — and the [Troubleshooting](troubleshooting.md) page walks through the client-side traceback. The same exception is raised on a legacy session against a `stateless_http=True` server, where v1 dropped the message and stalled ([`Server.run()` no longer takes a `stateless` flag](#serverrun-no-longer-takes-a-stateless-flag)). Notifications never raise it: `send_log_message()`, `send_tool_list_changed()`, and the other notification helpers are dropped with a debug log where no channel exists, and `UrlElicitationRequiredError` from a tool is unaffected (it is an error response, not a request).
+`NoBackChannelError` lives in `mcp.shared.exceptions` and subclasses `MCPError` (code `-32600`, message `Cannot send '<method>': this transport context has no back-channel for server-initiated requests.`). Raised inside an `@mcp.tool()` it reaches the client as a top-level JSON-RPC error, not `CallToolResult(is_error=True)` — see [`MCPError` raised from an `@mcp.tool()` handler now surfaces as a JSON-RPC error](#mcperror-raised-from-an-mcptool-handler-now-surfaces-as-a-json-rpc-error) — and the [Troubleshooting](troubleshooting.md) page walks through the client-side traceback. The same exception is raised on a legacy session against a `stateless_http=True` server, and on the request-scoped channel of a stateful legacy session against a `json_response=True` server (a JSON body carries exactly one response, so a mid-request `ctx.elicit()` cannot ride it; the session's standalone `GET` stream still carries unrelated messages) — both places v1 dropped the message and stalled ([`Server.run()` no longer takes a `stateless` flag](#serverrun-no-longer-takes-a-stateless-flag)). Notifications never raise it: `send_log_message()`, `send_tool_list_changed()`, and the other notification helpers are dropped with a debug log where no channel exists (and the change-notification helpers are dropped on every 2026-era connection, channel or not — see [change notifications travel only on `subscriptions/listen` streams](#change-notifications-travel-only-on-subscriptionslisten-streams)), and `UrlElicitationRequiredError` from a tool is unaffected (it is an error response, not a request).
 
 Two ways to migrate:
 
@@ -2852,6 +2855,12 @@ async with Client(server, logging_callback=on_log, log_level="info") as client:
 ```
 
 `log_level=None` (the default) means no opt-in — a `logging_callback` alone is not one — and a single request can override the client-wide default by supplying the key in its own `meta=` (e.g. `meta={LOG_LEVEL_META_KEY: "debug"}` from `mcp_types`). The opt-in is what the spec calls for on 2026-era servers generally, not just this SDK's. Because 2026 log delivery is request-scoped by construction, `related_request_id` on `send_log_message` no longer selects the standalone stream there: whatever is delivered rides the requesting stream.
+
+### Change notifications travel only on `subscriptions/listen` streams
+
+On a 2026-07-28 connection, `notifications/tools/list_changed`, `notifications/prompts/list_changed`, `notifications/resources/list_changed`, and `notifications/resources/updated` reach a client only through a `subscriptions/listen` stream it opened — the spec forbids sending a notification type a subscription did not request. The v1-style session helpers (`ctx.session.send_tool_list_changed()`, `send_prompt_list_changed()`, `send_resource_list_changed()`, `send_resource_updated(uri)`) push a bare copy onto the connection's standalone channel instead, so on such a connection they are dropped with a debug log: silently on streamable HTTP (there is no standalone channel), and on stdio, where earlier v2 releases wrote the bare notification to the shared pipe, it is now dropped too. On pre-2026 connections the helpers behave as in v1.
+
+Migrate to publishing on the subscription bus, which stamps and filters per stream: `await ctx.notify_tools_changed()`, `notify_prompts_changed()`, `notify_resources_changed()`, and `notify_resource_updated(uri)` on `MCPServer`'s `Context`, or `await bus.publish(...)` on a low-level `Server`'s own `SubscriptionBus` — see [Subscriptions](handlers/subscriptions.md). A stream only ever receives the kinds and URIs the server acknowledged for it; to gate per caller which subscriptions may be opened, refuse `subscriptions/listen` in a middleware (`MCPServer(middleware=[...])`), covered on the same page.
 
 ### Servers validate `Mcp-Param-*` headers against the request body ([SEP-2243](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2243))
 
