@@ -17,7 +17,7 @@ A curated collection of documentation mirrors with automated semantic search ind
 | anthropics/claude-agent-sdk-python | [https://github.com/anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) | main | examples | f8b9ec9 | 2026-07-25T05:45:59Z |
 | browser-use/browser-use | [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use) | main | browser_use | f0aa3a8 | 2026-07-28T05:50:43Z |
 | browser-use/workflow-use | [https://github.com/browser-use/workflow-use](https://github.com/browser-use/workflow-use) | main | workflows | 891267b | 2026-07-30T05:44:55Z |
-| python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 3349aca | 2026-07-31T06:16:52Z |
+| python-trio/trio | [https://github.com/python-trio/trio](https://github.com/python-trio/trio) | main | docs/source | 46c39db | 2026-08-02T06:06:12Z |
 | raycast/extensions | [https://github.com/raycast/extensions](https://github.com/raycast/extensions) | main | docs | 3b0c72b | 2026-08-01T06:00:17Z |
 | typst/typst | [https://github.com/typst/typst](https://github.com/typst/typst) | main | docs/reference | e71382c | 2026-05-05T05:46:45Z |
 <!-- /AUTO:MIRROR_STATUS -->
@@ -30,7 +30,7 @@ This repository includes automated indexing for Gemini File Search API.
 - **Stores**: 13
 - **Files indexed**: 1199
 - **Total cost**: $0.4718
-- **Last sync**: 2026-08-01T06:01:31Z
+- **Last sync**: 2026-08-02T06:06:28Z
 
 Use the [search-context MCP server](https://github.com/ain3sh/search-context) to query these docs semantically.
 <!-- /AUTO:SEMANTIC_SEARCH -->
