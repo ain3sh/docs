@@ -1,4 +1,3 @@
-import {type Writable} from 'node:stream';
 import ansiEscapes from 'ansi-escapes';
 import cliCursor from 'cli-cursor';
 import {
@@ -29,7 +28,7 @@ const visibleLineCount = (lines: string[], str: string): number =>
 	str.endsWith('\n') ? lines.length - 1 : lines.length;
 
 const createStandard = (
-	stream: Writable,
+	stream: NodeJS.WritableStream,
 	{showCursor = false} = {},
 ): LogUpdate => {
 	let previousLineCount = 0;
@@ -168,7 +167,7 @@ const createStandard = (
 };
 
 const createIncremental = (
-	stream: Writable,
+	stream: NodeJS.WritableStream,
 	{showCursor = false} = {},
 ): LogUpdate => {
 	let previousLines: string[] = [];
@@ -371,7 +370,7 @@ const createIncremental = (
 };
 
 const create = (
-	stream: Writable,
+	stream: NodeJS.WritableStream,
 	{showCursor = false, incremental = false} = {},
 ): LogUpdate => {
 	if (incremental) {

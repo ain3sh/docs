@@ -26,6 +26,7 @@ import {
 	type KittyFlagName,
 	resolveFlags,
 } from './kitty-keyboard.js';
+import {isTty, type OutputStream} from './stream.js';
 
 const noop = () => {};
 const textEncoder = new TextEncoder();
@@ -170,23 +171,12 @@ const isErrorInput = (value: unknown): value is Error => {
 	);
 };
 
-type MaybeWritableStream = NodeJS.WriteStream & {
-	writable?: boolean;
-	writableEnded?: boolean;
-	destroyed?: boolean;
-	writableLength?: number;
-	_writableState?: unknown;
-};
-
-const getWritableStreamState = (stdout: MaybeWritableStream) => {
+const getWritableStreamState = (stdout: OutputStream) => {
 	const canWriteToStdout =
 		!stdout.destroyed && !stdout.writableEnded && (stdout.writable ?? true);
-	const hasWritableState =
-		stdout._writableState !== undefined || stdout.writableLength !== undefined;
 
 	return {
 		canWriteToStdout,
-		hasWritableState,
 	};
 };
 
@@ -224,9 +214,9 @@ export type RenderMetrics = {
 };
 
 export type Options = {
-	stdout: NodeJS.WriteStream;
-	stdin: NodeJS.ReadStream;
-	stderr: NodeJS.WriteStream;
+	stdout: OutputStream;
+	stdin: NodeJS.ReadableStream;
+	stderr: OutputStream;
 	debug: boolean;
 	exitOnCtrlC: boolean;
 	patchConsole: boolean;
@@ -785,8 +775,8 @@ export default class Ink {
 			this.beforeExitHandler = undefined;
 		}
 
-		const stdout = this.options.stdout as MaybeWritableStream;
-		const {canWriteToStdout, hasWritableState} = getWritableStreamState(stdout);
+		const {stdout} = this.options;
+		const {canWriteToStdout} = getWritableStreamState(stdout);
 
 		// Clear any pending throttled render timer on unmount. When stdout is writable,
 		// flush so the final frame is emitted; otherwise cancel to avoid delayed callbacks.
@@ -871,9 +861,8 @@ export default class Ink {
 			instances.delete(this.options.stdout);
 
 			// Ensure all queued writes have been processed before resolving the
-			// exit promise. For real writable streams, queue an empty write as a
-			// barrier — its callback fires only after all prior writes complete.
-			// For non-stream objects (e.g. test spies), resolve on next tick.
+			// exit promise. Queue an empty write as a barrier — its callback fires
+			// only after all prior writes complete.
 			//
 			// When called from signal-exit during process shutdown (error is a
 			// number or null rather than undefined/Error), resolve synchronously
@@ -892,7 +881,7 @@ export default class Ink {
 
 			if (isProcessExiting) {
 				resolveOrReject();
-			} else if (canWriteToStdout && hasWritableState) {
+			} else if (canWriteToStdout) {
 				this.options.stdout.write('', resolveOrReject);
 			} else {
 				setImmediate(resolveOrReject);
@@ -957,14 +946,14 @@ export default class Ink {
 
 		reconciler.flushSyncWork();
 
-		const stdout = this.options.stdout as MaybeWritableStream;
-		const {canWriteToStdout, hasWritableState} = getWritableStreamState(stdout);
+		const {stdout} = this.options;
+		const {canWriteToStdout} = getWritableStreamState(stdout);
 
 		// Flush pending throttled render/log timers so their output is included in this wait.
 		settleThrottle(this.throttledOnRender, canWriteToStdout);
 		settleThrottle(this.throttledLog, canWriteToStdout);
 
-		if (canWriteToStdout && hasWritableState) {
+		if (canWriteToStdout) {
 			await new Promise<void>(resolve => {
 				this.options.stdout.write('', () => {
 					resolve();
@@ -1069,7 +1058,7 @@ export default class Ink {
 	}
 
 	// Best-effort write: streams may already be destroyed during shutdown.
-	private writeBestEffort(stream: NodeJS.WriteStream, data: string): void {
+	private writeBestEffort(stream: OutputStream, data: string): void {
 		try {
 			stream.write(data);
 		} catch {}
@@ -1113,7 +1102,7 @@ export default class Ink {
 		staticOutput: string,
 	): void {
 		const hasStaticOutput = staticOutput !== '';
-		const isTty = this.options.stdout.isTTY;
+		const isTty = Boolean(this.options.stdout.isTTY);
 
 		// Detect fullscreen: output fills or exceeds terminal height.
 		// Only apply when writing to a real TTY — piped output always gets trailing newlines.
@@ -1192,7 +1181,7 @@ export default class Ink {
 		// 'enabled' force-enables the protocol as long as both streams are TTYs,
 		// regardless of the interactive setting (e.g. even in CI).
 		if (mode === 'enabled') {
-			if (this.options.stdin.isTTY && this.options.stdout.isTTY) {
+			if (isTty(this.options.stdin) && this.options.stdout.isTTY) {
 				this.enableKittyProtocol(flags);
 			}
 
@@ -1202,7 +1191,7 @@ export default class Ink {
 		// Auto mode: require interactive + TTY
 		if (
 			!this.interactive ||
-			!this.options.stdin.isTTY ||
+			!isTty(this.options.stdin) ||
 			!this.options.stdout.isTTY
 		) {
 			return;
@@ -1281,7 +1270,7 @@ export default class Ink {
 		}
 
 		try {
-			const stdout = this.options.stdout as MaybeWritableStream;
+			const {stdout} = this.options;
 			const {canWriteToStdout} = getWritableStreamState(stdout);
 
 			// Flush any pending render/log so the child starts from a settled screen.
@@ -1337,7 +1326,7 @@ export default class Ink {
 			return;
 		}
 
-		const stdout = this.options.stdout as MaybeWritableStream;
+		const {stdout} = this.options;
 		const {canWriteToStdout} = getWritableStreamState(stdout);
 
 		if (canWriteToStdout) {

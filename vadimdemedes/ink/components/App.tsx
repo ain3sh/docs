@@ -12,6 +12,7 @@ import React, {
 import cliCursor from 'cli-cursor';
 import {type CursorPosition} from '../log-update.js';
 import {createInputParser} from '../input-parser.js';
+import {getRawModeStream, type OutputStream} from '../stream.js';
 import AppContext, {type SuspendTerminal} from './AppContext.js';
 import StdinContext from './StdinContext.js';
 import StdoutContext from './StdoutContext.js';
@@ -34,9 +35,9 @@ type AnimationSubscriber = {
 
 type Props = {
 	readonly children: ReactNode;
-	readonly stdin: NodeJS.ReadStream;
-	readonly stdout: NodeJS.WriteStream;
-	readonly stderr: NodeJS.WriteStream;
+	readonly stdin: NodeJS.ReadableStream;
+	readonly stdout: OutputStream;
+	readonly stderr: OutputStream;
 	readonly writeToStdout: (data: string) => void;
 	readonly writeToStderr: (data: string) => void;
 	readonly exitOnCtrlC: boolean;
@@ -205,8 +206,8 @@ function App({
 		};
 	}, [clearAnimationTimer]);
 
-	// Determines if TTY is supported on the provided stdin
-	const isRawModeSupported = stdin.isTTY;
+	const rawModeStdin = getRawModeStream(stdin);
+	const isRawModeSupported = rawModeStdin !== undefined;
 
 	const detachReadableListener = useCallback((): void => {
 		if (!readableListenerRef.current) {
@@ -224,12 +225,16 @@ function App({
 	}, [clearPendingInputFlush, detachReadableListener]);
 
 	const disableRawMode = useCallback((): void => {
+		if (!rawModeStdin) {
+			return;
+		}
+
 		pendingDisableRawModeRef.current = false;
-		stdin.setRawMode(false);
-		stdin.unref();
+		rawModeStdin.setRawMode(false);
+		rawModeStdin.unref?.();
 		rawModeEnabledCount.current = 0;
 		clearInputState();
-	}, [stdin, clearInputState]);
+	}, [rawModeStdin, clearInputState]);
 
 	const handleExit = useCallback(
 		(errorOrResult?: unknown): void => {
@@ -322,7 +327,7 @@ function App({
 
 	const handleSetRawMode = useCallback(
 		(isEnabled: boolean): void => {
-			if (!isRawModeSupported) {
+			if (!rawModeStdin) {
 				if (stdin === process.stdin) {
 					throw new Error(
 						'Raw mode is not supported on the current process.stdin, which Ink uses as input stream by default.\nRead about how to prevent this error on https://github.com/vadimdemedes/ink/#israwmodesupported',
@@ -334,7 +339,7 @@ function App({
 				}
 			}
 
-			stdin.setEncoding('utf8');
+			rawModeStdin.setEncoding('utf8');
 
 			if (isEnabled) {
 				if (rawModeEnabledCount.current === 0) {
@@ -344,8 +349,8 @@ function App({
 					pendingDisableRawModeRef.current = false;
 
 					if (!isRawModeAlreadyEnabled) {
-						stdin.ref();
-						stdin.setRawMode(true);
+						rawModeStdin.ref?.();
+						rawModeStdin.setRawMode(true);
 					}
 
 					attachReadableListener();
@@ -377,7 +382,7 @@ function App({
 			}
 		},
 		[
-			isRawModeSupported,
+			rawModeStdin,
 			stdin,
 			attachReadableListener,
 			clearInputState,
@@ -434,19 +439,19 @@ function App({
 		}
 
 		if (wasRawMode) {
-			stdin.setRawMode(false);
-			stdin.unref();
+			rawModeStdin?.setRawMode(false);
+			rawModeStdin?.unref?.();
 			clearInputState();
 		}
-	}, [isRawModeSupported, stdin, stdout, clearInputState]);
+	}, [isRawModeSupported, rawModeStdin, stdout, clearInputState]);
 
 	const resumeInput = useCallback((): void => {
 		const {rawMode, bracketedPaste} = suspendedInputStateRef.current;
 
 		if (rawMode) {
-			stdin.setEncoding('utf8');
-			stdin.ref();
-			stdin.setRawMode(true);
+			rawModeStdin?.setEncoding('utf8');
+			rawModeStdin?.ref?.();
+			rawModeStdin?.setRawMode(true);
 			attachReadableListener();
 		}
 
@@ -455,7 +460,7 @@ function App({
 				stdout.write('\u001B[?2004h');
 			} catch {}
 		}
-	}, [stdin, stdout, attachReadableListener]);
+	}, [rawModeStdin, stdout, attachReadableListener]);
 
 	// Register input pause/resume in an insertion effect: it runs before every
 	// passive effect (parent and child), so a child that calls suspendTerminal()
