@@ -83,11 +83,13 @@ The first time `Client` sends a request, the server answers `401`. The provider 
 
 After that it is quiet. Tokens come out of storage, an expired access token is refreshed with the refresh token, and only when none of that works does it run the flow again.
 
+One transport rule applies to all of these requests: like the MCP request they run inside, they follow a redirect only when it stays on the same origin and keeps the method (a trailing-slash 307/308, say), and treat any other redirect as that URL not answering.
+
 You wrote none of it. Two keyword arguments remain (`client_metadata_url` and `validate_resource_url`), and this file needs neither. `client_metadata_url` is the one worth knowing about; it gets its own section below.
 
 ### Try it
 
-Most examples in these docs you can check with an in-memory `Client(server)`. Not this: the whole point of the flow is an HTTP `401`, and there is no HTTP between an in-memory client and its server.
+The in-memory `Client(server)` your tests use is no help here: the whole point of the flow is an HTTP `401`, and there is no HTTP between an in-memory client and its server.
 
 The repository ships the live version. `examples/servers/simple-auth/` runs a standalone authorization server and a protected MCP server; `examples/clients/simple-auth-client/` is this page's client grown into a small CLI. Its README has the two commands: start the servers, run the client against them, and you watch the four steps go by.
 
@@ -112,7 +114,7 @@ A nightly job, a CI step, another service. There is no browser and nobody to cli
 What changed:
 
 * No `OAuthClientMetadata`, no handlers. You pass `client_id` and `client_secret`; the provider builds a minimal `client_credentials` registration around them and skips dynamic registration entirely.
-* `issuer` names the authorization server that issued those credentials; use the `issuer` value its `/.well-known/oauth-authorization-server` document returns. Discovery still runs as above, but token requests are only ever built from metadata for *that* issuer; if the MCP server points anywhere else, the flow stops with an `OAuthFlowError` instead. Leave it out and the provider uses whichever authorization server discovery finds.
+* `issuer` names the authorization server that issued those credentials; use the `issuer` value its `/.well-known/oauth-authorization-server` document returns. Discovery still runs as above, but token requests are only ever built from metadata for *that* issuer; if the MCP server points anywhere else, the flow stops with an `OAuthFlowError` instead. Leaving it out is deprecated and it becomes required in 3.0 (see **[Deprecated features](../deprecated.md#deprecated-sdk-helpers)**); until then the provider warns and uses whichever authorization server discovery finds.
 * `scope` is a space-separated string, the OAuth wire format.
 * Everything downstream is identical: the same `TokenStorage`, the same `httpx2.AsyncClient(auth=...)`, the same `streamable_http_client`.
 
