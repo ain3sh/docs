@@ -47,6 +47,41 @@ type UnclipOperation = {
 	type: 'unclip';
 };
 
+// An undefined bound means "unbounded on this edge", so intersecting keeps whichever bound is defined and takes the tighter one when both are.
+const intersectBound = (
+	a: number | undefined,
+	b: number | undefined,
+	tighter: (a: number, b: number) => number,
+): number | undefined => {
+	if (a === undefined) {
+		return b;
+	}
+
+	if (b === undefined) {
+		return a;
+	}
+
+	return tighter(a, b);
+};
+
+// Bounds are half-open: `x2`/`y2` are exclusive, so an axis is empty as soon as its lower bound reaches its upper one.
+const isClipEmpty = (clip: Clip): boolean =>
+	(clip.x1 !== undefined && clip.x2 !== undefined && clip.x1 >= clip.x2) ||
+	(clip.y1 !== undefined && clip.y2 !== undefined && clip.y1 >= clip.y2);
+
+const intersectClips = (outer: Clip | undefined, inner: Clip): Clip => {
+	if (!outer) {
+		return inner;
+	}
+
+	return {
+		x1: intersectBound(outer.x1, inner.x1, Math.max),
+		x2: intersectBound(outer.x2, inner.x2, Math.min),
+		y1: intersectBound(outer.y1, inner.y1, Math.max),
+		y2: intersectBound(outer.y2, inner.y2, Math.min),
+	};
+};
+
 class OutputCaches {
 	widths = new Map<string, number>();
 	blockWidths = new Map<string, number>();
@@ -136,6 +171,27 @@ export default class Output {
 		});
 	}
 
+	// `sliceAnsi` works in terminal columns, but it drops a wide character (e.g. CJK) outright when the slice edge falls between its two halves. The visible half still owns a cell, so without padding it back the rest of the line shifts by a column and one column of content disappears.
+	sliceLineToColumns(line: string, from: number, to: number): string {
+		if (from >= to) {
+			return '';
+		}
+
+		const slice = sliceAnsi(line, from, to);
+		const lostLeading =
+			from > 0
+				? from - this.caches.getStringWidth(sliceAnsi(line, 0, from))
+				: 0;
+		const lostTrailing =
+			to - from - this.caches.getStringWidth(slice) - lostLeading;
+
+		return (
+			' '.repeat(Math.max(0, lostLeading)) +
+			slice +
+			' '.repeat(Math.max(0, lostTrailing))
+		);
+	}
+
 	get(): {output: string; height: number} {
 		// Initialize output array with a specific set of rows, so that margin/padding at the bottom is preserved
 		const output: StyledChar[][] = [];
@@ -159,7 +215,8 @@ export default class Output {
 
 		for (const operation of this.operations) {
 			if (operation.type === 'clip') {
-				clips.push(operation.clip);
+				// Nested clips must intersect, not replace, otherwise an inner `overflow="hidden"` box lets content escape the outer clip and overwrite surrounding UI.
+				clips.push(intersectClips(clips.at(-1), operation.clip));
 			}
 
 			if (operation.type === 'unclip') {
@@ -174,6 +231,11 @@ export default class Output {
 				const clip = clips.at(-1);
 
 				if (clip) {
+					// Two nested clips can intersect to nothing. Nothing is visible, so bail out before slicing.
+					if (isClipEmpty(clip)) {
+						continue;
+					}
+
 					const clipHorizontally =
 						typeof clip?.x1 === 'number' && typeof clip?.x2 === 'number';
 
@@ -204,7 +266,7 @@ export default class Output {
 							const width = this.caches.getStringWidth(line);
 							const to = x + width > clip.x2! ? clip.x2! - x : width;
 
-							return sliceAnsi(line, from, to);
+							return this.sliceLineToColumns(line, from, to);
 						});
 
 						if (x < clip.x1!) {
