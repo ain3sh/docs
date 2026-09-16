@@ -90,7 +90,11 @@ class OutputCaches {
 	getStyledChars(line: string): StyledChar[] {
 		let cached = this.styledChars.get(line);
 		if (cached === undefined) {
-			cached = styledCharsFromTokens(tokenize(line));
+			// Standalone invisible Unicode characters must not occupy terminal cells.
+			cached = styledCharsFromTokens(tokenize(line)).filter(
+				character =>
+					!/^\p{Default_Ignorable_Code_Point}+$/u.test(character.value),
+			);
 			this.styledChars.set(line, cached);
 		}
 
@@ -287,18 +291,16 @@ export default class Output {
 					}
 				}
 
-				let offsetY = 0;
-
 				for (let [index, line] of lines.entries()) {
-					const currentLine = output[y + offsetY];
+					const currentLine = output[y + index];
 
-					// Line can be missing if `text` is taller than height of pre-initialized `this.output`
+					// Lines above or below the output area have no corresponding pre-initialized row.
 					if (!currentLine) {
 						continue;
 					}
 
 					for (const transformer of transformers) {
-						line = transformer(line, index);
+						line = transformer(line, index + y - operation.y);
 					}
 
 					const characters = this.caches.getStyledChars(line);
@@ -306,7 +308,6 @@ export default class Output {
 
 					// Nothing to write (e.g. line was clipped away).
 					if (characters.length === 0) {
-						offsetY++;
 						continue;
 					}
 
@@ -345,7 +346,8 @@ export default class Output {
 							for (let index = 1; index < characterWidth; index++) {
 								currentLine[offsetX + index] = {
 									type: 'char',
-									value: '',
+									// Preserve visible cells when the leading cell is outside the output.
+									value: offsetX < 0 ? ' ' : '',
 									fullWidth: false,
 									styles: character.styles,
 								};
@@ -358,8 +360,6 @@ export default class Output {
 					if (currentLine[offsetX]?.value === '') {
 						currentLine[offsetX] = spaceCell;
 					}
-
-					offsetY++;
 				}
 			}
 		}

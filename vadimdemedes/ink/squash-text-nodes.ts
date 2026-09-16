@@ -1,3 +1,4 @@
+import wrapAnsi from 'wrap-ansi';
 import {type DOMElement} from './dom.js';
 import sanitizeAnsi from './sanitize-ansi.js';
 
@@ -10,18 +11,16 @@ import sanitizeAnsi from './sanitize-ansi.js';
 const squashTextNodes = (node: DOMElement): string => {
 	let text = '';
 
-	for (let index = 0; index < node.childNodes.length; index++) {
-		const childNode = node.childNodes[index];
-
-		if (childNode === undefined) {
-			continue;
-		}
-
+	for (const childNode of node.childNodes) {
 		let nodeText = '';
 
 		if (childNode.nodeName === '#text') {
 			nodeText = childNode.nodeValue;
 		} else {
+			if (childNode.isHidden) {
+				continue;
+			}
+
 			if (
 				childNode.nodeName === 'ink-text' ||
 				childNode.nodeName === 'ink-virtual-text'
@@ -35,14 +34,25 @@ const squashTextNodes = (node: DOMElement): string => {
 				nodeText.length > 0 &&
 				typeof childNode.internal_transform === 'function'
 			) {
-				nodeText = childNode.internal_transform(nodeText, index);
+				const transform = childNode.internal_transform;
+				nodeText = nodeText
+					.split('\n')
+					.map((line, lineIndex) => transform(line, lineIndex))
+					.join('\n');
 			}
 		}
 
 		text += nodeText;
 	}
 
-	return sanitizeAnsi(text);
+	text = sanitizeAnsi(text.replaceAll('\r\n', '\n'));
+
+	// Expand tabs after combining nested text so measurement and rendering use the same columns.
+	if (node.nodeName === 'ink-text' && text.includes('\t')) {
+		text = wrapAnsi(text, Number.POSITIVE_INFINITY, {trim: false});
+	}
+
+	return text;
 };
 
 export default squashTextNodes;
