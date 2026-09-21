@@ -64,7 +64,7 @@ export type DOMElement = {
 	isHidden?: boolean;
 	isStaticDirty?: boolean;
 	staticNode?: DOMElement;
-	// Tracks the previous commit's `staticNode` so the reconciler can detect identity changes (mount, unmount, key-driven remount) and reset `fullStaticOutput`.
+	// Tracks the previous commit's `staticNode` so the reconciler can detect identity changes (mount, unmount, key-driven remount) and reset the accumulated static output.
 	previousStaticNode?: DOMElement;
 	onComputeLayout?: () => void;
 	onRender?: () => void;
@@ -276,12 +276,6 @@ const measureTextNode = function (
 	// An unconstrained Yoga measurement requests the natural size, not wrapping or truncation at its NaN width.
 	// Text fits into container, no need to wrap
 	if (widthMode === Yoga.MEASURE_MODE_UNDEFINED || dimensions.width <= width) {
-		return dimensions;
-	}
-
-	// This is happening when <Box> is shrinking child nodes and Yoga asks
-	// if we can fit this text node in a <1px space, so we just tell Yoga "no"
-	if (dimensions.width >= 1 && width > 0 && width < 1) {
 		return dimensions;
 	}
 

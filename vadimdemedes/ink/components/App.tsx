@@ -11,7 +11,7 @@ import React, {
 } from 'react';
 import cliCursor from 'cli-cursor';
 import {type CursorPosition} from '../log-update.js';
-import {createInputParser} from '../input-parser.js';
+import {createInputParser, isCompleteControlSequence} from '../input-parser.js';
 import parseKeypress from '../parse-keypress.js';
 import {getRawModeStream, type OutputStream} from '../stream.js';
 import AppContext, {type SuspendTerminal} from './AppContext.js';
@@ -56,6 +56,20 @@ type Focusable = {
 	readonly isActive: boolean;
 };
 
+// Components sharing a custom ID are indistinguishable to focus, so navigation treats each ID as one slot at its first registration.
+const uniqueFocusables = (focusables: Focusable[]): Focusable[] => {
+	const seenIds = new Set<string>();
+
+	return focusables.filter(focusable => {
+		if (seenIds.has(focusable.id)) {
+			return false;
+		}
+
+		seenIds.add(focusable.id);
+		return true;
+	});
+};
+
 // Root component for all Ink apps
 // It renders stdin and stdout contexts, so that children can access them if needed
 // It also handles Ctrl+C exiting and cursor visibility
@@ -92,6 +106,8 @@ function App({
 	// raw mode until all components don't need it anymore
 	const rawModeEnabledCount = useRef(0);
 	const pendingDisableRawModeRef = useRef(false);
+	// Set while suspendTerminal() has handed input to a child process. Input hooks that change while it is set only update the ref counts; resumeInput restores the modes that still have an owner.
+	const isInputPausedRef = useRef(false);
 	// Count how many components enabled bracketed paste mode
 	const bracketedPasteModeEnabledCount = useRef(0);
 	// eslint-disable-next-line @typescript-eslint/naming-convention
@@ -314,6 +330,14 @@ function App({
 						continue;
 					}
 
+					// A complete CSI or SS3 sequence that maps to no key Ink can represent is not printable text. Terminal replies (focus in/out, cursor position, mouse, device attributes) and keys without a `Key` field would otherwise reach `useInput` with the ESC stripped, as if typed.
+					if (isCompleteControlSequence(event)) {
+						const key = parseKeypress(event);
+						if (!key.isKittyProtocol && key.name === '') {
+							continue;
+						}
+					}
+
 					emitInput(event);
 				} else {
 					// Keep paste on a separate channel from `useInput` so key handlers
@@ -372,12 +396,14 @@ function App({
 					const isRawModeAlreadyEnabled = pendingDisableRawModeRef.current;
 					pendingDisableRawModeRef.current = false;
 
-					if (!isRawModeAlreadyEnabled) {
-						rawModeStdin.ref?.();
-						rawModeStdin.setRawMode(true);
-					}
+					if (!isInputPausedRef.current) {
+						if (!isRawModeAlreadyEnabled) {
+							rawModeStdin.ref?.();
+							rawModeStdin.setRawMode(true);
+						}
 
-					attachReadableListener();
+						attachReadableListener();
+					}
 				}
 
 				rawModeEnabledCount.current++;
@@ -389,6 +415,11 @@ function App({
 			}
 
 			if (--rawModeEnabledCount.current === 0) {
+				// Nothing to release while suspended: pauseInput already did.
+				if (isInputPausedRef.current) {
+					return;
+				}
+
 				// Stop owning input immediately so pending parser state cannot leak into
 				// a replacement `useInput` component mounted in the same React update.
 				clearInputState();
@@ -421,7 +452,10 @@ function App({
 			}
 
 			if (isEnabled) {
-				if (bracketedPasteModeEnabledCount.current === 0) {
+				if (
+					bracketedPasteModeEnabledCount.current === 0 &&
+					!isInputPausedRef.current
+				) {
 					stdout.write('\u001B[?2004h');
 				}
 
@@ -433,7 +467,10 @@ function App({
 				return;
 			}
 
-			if (--bracketedPasteModeEnabledCount.current === 0) {
+			if (
+				--bracketedPasteModeEnabledCount.current === 0 &&
+				!isInputPausedRef.current
+			) {
 				stdout.write('\u001B[?2004l');
 			}
 		},
@@ -443,21 +480,30 @@ function App({
 	// Pausing and resuming leave the ref counts untouched: the React components
 	// still "own" raw mode/bracketed paste across the suspension.
 	const pauseInput = useCallback((): void => {
+		isInputPausedRef.current = true;
+
 		if (bracketedPasteModeEnabledCount.current > 0 && stdout.isTTY) {
 			try {
 				stdout.write('\u001B[?2004l');
 			} catch {}
 		}
 
-		if (isRawModeSupported && rawModeEnabledCount.current > 0) {
+		// A queued raw-mode disable (last input hook released this commit) has not run yet, so raw mode is still on. Disable it now, before the child owns the terminal, and cancel the microtask.
+		if (
+			isRawModeSupported &&
+			(rawModeEnabledCount.current > 0 || pendingDisableRawModeRef.current)
+		) {
+			pendingDisableRawModeRef.current = false;
 			rawModeStdin?.setRawMode(false);
 			rawModeStdin?.unref?.();
 			clearInputState();
 		}
 	}, [isRawModeSupported, rawModeStdin, stdout, clearInputState]);
 
-	// Hooks may have been disabled or removed while suspended, so restore only the modes that still have an owner.
+	// Hooks may have changed while suspended, so restore only the modes that still have an owner.
 	const resumeInput = useCallback((): void => {
+		isInputPausedRef.current = false;
+
 		if (isRawModeSupported && rawModeEnabledCount.current > 0) {
 			rawModeStdin?.setEncoding('utf8');
 			rawModeStdin?.ref?.();
@@ -530,7 +576,7 @@ function App({
 	);
 
 	const focusNext = useCallback((): void => {
-		const currentFocusables = focusablesRef.current;
+		const currentFocusables = uniqueFocusables(focusablesRef.current);
 		setActiveFocusId(currentActiveFocusId => {
 			const firstFocusableId = currentFocusables.find(
 				focusable => focusable.isActive,
@@ -545,7 +591,7 @@ function App({
 	}, [findNextFocusable]);
 
 	const focusPrevious = useCallback((): void => {
-		const currentFocusables = focusablesRef.current;
+		const currentFocusables = uniqueFocusables(focusablesRef.current);
 		setActiveFocusId(currentActiveFocusId => {
 			const lastFocusableId = currentFocusables.findLast(
 				focusable => focusable.isActive,
