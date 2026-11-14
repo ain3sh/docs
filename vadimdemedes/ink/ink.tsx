@@ -53,6 +53,17 @@ const isWindowsConsole = process.platform === 'win32';
 export const homeAndEraseDown =
 	ansiEscapes.cursorTo(0, 0) + ansiEscapes.eraseDown;
 
+// A frame taller than the alternate screen it was drawn into lost its top rows, and with no scrollback a terminal that gains rows cannot bring them back, so the frame stays cut off until it is drawn again. On the primary screen the terminal restores them from scrollback, and drawing the frame again there could erase a line above it or push another copy of its top rows into scrollback.
+const wasFrameCutOff = ({
+	isAlternateScreen,
+	previousOutputHeight,
+	previousViewportRows,
+}: {
+	isAlternateScreen: boolean;
+	previousOutputHeight: number;
+	previousViewportRows: number;
+}): boolean => isAlternateScreen && previousOutputHeight > previousViewportRows;
+
 const shouldClearTerminalForFrame = ({
 	isStdoutTty,
 	isAlternateScreen,
@@ -60,6 +71,7 @@ const shouldClearTerminalForFrame = ({
 	previousViewportRows,
 	previousOutputHeight,
 	nextOutputHeight,
+	isCursorShown,
 	isUnmounting,
 }: {
 	isStdoutTty: boolean;
@@ -68,6 +80,7 @@ const shouldClearTerminalForFrame = ({
 	previousViewportRows: number;
 	previousOutputHeight: number;
 	nextOutputHeight: number;
+	isCursorShown: boolean;
 	isUnmounting: boolean;
 }): boolean => {
 	if (!isStdoutTty) {
@@ -82,9 +95,11 @@ const shouldClearTerminalForFrame = ({
 	}
 
 	const hadPreviousFrame = previousOutputHeight > 0;
-	// A frame taller than the alternate screen it was drawn into lost its top rows, and with no scrollback a terminal that gains rows cannot bring them back, so the frame stays cut off until it is redrawn. On the primary screen the terminal restores them from scrollback, and a clear at that point could erase a line above the frame.
-	const wasCutOff =
-		isAlternateScreen && previousOutputHeight > previousViewportRows;
+	const wasCutOff = wasFrameCutOff({
+		isAlternateScreen,
+		previousOutputHeight,
+		previousViewportRows,
+	});
 	const wasOverflowing = previousOutputHeight > viewportRows || wasCutOff;
 	const isOverflowing = nextOutputHeight > viewportRows;
 	const isLeavingFullscreen = wasFullscreen && nextOutputHeight < viewportRows;
@@ -97,8 +112,8 @@ const shouldClearTerminalForFrame = ({
 		(isOverflowing && hadPreviousFrame) ||
 		// Clear when shrinking from fullscreen to non-fullscreen output.
 		isLeavingFullscreen ||
-		// A terminal that loses rows scrolls only as far as it must to keep the cursor on screen, so the frame is cut only when it fills the new viewport. Then the cursor-relative diff no longer lines up with what is on screen.
-		(isViewportShrinking && wasFullscreen) ||
+		// A terminal that loses rows scrolls only as far as it must to keep the cursor on screen, so the frame is cut only when it fills the new viewport. Then the cursor-relative diff no longer lines up with what is on screen. A useCursor() position leaves the cursor inside the frame, so the terminal drops the frame rows below it first, even when the frame still fits. `resized` repaints that case itself, but a frame committed before the resize event gets here first.
+		(isViewportShrinking && (wasFullscreen || isCursorShown)) ||
 		// Preserve legacy unmount behavior for fullscreen frames: final teardown
 		// render should clear once to avoid leaving a scrolled viewport state.
 		shouldClearOnUnmount
@@ -149,6 +164,18 @@ const unmountMountedInstances = (code: number): void => {
 	// Iterate over a copy, so an instance that is rendered while these unmount is left alone, as it was when every instance had its own listener.
 	for (const instance of new Set(mountedInstances)) {
 		instance.unmount(code);
+	}
+};
+
+// Instances with a pending `waitUntilExit()` share one `beforeExit` listener for the same reason, added when the first starts waiting and removed when the last unmounts.
+const instancesAwaitingExit = new Map<Ink, boolean>();
+
+const unmountInstancesAwaitingExit = (): void => {
+	// An instance that started waiting in this tick is left for the next `beforeExit`. During an emit that is one that started waiting in an earlier `beforeExit` listener, which is left alone as it was when every instance had its own listener.
+	for (const [instance, wasWaitingBeforeThisTick] of instancesAwaitingExit) {
+		if (wasWaitingBeforeThisTick) {
+			instance.unmount();
+		}
 	}
 };
 
@@ -256,7 +283,6 @@ export default class Ink {
 	private hasRenderedStaticOutput: boolean;
 	private readonly exitPromise!: Promise<unknown>;
 	private exitResult: unknown;
-	private beforeExitHandler?: () => void;
 	private restoreConsole?: () => void;
 	private readonly unsubscribeResize?: () => void;
 	private readonly throttledOnRender?: DebouncedFunc<() => void>;
@@ -689,7 +715,22 @@ export default class Ink {
 					? wrappedOutput
 					: wrappedOutput + '\n';
 
-			if (!hasStaticOutput && outputToRender === this.lastOutputToRender) {
+			// This writer skips a frame that has not changed, so a cut-off frame is drawn again here when the terminal gains rows.
+			const previousViewportRows = this.lastTerminalHeight;
+			this.lastTerminalHeight = viewportRows;
+			const shouldRedrawCutOffFrame =
+				viewportRows > previousViewportRows &&
+				wasFrameCutOff({
+					isAlternateScreen: this.alternateScreen,
+					previousOutputHeight: this.lastOutputHeight,
+					previousViewportRows,
+				});
+
+			if (
+				!hasStaticOutput &&
+				!shouldRedrawCutOffFrame &&
+				outputToRender === this.lastOutputToRender
+			) {
 				if (shouldSync) {
 					this.options.stdout.write(esu);
 				}
@@ -835,6 +876,7 @@ export default class Ink {
 			previousViewportRows,
 			previousOutputHeight: this.lastOutputHeight,
 			nextOutputHeight: outputHeight,
+			isCursorShown: this.log.getCursorPosition() !== undefined,
 			isUnmounting: this.isUnmounting,
 		});
 		this.lastTerminalHeight = viewportRows;
@@ -1231,9 +1273,9 @@ export default class Ink {
 
 		this.isUnmounting = true;
 
-		if (this.beforeExitHandler) {
-			process.off('beforeExit', this.beforeExitHandler);
-			this.beforeExitHandler = undefined;
+		instancesAwaitingExit.delete(this);
+		if (instancesAwaitingExit.size === 0) {
+			process.off('beforeExit', unmountInstancesAwaitingExit);
 		}
 
 		const {stdout} = this.options;
@@ -1381,12 +1423,17 @@ export default class Ink {
 	}
 
 	async waitUntilExit(): Promise<unknown> {
-		if (!this.isUnmounting && !this.beforeExitHandler) {
-			this.beforeExitHandler = () => {
-				this.unmount();
-			};
+		if (!this.isUnmounting && !instancesAwaitingExit.has(this)) {
+			instancesAwaitingExit.set(this, false);
+			if (instancesAwaitingExit.size === 1) {
+				process.on('beforeExit', unmountInstancesAwaitingExit);
+			}
 
-			process.once('beforeExit', this.beforeExitHandler);
+			queueMicrotask(() => {
+				if (instancesAwaitingExit.has(this)) {
+					instancesAwaitingExit.set(this, true);
+				}
+			});
 		}
 
 		return this.exitPromise;
