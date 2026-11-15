@@ -1,6 +1,6 @@
 {
-  "lastSync": "2026-11-14T10:07:33Z",
-  "lastCommit": "9bd90c04dba030dbd13a60e71c2d11d2242f1961",
+  "lastSync": "2026-11-15T10:43:12Z",
+  "lastCommit": "1580ad47641d52a872c3c14a21d90a5b655beee6",
   "stores": {
     "modelcontextprotocol/modelcontextprotocol": {
       "gemini": {
@@ -12,8 +12,8 @@
       "commit": "0175d20f8b2c49e0402c37c37ed39ae2be47277e",
       "branch": "main",
       "docsPath": "docs/docs",
-      "synced": "2026-11-14T09:57:12Z",
-      "status": "success"
+      "synced": "2026-11-15T10:32:53Z",
+      "status": "unchanged"
     },
     "MoonshotAI/kimi-cli": {
       "gemini": {
@@ -25,7 +25,7 @@
       "commit": "9ab1286b8fe4e6bcd116949a27ce5e0ac3389c82",
       "branch": "main",
       "docsPath": "packages/kosong/src/kosong",
-      "synced": "2026-11-14T09:57:12Z",
+      "synced": "2026-11-15T10:32:53Z",
       "status": "unchanged"
     },
     "lastmile-ai/mcp-agent": {
@@ -38,7 +38,7 @@
       "commit": "f62d849350816588b1c6294e7914bbe4d8b84072",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-11-14T09:57:12Z",
+      "synced": "2026-11-15T10:32:53Z",
       "status": "unchanged"
     },
     "modelcontextprotocol/python-sdk": {
@@ -51,7 +51,7 @@
       "commit": "77001c96f9507be0f4d009b83210a384a5e08bda",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-11-14T09:57:12Z",
+      "synced": "2026-11-15T10:32:53Z",
       "status": "unchanged"
     },
     "stanfordnlp/dspy": {
@@ -64,7 +64,7 @@
       "commit": "2c07ebbee3a66f6e04b71e141c6c198f1b31a129",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-11-14T09:57:12Z",
+      "synced": "2026-11-15T10:32:53Z",
       "status": "unchanged"
     },
     "anthropics/claude-agent-sdk-python": {
@@ -77,8 +77,8 @@
       "commit": "4720d367f7db9d5df8a166c74d7f36a538ac8c34",
       "branch": "main",
       "docsPath": "examples",
-      "synced": "2026-11-14T09:57:12Z",
-      "status": "success"
+      "synced": "2026-11-15T10:32:53Z",
+      "status": "unchanged"
     },
     "python-trio/trio": {
       "gemini": {
@@ -90,8 +90,8 @@
       "commit": "7e0dc2d192f81a5033b740bba165de2fb243ab19",
       "branch": "main",
       "docsPath": "docs/source",
-      "synced": "2026-11-14T09:57:12Z",
-      "status": "success"
+      "synced": "2026-11-15T10:32:53Z",
+      "status": "unchanged"
     },
     "browser-use/workflow-use": {
       "gemini": {
@@ -103,7 +103,7 @@
       "commit": "f00e27edd7f17600463ce37effa951f42ccb91c8",
       "branch": "main",
       "docsPath": "workflows",
-      "synced": "2026-11-14T09:57:12Z",
+      "synced": "2026-11-15T10:32:53Z",
       "status": "unchanged"
     },
     "browser-use/browser-use": {
@@ -116,8 +116,8 @@
       "commit": "e717df1839a2d7368b108de6694f01e9c659b0de",
       "branch": "main",
       "docsPath": "browser_use",
-      "synced": "2026-11-14T09:57:12Z",
-      "status": "success"
+      "synced": "2026-11-15T10:32:53Z",
+      "status": "unchanged"
     },
     "Factory-AI/factory": {
       "gemini": {
@@ -129,20 +129,20 @@
       "commit": "e6241cd57a57246d1750c4f8289b0017cce7b53b",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-11-14T09:57:12Z",
+      "synced": "2026-11-15T10:32:53Z",
       "status": "unchanged"
     },
     "raycast/extensions": {
       "gemini": {
         "files": 109,
         "cost": 0.028179,
-        "synced": "2026-11-14T10:07:33Z",
+        "synced": "2026-11-15T10:43:12Z",
         "status": "success"
       },
-      "commit": "87abd696c19759d2e56553940235d7a653d0b8a6",
+      "commit": "28bf9eb29c72c2df9b4b1d17e3f7b51001de6c0d",
       "branch": "main",
       "docsPath": "docs",
-      "synced": "2026-11-14T09:57:12Z",
+      "synced": "2026-11-15T10:32:53Z",
       "status": "success"
     },
     "typst/typst": {
@@ -168,8 +168,8 @@
       "commit": "e93d12ec7658deefe3f3c2e1e7e52dd123297b0b",
       "branch": "master",
       "docsPath": "src",
-      "synced": "2026-11-14T09:57:12Z",
-      "status": "success"
+      "synced": "2026-11-15T10:32:53Z",
+      "status": "unchanged"
     }
   },
   "geminiExclusionsHash": "4b2f4a34af1ed7dfc5d3ed505747999518b9a9d1e106a78a626634934e393db2"
